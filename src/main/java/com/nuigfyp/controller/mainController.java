@@ -206,7 +206,8 @@ public class mainController {
 			returnedBugs = (ctdbm.ConnectToDBwithAjax(theView));
 			
 			if(!(returnedBugs.size() == 0)) {
-				theView.setTable(ctdbm.ConnectToDBwithAjax(theView));
+				//theView.setTable(ctdbm.ConnectToDBwithAjax(theView));
+				theView.setTable(returnedBugs);
 				theView.setStatus("Successfully connected to the database.");
 				return;
 			} else {

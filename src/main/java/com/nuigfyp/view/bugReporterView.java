@@ -375,13 +375,10 @@ public class bugReporterView extends JFrame {
 		}
 	
 		for (int i = 0; i < tableList.size(); i++) {
-			rowData[0] = ((Bug) tableList.get(i)).getId();	
-			
-			rowData[1] = (((Bug) tableList.get(i)).getActive() == 1) ? "Open" : "Closed";		
-			
+			rowData[0] = ((Bug) tableList.get(i)).getId();			
+			rowData[1] = (((Bug) tableList.get(i)).getActive() == 1) ? "Open" : "Closed";			
 			rowData[2] = ((Bug) tableList.get(i)).getReporterName();
 			rowData[3] = ((Bug) tableList.get(i)).getTesterName();	
-			//rowData[3] = ((Bug) tableList.get(i)).getDescription();
 			rowData[4] = ((Bug) tableList.get(i)).getSeverity();
 			rowData[5] = ((Bug) tableList.get(i)).getProject();		
 			rowData[6] = ((Bug) tableList.get(i)).getScreenshot().equals("No") ? resizedJTableImages[0] : resizedJTableImages[1];

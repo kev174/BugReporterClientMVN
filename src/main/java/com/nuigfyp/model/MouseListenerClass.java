@@ -74,8 +74,6 @@ public class MouseListenerClass implements MouseListener {
 			theView.btnScreenshot.setEnabled(true); // Screenshot JLabel is visible
 			theView.chkUploadScreenshot.setSelected(true);
 			theView.screenshotTableEqualsYes = true;
-			// theView.setStatus("A Screenshot Exists in the DB. " + DOWNLOADED_FILES + "\\"
-			// + screenshotFileName);
 
 			System.out.println("the Screenshot file named " + screenshotFileName + ", Exist? "
 					+ checkIfFileExists(DOWNLOADED_FILES + "\\" + screenshotFileName));
@@ -84,8 +82,6 @@ public class MouseListenerClass implements MouseListener {
 			// Reason for two different Downloaded constants: 1st: Requires one forward
 			// slash. 2nd: two back slashes
 			if (checkIfFileExists(DOWNLOADED_FILES + "\\" + screenshotFileName)) {
-
-				// theView.setStatus(DOWNLOADED_FILES + "\\" + screenshotFileName + " ");
 
 				File file = new File(DOWNLOADED_FILES_DIRECTORY + "\\" + screenshotFileName);
 				BufferedImage bi = null;
@@ -181,6 +177,11 @@ public class MouseListenerClass implements MouseListener {
 			theView.btnScreenshot.setEnabled(false);
 			theView.btnPDF.setEnabled(false);
 		}
+		/*if (theView.list.get(row).getActive() == 1) {
+			theView.btnActive.setEnabled(true);
+			theView.btnScreenshot.setEnabled(true);
+			theView.btnPDF.setEnabled(true);
+		}*/
 	}
 
 	@Override

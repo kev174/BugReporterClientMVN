@@ -182,8 +182,10 @@ public class ConnectToAPIDatabase {
 
 			try (OutputStream os = http.getOutputStream()) {
 				os.write(JsonConvertedToByteArray);
+				System.out.println("Output stream is " + os);
 			}
 
+			
 			int responseCode = http.getResponseCode();
 			
 			if (responseCode == HttpURLConnection.HTTP_OK) {

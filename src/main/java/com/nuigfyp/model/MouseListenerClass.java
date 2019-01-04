@@ -135,7 +135,8 @@ public class MouseListenerClass implements MouseListener {
 				PDDocument document = null;
 
 				try {
-
+					// Enables rendering of the PDF file faster
+					System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
 					document = PDDocument.load(file);
 					PDFRenderer renderer = new PDFRenderer(document);
 					image = renderer.renderImage(0); // page number 0

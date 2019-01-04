@@ -128,11 +128,13 @@ public class mainController {
 	class statusChangeInDB implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
-			// this try/catch ensures a valid id is got
+			// this try/catch ensures a valid id is selected from the table
 			int id = 0;
+			
 			try {
 				id = (int) theView.table.getModel().getValueAt(theView.table.getSelectedRow(), 0);
 			} catch (Exception e1) {
+				theView.setStatus("Select a valid row from the table.");
 				return;
 			}
 
@@ -206,7 +208,6 @@ public class mainController {
 			returnedBugs = (ctdbm.ConnectToDBwithAjax(theView));
 			
 			if(!(returnedBugs.size() == 0)) {
-				//theView.setTable(ctdbm.ConnectToDBwithAjax(theView));
 				theView.setTable(returnedBugs);
 				theView.setStatus("Successfully connected to the database.");
 				return;
@@ -231,13 +232,14 @@ public class mainController {
 				try {
 
 					primaryKey = theView.table.getModel().getValueAt(theView.table.getSelectedRow(), 0).toString();
-					String returnValue = (dem.deleteEntrywithAjax(theView, primaryKey));
+					theView.setStatus(dem.deleteEntrywithAjax(theView, primaryKey));
+					//String returnValue = (dem.deleteEntrywithAjax(theView, primaryKey));
 
-					if (returnValue.equals("Success")) {
+					/*if (returnValue.equals("Success")) {
 						theView.setStatus("ID number " + primaryKey + ", was Successfully removed from the database.");
 					} else {
 						theView.setStatus("ID number " + primaryKey + ", failed to remove from the database.");
-					}
+					}*/
 
 				} catch (Exception e2) {
 					DisplayMessageInJOptionPane("Please select a valid ticket.", "Click a valid ticket.");
@@ -289,11 +291,17 @@ public class mainController {
 		
 		public void actionPerformed(ActionEvent e) {
 
-			ViewInHTMLManager htmlm = new ViewInHTMLManager();
-			String id = (theView.table.getModel().getValueAt(theView.table.getSelectedRow(), 0).toString());
-			int bugFromTableId = Integer.parseInt(id);
-			ArrayList<Bug> bugFromTable = theView.getBugFromTable();
+			ViewInHTMLManager htmlm = new ViewInHTMLManager();		
+			String id = "";
 			
+			try {
+				id = (theView.table.getModel().getValueAt(theView.table.getSelectedRow(), 0).toString());
+			} catch (Exception e1) {
+				theView.setStatus("Select a valid row from the table.");
+				return;
+			}
+			int bugFromTableId = Integer.parseInt(id);
+			ArrayList<Bug> bugFromTable = theView.getBugFromTable();			
 			htmlm.dispalyInHTML(theView, bugFromTable, bugFromTableId);
 		}
 	}

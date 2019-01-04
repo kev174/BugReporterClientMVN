@@ -33,7 +33,7 @@ public class bugReporterView extends JFrame {
 	public ImageIcon resizedCheckImageIcon, resizedRedXImageIcon;
 	private ImageIcon[] resizedJTableImages = new ImageIcon[2];
 	private Image[] buttonImages = new Image[8];
-	
+	private String[] companyNameIDs = { "(1) SAP", "(2) NUIG", "(3) Ericsson", "(4) Medtronic", "(5) HP" };
 	public JButton btnScreenshot, btnPDF, btnAnalytics; // Changed from private to public for JLabel to JButton
 	
 	private JButton btnUpdateDB, btnDeleteEntry, btnAddToDB, btnClearTable, btnConnDB, btnSearch, btnShowHTMLFormat, btnEmptyFields;
@@ -105,7 +105,7 @@ public class bugReporterView extends JFrame {
 		dataEntryPanel.add(recorderField);
 		
 		projectField = new JComboBox();
-		projectField.setModel(new DefaultComboBoxModel(new String[] { "(1) SAP", "(2) NUIG", "(3) Ericsson", "(4) Medtronic", "(5) HP" }));
+		projectField.setModel(new DefaultComboBoxModel(companyNameIDs));
 		projectField.setBounds(140, 35, 121, 20);
 		dataEntryPanel.add(projectField);
 		
@@ -374,13 +374,14 @@ public class bugReporterView extends JFrame {
 			btnAnalytics.setEnabled(false);
 		}
 	
-		for (int i = 0; i < tableList.size(); i++) {
+		for (int i = 0; i < tableList.size(); i++) { 
 			rowData[0] = ((Bug) tableList.get(i)).getId();			
 			rowData[1] = (((Bug) tableList.get(i)).getActive() == 1) ? "Open" : "Closed";			
 			rowData[2] = ((Bug) tableList.get(i)).getReporterName();
 			rowData[3] = ((Bug) tableList.get(i)).getTesterName();	
 			rowData[4] = ((Bug) tableList.get(i)).getSeverity();
-			rowData[5] = ((Bug) tableList.get(i)).getProject();		
+			int companyIndex = ((Bug) tableList.get(i)).getProject();	
+			rowData[5] = companyNameIDs[--companyIndex];	
 			rowData[6] = ((Bug) tableList.get(i)).getScreenshot().equals("No") ? resizedJTableImages[0] : resizedJTableImages[1];
 			rowData[7] = ((Bug) tableList.get(i)).getDocument().equals("No") ? resizedJTableImages[0] : resizedJTableImages[1];	
 			

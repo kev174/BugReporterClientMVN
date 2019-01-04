@@ -24,6 +24,7 @@ public class UpdateDBManager {
 	private static bugReporterView theView;
 	private ImagesManager imagesManager = new ImagesManager();
 	private ConnectToAPIDatabase connectToAPIDatabase;
+	private String returnConnectionString = "";
 	
 	
 	public String updateEntrywithAjax(final bugReporterView theView, final int[] filesChanged, final String screenshotDBDirectory, final String[] screenshotPath, final String documentDBDirectory, final String[] documentPath) {
@@ -59,16 +60,13 @@ public class UpdateDBManager {
 					int project = theView.projectField.getSelectedIndex();
 					int bugClassification = theView.classificationField.getSelectedIndex();
 					int classificationIndex = ++bugClassification;
-					
-					
+										
 					Bug specificBugSearch = new Bug(); // this contains directory to screenshot and document
 					specificBugSearch = (connectToAPIDatabase.GETSpecificBugObject(primaryKey));
 					bug.setScreenshot(specificBugSearch.getScreenshot());
 					bug.setDocument(specificBugSearch.getDocument());
 
 					if (theView.screenshotTableEqualsYes() && (!theView.chkUploadScreenshot.isSelected())) {
-						System.out.println(
-								"Screenshot Table says 'Yes', but Screenshot upload is Unticked. So setting setScreenshot() to 'No'.");
 						int reply = JOptionPane.showConfirmDialog(null,
 								"This Screenshot will be removed from the database.", "Screenshot marked for Deletion.",
 								JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[6]);
@@ -137,7 +135,7 @@ public class UpdateDBManager {
 							bug.setDocument(copyDocumentDBDirectory);
 							
 						} else {
-							theView.setStatus("UpdateDBManagr.updateEntrywithAjax(): Document not saved to the Database.");
+							returnConnectionString = ("UpdateDBManagr.updateEntrywithAjax(): Document not saved to the Database.");
 						}
 
 						// Look into moving this to the POSTRequest method and not here and the AddEntryManager.
@@ -154,10 +152,7 @@ public class UpdateDBManager {
 						}*/
 					}
 
-					theView.setStatus(connectToAPIDatabase.updateEntry(bug, filesChanged));
-					/*theView.clearTable();
-					theView.setTable((connectToAPIDatabase.getAllBugs()));*/
-					//filesChanged = new int[] { 0, 0, 0, 0 };
+					returnConnectionString = (connectToAPIDatabase.updateEntry(bug, filesChanged));
 
 				} catch (Exception e) {
 					DisplayMessageInJOptionPane(
@@ -167,7 +162,8 @@ public class UpdateDBManager {
 					log.error("General Exception at UpdateDBManagr.updateEntrywithAjax():. " + e);
 					e.printStackTrace();
 				}
-				return null;
+				
+				return returnConnectionString;
 			}
 
 			protected void done() {
@@ -187,7 +183,7 @@ public class UpdateDBManager {
 			ex.printStackTrace();
 		}
 		
-		return "Updated database successfully.";
+		return returnConnectionString;
 	}
 	
 	

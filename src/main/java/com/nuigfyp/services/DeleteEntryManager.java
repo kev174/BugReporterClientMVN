@@ -20,6 +20,7 @@ public class DeleteEntryManager {
 	private static bugReporterView theView;
 	private ImagesManager imagesManager = new ImagesManager();
 	private ConnectToAPIDatabase connectToAPIDatabase;
+	private String returnConnectionString = "";
 	
 	
 	public String deleteEntrywithAjax(final bugReporterView theView, final String primaryKey) {
@@ -39,19 +40,18 @@ public class DeleteEntryManager {
 				theView.lblDatabase.setIcon(ajaxLoader);
 				theView.lblDatabase.setEnabled(true);
 				
-				// ==== INNER CLASS BELOW, SO HAVE TO USE COPY OF VARIABLES. Error make final or effectively final ====	
-				//String copyPrimaryKey = primaryKey;
-										
+				// ==== INNER CLASS BELOW, SO HAVE TO USE COPY OF VARIABLES. Error make final or effectively final ====										
 				try {
 					
-					connectToAPIDatabase.deleteEntry(primaryKey);
+					returnConnectionString = connectToAPIDatabase.deleteEntry(primaryKey);
+					System.out.println("retruned " + returnConnectionString);
 
 				} catch (ArrayIndexOutOfBoundsException | SQLException oob) {
 					DisplayMessageInJOptionPane("Select valid item from Table", "Select Valid Item.");
 					log.error("ArrayIndexOutOfBoundsException at mainController.deleteEntrywithAjax(). " + oob);
-		        	theView.setStatus("Failed to delete item id: " + primaryKey + " from the database.");
+					returnConnectionString = ("Failed to delete item id: " + primaryKey + " from the database.");
 				} catch (Exception e) {
-					theView.setStatus("Cannot connect to the Database.");
+					returnConnectionString = ("Cannot connect to the Database.");
 					e.printStackTrace();
 				}
 				
@@ -75,7 +75,7 @@ public class DeleteEntryManager {
 			e.printStackTrace();
 		}
 		
-		return ("Success");
+		return returnConnectionString;
 	}
 	
 	

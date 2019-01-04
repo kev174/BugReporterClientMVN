@@ -22,6 +22,7 @@ public class ChangeStatusManager {
 	private static bugReporterView theView;
 	private ImagesManager imagesManager = new ImagesManager();
 	private ConnectToAPIDatabase connectToAPIDatabase;
+	private String returnConnectionString = "";
 	
 	public String changeStatusWithAjax(final bugReporterView theView, final int id) {
 
@@ -41,14 +42,14 @@ public class ChangeStatusManager {
 				theView.lblDatabase.setEnabled(true);
 	
 				try {
-					theView.setStatus(connectToAPIDatabase.changeStatusInDB(Integer.toString(id)));
+					returnConnectionString = connectToAPIDatabase.changeStatusInDB(Integer.toString(id));
 				} catch (Exception e) {
 					DisplayMessageInJOptionPane(
 							"mainController.changeStatusWithAjax(); Exception caught, possibly due to the following...\\nYou have not selected an appropiate item from the Table.\nCheck if this ID exists in DB.",
 							"Please select a valid item.");
 					theView.setStatus("UpdateDBManagr.changeStatusWithAjax(): Multiple possible exceptions.");
 					log.error("General Exception at ChangeStatusManager.changeStatusWithAjax():. " + e);
-					e.printStackTrace();
+					returnConnectionString = "Failed to change status of Bug.";
 				}
 				
 				return null;
@@ -71,7 +72,7 @@ public class ChangeStatusManager {
 			ex.printStackTrace();
 		}
 		
-		return "Status Changed successfully.";
+		return returnConnectionString;
 	}
 	
 	

@@ -20,6 +20,8 @@ public class AddEntryManager {
 	private static bugReporterView theView;
 	private ImagesManager imagesManager = new ImagesManager();
 	private ConnectToAPIDatabase connectToAPIDatabase;
+	public String returnConnectionString = "";
+	
 	
 	// === Possibly add theView in this constructor so as not to pass it in the method below all the time
 	// Test to ensure that every time you change theView and you create a new entry, that it is added.
@@ -66,7 +68,7 @@ public class AddEntryManager {
 							copyScreenshotDBDirectory = (postResponse);
 							copyScreenshotDBDirectory = copyScreenshotDBDirectory.replace("\"", "");
 						} else {
-							return ("AddEntryManager.addEntrywithAjax(): Screenshot image did not get saved to the Database.");
+							returnConnectionString = ("AddEntryManager.addEntrywithAjax(): Screenshot image did not get saved to the Database.");
 							//theView.setStatus("AddEntryManager.addEntrywithAjax(): Screenshot image did not get saved to the Database.");
 						}
 					}
@@ -81,7 +83,7 @@ public class AddEntryManager {
 							copyDocumentDBDirectory = (postResponse);
 							copyDocumentDBDirectory = copyDocumentDBDirectory.replace("\"", "");
 						} else {
-							return ("AddEntryManager.addEntrywithAjax(): Document PDF did not get saved to the Database.");
+							returnConnectionString = ("AddEntryManager.addEntrywithAjax(): Document PDF did not get saved to the Database.");
 							//theView.setStatus("mainController.addToDB(): Document PDF did not get saved to the Database.");
 						}
 						
@@ -93,20 +95,19 @@ public class AddEntryManager {
 					//Bug bug = new Bug(Integer.parseInt("0"), reporter, tester, description, severity, projectID, copyScreenshotDBDirectory, copyDocumentDBDirectory);
 					Bug bug = new Bug(Integer.parseInt("0"), reporter, tester, description, severity, projectID, copyScreenshotDBDirectory, copyDocumentDBDirectory, "", "", 0, classificationIndex);
 					
-					@SuppressWarnings("unused") // PKGenerated not used, but it does call the function required
-					int PKGenerated = (connectToAPIDatabase.addEntry(bug, filesChanged));
+					returnConnectionString = (connectToAPIDatabase.addEntry(bug, filesChanged));
 
 				} catch (Exception ex) {
 					System.out.println("NOTE: If null in two files in DB, then this shows. AddEntryManager.addEntrywithAjax(): I could remove this Exception as i caught it. " + ex);
 					theView.setStatus("Failed to create a new entry. Please try again later.");
 					log.error("General Exception at AddEntryManager.addEntrywithAjax(). " + ex);
-					return ("Failed to create a new entry. Please try again later.");
+					returnConnectionString = ("Failed to create a new entry. Please try again later.");
 					//return null;
 				}
 				
 				// <html>Status: " + message + "<BR>Operating System."
 				// theView.setStatus(reporter + ", your new entry was added to the Database <BR>Successfully.");
-				return null;
+				return returnConnectionString;
 			}
 
 			protected void done() {
@@ -126,7 +127,7 @@ public class AddEntryManager {
 			e.printStackTrace();
 		}
 		
-		return (reporter + ", your new entry was added Successfully to the Database.");
+		return returnConnectionString;
 	}
 	
 	

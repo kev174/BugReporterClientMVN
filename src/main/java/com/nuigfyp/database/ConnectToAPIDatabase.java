@@ -78,12 +78,12 @@ public class ConnectToAPIDatabase {
 	private static final String POST_BUG_URL = API_URL + "addBug";	
     private static final String BASE_URL_GETFILENAMED = API_URL + "getFileNamed/";
     private static final String FILE_UPLOAD_URL = API_URL + "upload";	
-	private String nameOfFileToBeSavedToDatabase;
+	private String nameOfFileToBeSavedToDatabase, returnConnectionString = "";
 	private static Base64Coding base64;
 
 	public String changeStatusInDB(String id) throws SQLException {
 
-		int bugId = Integer.parseInt(id);
+		//int bugId = Integer.parseInt(id);
 		base64 = new Base64Coding();
 		String encodedBugId = base64.encode(id);
 		String Change_Status_Bug_Url = CHANGE_STATUS_BUG_URL + "changeBugStatus/" + encodedBugId; 
@@ -101,17 +101,17 @@ public class ConnectToAPIDatabase {
 			int responseCode = http.getResponseCode();
 			
 			if (responseCode == HttpURLConnection.HTTP_OK) {
-				return "[" + responseCode + "]" + ": Success Changing Status with Bug ID " + id;
+				returnConnectionString = "[" + responseCode + "]" + ": Success Changing Status with Bug ID " + id;
 			} else {
-				return "[" + responseCode + "]" + ": Failed to Changing Status with Bug ID " + id;
+				returnConnectionString = "[" + responseCode + "]" + ": Failed to Changing Status with Bug ID " + id;
 			}
 
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToAPIDatabase.changeStatusInDB(). " + e);
-			e.printStackTrace();
-		} 
+			returnConnectionString = "Failed to update Bug with ID " + id;
+		}
+		return returnConnectionString; 
 		
-		return "Success Deleting Bug ID Number " + bugId;
 	}
 	
 	public String deleteEntry(String id) throws SQLException {
@@ -134,17 +134,17 @@ public class ConnectToAPIDatabase {
 			int responseCode = http.getResponseCode();
 			
 			if (responseCode == HttpURLConnection.HTTP_OK) {
-				return "[" + responseCode + "]" + ": Success Deleting Bug ID Number " + bugId;
+				returnConnectionString = "[" + responseCode + "]" + ": Success Deleting Bug ID Number " + bugId;
 			} else {
-				return "[" + responseCode + "]" + ": Failed to Delete Bug ID Number " + bugId + ". Please try again.";
+				returnConnectionString = "[" + responseCode + "]" + ": Failed to Delete Bug ID Number " + bugId + ". Please try again.";
 			}
 
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToAPIDatabase.deleteEntry(). " + e);
-			e.printStackTrace();
-		} 
-		
-		return "Success Deleting Bug ID Number " + bugId;
+			returnConnectionString = "Failed to delete Bug with ID " + id;
+		}
+
+		return returnConnectionString; 
 	}
 	
 	
@@ -164,7 +164,7 @@ public class ConnectToAPIDatabase {
 			e.printStackTrace();
 		}
 
-		System.out.println("Sending to URL " + bugConvertedToJson);
+		System.out.println("Sending to UR " + bugConvertedToJson);
 		
 		byte[] JsonConvertedToByteArray = bugConvertedToJson.getBytes(StandardCharsets.UTF_8);
 		int length = JsonConvertedToByteArray.length;
@@ -179,30 +179,30 @@ public class ConnectToAPIDatabase {
 			http.setFixedLengthStreamingMode(length);
 			http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 			http.connect();
-
+			
+			// transfers the byte-array (Bug json object) over http
 			try (OutputStream os = http.getOutputStream()) {
 				os.write(JsonConvertedToByteArray);
-				System.out.println("Output stream is " + os);
 			}
-
-			
+	
 			int responseCode = http.getResponseCode();
 			
 			if (responseCode == HttpURLConnection.HTTP_OK) {
-				return ("Success [" + responseCode + "]" + ": Updated the database successfully.");
+				returnConnectionString = ("[" + responseCode + "]" + ": Updated the database successfully.");
 			} else {
-				return ("Fail: PUT Response Code: " + responseCode);
+				returnConnectionString = ("[" + responseCode + "]" + ": Updated to the database failed.");
 			}
 
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToAPIDatabase.updateEntry(). " + e);
-			e.printStackTrace();
-			return "General Exception caught at ConnectToAPIDatabase.";
-		} 
+			returnConnectionString = "Failed to update Bug with id " + bug.getId();
+		}
+		
+		return returnConnectionString; 
 	}
 
 	
-	public int addEntry(Bug bug, int[] filesChanged) throws SQLException {
+	public String addEntry(Bug bug, int[] filesChanged) throws SQLException {
 
 		String bugConvertedToJson = null;
 		ObjectMapper mapper = new ObjectMapper();
@@ -238,17 +238,17 @@ public class ConnectToAPIDatabase {
 			int responseCode = http.getResponseCode();
 			
 			if (responseCode == HttpURLConnection.HTTP_OK) {
-				System.out.println("Success: POST Response Code :: " + responseCode);
+				returnConnectionString = ("[" + responseCode + "]" + "Success: Adding new entry to database.");
 			} else {
-				System.out.println("Failure: POST Response Code :: " + responseCode);
+				returnConnectionString = ("[" + responseCode + "]" + "Failure: Adding new entry to database.");
 			}
 
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToAPIDatabase.addEntry(). " + e);
-			e.printStackTrace();
+			returnConnectionString = ("Failure: Adding entry to database.");
 		} 
 		
-		return 200;
+		return returnConnectionString;
 	}
 	
 	public String POSTRequest(String fileDirectory, int companyIndex) {	 

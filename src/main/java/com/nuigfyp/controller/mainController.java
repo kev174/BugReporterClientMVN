@@ -111,6 +111,12 @@ public class mainController {
 	class updateDB implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
+			try {
+				theView.table.getModel().getValueAt(theView.table.getSelectedRow(), 0);
+			} catch (Exception e1) {
+				theView.setStatus("Select a valid row to update from the table.");
+				return;
+			}
 			UpdateDBManager uem = new UpdateDBManager();
 			theView.setStatus(uem.updateEntrywithAjax(theView, filesChanged, screenshotDBDirectory, screenshotPath, documentDBDirectory, documentPath));	
 			
@@ -134,7 +140,7 @@ public class mainController {
 			try {
 				id = (int) theView.table.getModel().getValueAt(theView.table.getSelectedRow(), 0);
 			} catch (Exception e1) {
-				theView.setStatus("Select a valid row from the table.");
+				theView.setStatus("Select a valid row to change status from the table.");
 				return;
 			}
 
@@ -224,28 +230,19 @@ public class mainController {
 			DeleteEntryManager dem = new DeleteEntryManager();
 			String primaryKey = null;
 			
+			try {
+				primaryKey = theView.table.getModel().getValueAt(theView.table.getSelectedRow(), 0).toString();
+			} catch (Exception e1) {
+				theView.setStatus("Select a valid row for deletion from the table.");
+				return;
+			}
+			
 			int reply = JOptionPane.showConfirmDialog(null,
 					"This Ticket will be removed from the database.", "Remove Ticket from Database.",
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[4]);
 			
 			if (reply == 0) {
-				try {
-
-					primaryKey = theView.table.getModel().getValueAt(theView.table.getSelectedRow(), 0).toString();
 					theView.setStatus(dem.deleteEntrywithAjax(theView, primaryKey));
-					//String returnValue = (dem.deleteEntrywithAjax(theView, primaryKey));
-
-					/*if (returnValue.equals("Success")) {
-						theView.setStatus("ID number " + primaryKey + ", was Successfully removed from the database.");
-					} else {
-						theView.setStatus("ID number " + primaryKey + ", failed to remove from the database.");
-					}*/
-
-				} catch (Exception e2) {
-					DisplayMessageInJOptionPane("Please select a valid ticket.", "Click a valid ticket.");
-					// e2.printStackTrace();
-					return;
-				}
 			}
 									
 			theView.clearTable();
@@ -297,7 +294,7 @@ public class mainController {
 			try {
 				id = (theView.table.getModel().getValueAt(theView.table.getSelectedRow(), 0).toString());
 			} catch (Exception e1) {
-				theView.setStatus("Select a valid row from the table.");
+				theView.setStatus("Select a valid row to view in HTML format from the table.");
 				return;
 			}
 			int bugFromTableId = Integer.parseInt(id);

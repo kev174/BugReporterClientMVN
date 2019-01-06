@@ -155,12 +155,13 @@ public class UpdateDBManager {
 					returnConnectionString = (connectToAPIDatabase.updateEntry(bug, filesChanged));
 
 				} catch (Exception e) {
+					// this should be removed as the main controller will display a message in the setStatus label.
 					DisplayMessageInJOptionPane(
 							"mainController.updateDB(); Exception caught, possibly due to the following...\\nYou have not selected an appropiate item from the Table.\nCheck if this ID exists in DB.",
 							"Please select a valid item.");
 					theView.setStatus("UpdateDBManagr.updateEntrywithAjax(): Multiple possible exceptions.");
 					log.error("General Exception at UpdateDBManagr.updateEntrywithAjax():. " + e);
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 				
 				return returnConnectionString;

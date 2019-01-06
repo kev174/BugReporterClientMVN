@@ -53,7 +53,7 @@ public class bugReporterView extends JFrame {
 	public bugReporterView() {
 		
 		imagesSetup();	
-		setIconImage(buttonImages[7]);
+		setIconImage(buttonImages[8]);
 		setTitle("Connect To Bug API Updating GUI - MAVEN");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 840, 595);	// setBounds(100, 100, 819, 584); increased by 21px
@@ -138,30 +138,32 @@ public class bugReporterView extends JFrame {
 		dataEntryPanel.add(searchField);
 
 		//btnSearch = new JButton(new ImageIcon(buttonImages[1]));
-		btnSearch = new JButton("Search");
-		btnSearch.setBounds(640, 5, buttonWidth, 23);
-		btnSearch.setIcon(new ImageIcon(buttonImages[1]));
-		btnSearch.setHorizontalAlignment(SwingConstants.LEFT);
-		//btnSearch.setBorder(null);
+		btnSearch = new JButton(new ImageIcon(buttonImages[1]));
+		btnSearch.setBounds(640, 5, buttonWidth, 50);
+		btnSearch.setBackground(lightBlue);
+		btnSearch.setBorder(null);
+		//btnSearch.setIcon(new ImageIcon(buttonImages[1]));
+		//btnSearch.setHorizontalAlignment(SwingConstants.LEFT);
 		//btnSearch.setContentAreaFilled(false);
 		dataEntryPanel.add(btnSearch);
 		
 		//btnConnDB = new JButton(new ImageIcon(buttonImages[0]));
-		btnConnDB = new JButton("Show Bugs");
-		btnConnDB.setBounds(640, 58, buttonWidth, 44);
-		btnConnDB.setIcon(new ImageIcon(buttonImages[0]));
-		btnConnDB.setHorizontalAlignment(SwingConstants.LEFT);
-		btnConnDB.setBackground(greenColor);
-		//btnConnDB.setBorder(null);
+		btnConnDB = new JButton(new ImageIcon(buttonImages[0]));
+		btnConnDB.setBounds(640, 56, buttonWidth, 44);
+		/*btnConnDB.setIcon(new ImageIcon(buttonImages[0]));
+		btnConnDB.setHorizontalAlignment(SwingConstants.LEFT);*/
+		btnConnDB.setBackground(lightBlue);
+		btnConnDB.setBorder(null);
 		//btnConnDB.setMargin(new Insets(0, 0, 0, 0)); // works without this
 		//btnConnDB.setContentAreaFilled(false);
 		dataEntryPanel.add(btnConnDB);				
 
-		btnClearTable = new JButton("Clear Table");
-		//btnClearTable = new JButton(new ImageIcon(buttonImages[2]));
+		btnClearTable = new JButton(new ImageIcon(buttonImages[2]));
 		btnClearTable.setBounds(640, 104, buttonWidth, 42);
-		btnClearTable.setIcon(new ImageIcon(buttonImages[2]));
-		btnClearTable.setHorizontalAlignment(SwingConstants.LEFT);
+		btnClearTable.setBackground(lightBlue);
+		btnClearTable.setBorder(null);
+		//btnClearTable.setIcon(new ImageIcon(buttonImages[2]));
+		//btnClearTable.setHorizontalAlignment(SwingConstants.LEFT);
 		//btnClearTable.setBorder(null);
 		//btnClearTable.setContentAreaFilled(false);
 		//btnClearTable.setMnemonic(KeyEvent.VK_C);      // add Mnemonic to clear the table
@@ -199,24 +201,24 @@ public class bugReporterView extends JFrame {
 				.addComponent(jTableScrollPane, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
 				.addContainerGap()));
 		
-		model = new DefaultTableModel();
-		
+		model = new DefaultTableModel();		
 		table = new JTable(model) { // allows to add images, without code just path to images
 			
-				public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {			
-					Component c = super.prepareRenderer(renderer, row, column);
+			// If a Row is closed, then the row will have a Light gray Color
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component component = super.prepareRenderer(renderer, row, column);
 
-					if (!isRowSelected(row)) {
-						c.setBackground(getBackground());
-						int modelRow = convertRowIndexToModel(row);
-						String type = (String) getModel().getValueAt(modelRow, 1);
-						if ("Open".equals(type))
-							c.setBackground(Color.GREEN);
-						if ("Closed".equals(type))
-							c.setBackground(Color.LIGHT_GRAY);
-					}
-					
-					return c;			
+				if (!isRowSelected(row)) {
+					component.setBackground(getBackground());
+					int modelRow = convertRowIndexToModel(row);
+					String type = (String) getModel().getValueAt(modelRow, 1);
+					if ("Open".equals(type))
+						component.setBackground(Color.GREEN);
+					if ("Closed".equals(type))
+						component.setBackground(Color.LIGHT_GRAY);
+				}
+
+				return component;
 			};
 			
 			// Displays javax.swing... instead of the screenshot and document check and x image
@@ -261,37 +263,36 @@ public class bugReporterView extends JFrame {
 		dbPanel.setBackground(lightBlue);   		// sets Database JButtons to this color 
 		
 		//btnAddToDB = new JButton(new ImageIcon(buttonImages[3]));
-		btnAddToDB = new JButton("Create Entry");
+		btnAddToDB = new JButton(new ImageIcon(buttonImages[3]));
 		btnAddToDB.setBounds(4, 20, buttonWidth, buttonHeight);
-		btnAddToDB.setIcon(new ImageIcon(buttonImages[3]));
-		btnAddToDB.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAddToDB.setBackground(lightBlue);
+		btnAddToDB.setBorder(null);
+		//btnAddToDB.setIcon(new ImageIcon(buttonImages[3]));
+		//btnAddToDB.setHorizontalAlignment(SwingConstants.LEFT);
 		//btnAddToDB.setBorder(null);
 		//btnAddToDB.setContentAreaFilled(false);
 		dbPanel.add(btnAddToDB);
 
 		//btnUpdateDB = new JButton(new ImageIcon(buttonImages[4]));
-		btnUpdateDB = new JButton("Update Entry");
+		btnUpdateDB = new JButton(new ImageIcon(buttonImages[4]));
 		btnUpdateDB.setBounds(4, 65, buttonWidth, buttonHeight);
-		btnUpdateDB.setIcon(new ImageIcon(buttonImages[4]));
-		btnUpdateDB.setHorizontalAlignment(SwingConstants.LEFT);
-		//btnUpdateDB.setBorder(null);
-		//btnUpdateDB.setContentAreaFilled(false);
+		btnUpdateDB.setBackground(lightBlue);
+		btnUpdateDB.setBorder(null);
 		dbPanel.add(btnUpdateDB);
 
-		//btnDeleteEntry = new JButton(new ImageIcon(buttonImages[5]));
-		btnDeleteEntry = new JButton("Remove Entry");
+		btnDeleteEntry = new JButton(new ImageIcon(buttonImages[5]));
 		btnDeleteEntry.setBounds(4, 110, buttonWidth, buttonHeight);
-		btnDeleteEntry.setIcon(new ImageIcon(buttonImages[5]));
-		btnDeleteEntry.setHorizontalAlignment(SwingConstants.LEFT);
-		//btnDeleteEntry.setBorder(null);
-		//btnDeleteEntry.setContentAreaFilled(false);
+		btnDeleteEntry.setBackground(lightBlue);
+		btnDeleteEntry.setBorder(null);
 		dbPanel.add(btnDeleteEntry);
 		
 		// Change Status of Active component. Create ActionListener to launch JOptionPane to confirm change status and just update DB to Inactive
-		btnActive = new JButton("Change Status");
-		btnActive.setBounds(4, 155, buttonWidth, buttonHeight);
-		btnActive.setIcon(new ImageIcon(buttonImages[5]));
-		btnActive.setHorizontalAlignment(SwingConstants.LEFT);
+		btnActive = new JButton(new ImageIcon(buttonImages[6]));
+		btnActive.setBounds(4, 154, buttonWidth, buttonHeight);
+		btnActive.setBackground(lightBlue);
+		btnActive.setBorder(null);
+		//btnActive.setIcon(new ImageIcon(buttonImages[6]));
+		//btnActive.setHorizontalAlignment(SwingConstants.LEFT);
 		dbPanel.add(btnActive);
 							
 
@@ -347,7 +348,7 @@ public class bugReporterView extends JFrame {
 		lblDatabase.setForeground(Color.PINK); // takes the color of the background from line 223 above
 		dataViewPanel.add(lblDatabase);
 
-		btnShowHTMLFormat = new JButton(new ImageIcon(buttonImages[6])); 
+		btnShowHTMLFormat = new JButton(new ImageIcon(buttonImages[7])); 
 		//btnShowDocs.setFont(new Font("Serif", Font.BOLD, 22));
 		btnShowHTMLFormat.setBounds(10, 11, 184, 85);
 		btnShowHTMLFormat.setBorder(null);
@@ -489,23 +490,4 @@ public class bugReporterView extends JFrame {
 		resizedJTableImages = im.jtableImages();
 	}
 	
-	
-	/*public class CustomTableCellRenderer extends DefaultTableCellRenderer {
-
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-				int row, int column) {
-			
-			Component comp = super.getTableCellRendererComponent(table,  value, isSelected, hasFocus, row, column);
-			
-			//super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-			comp.setBackground(row == 0 ? Color.YELLOW:Color.WHITE);
-			if (row == 0) {
-				comp.setBackground(Color.PINK);
-			} else {
-				comp.setBackground(Color.WHITE);
-			}
-			return comp;
-		}
-	}*/
 }

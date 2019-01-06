@@ -13,7 +13,7 @@ public class ImagesManager {
 	private ImageIcon[] jtableImages = new ImageIcon[2];
 	private ImageIcon[] jlabelImages = new ImageIcon[7];
 	private final static Logger log = Logger.getLogger(ImagesManager.class);
-	private final int imageX = 36, imageY = 36;
+	private final int imageX = 166, imageY = 36;
 
 	// www.iconfinder.com     http://buttonoptimizer.com/(can add Image to it
 	// https://www.flaticon.com/free-icons/database	
@@ -23,27 +23,29 @@ public class ImagesManager {
 
 		try {	
 			
-			buttonImages[0] = new ImageIcon(this.getClass().getClassLoader().getResource("show-all-bugs-blue.png"))
+			buttonImages[0] = new ImageIcon(this.getClass().getClassLoader().getResource("F_Show_Bugs.png"))
 					.getImage().getScaledInstance(imageX, imageY, Image.SCALE_DEFAULT);
-			buttonImages[1] = new ImageIcon(this.getClass().getClassLoader().getResource("search-database-blue.png"))
-					.getImage().getScaledInstance(imageX - 15, imageY - 15, Image.SCALE_DEFAULT); 
-			buttonImages[2] = new ImageIcon(this.getClass().getClassLoader().getResource("clear-database-blue.png")).getImage()
-					.getScaledInstance(imageX, imageY, Image.SCALE_DEFAULT);
-			buttonImages[3] = new ImageIcon(this.getClass().getClassLoader().getResource("add-to-database-blue.png"))
+			buttonImages[1] = new ImageIcon(this.getClass().getClassLoader().getResource("F_Search.png"))
+					.getImage().getScaledInstance(imageX, imageY, Image.SCALE_DEFAULT); 
+			buttonImages[2] = new ImageIcon(this.getClass().getClassLoader().getResource("F_Clear_Entry.png")).getImage()
+					.getScaledInstance(166, 36, Image.SCALE_DEFAULT);
+			buttonImages[3] = new ImageIcon(this.getClass().getClassLoader().getResource("F_Create_Entry.png"))
 					.getImage().getScaledInstance(imageX, imageY, Image.SCALE_DEFAULT);
-			buttonImages[4] = new ImageIcon(this.getClass().getClassLoader().getResource("update-database-blue.png"))
+			buttonImages[4] = new ImageIcon(this.getClass().getClassLoader().getResource("F_Update_Entry.png"))
 					.getImage().getScaledInstance(imageX, imageY, Image.SCALE_DEFAULT);
-			buttonImages[5] = new ImageIcon(this.getClass().getClassLoader().getResource("remove-from-database-blue.png"))
+			buttonImages[5] = new ImageIcon(this.getClass().getClassLoader().getResource("F_Remove_Entry.png"))
 					.getImage().getScaledInstance(imageX, imageY, Image.SCALE_DEFAULT);
-			buttonImages[6] = new ImageIcon(this.getClass().getClassLoader().getResource("view-html-format.png"))   //button_click-to-view-files.png
-					.getImage().getScaledInstance(273, 84, Image.SCALE_DEFAULT);
+			buttonImages[6] = new ImageIcon(this.getClass().getClassLoader().getResource("F_Change_Status.png"))
+					.getImage().getScaledInstance(imageX, imageY, Image.SCALE_DEFAULT);
+			/*buttonImages[6] = new ImageIcon(this.getClass().getClassLoader().getResource("database_orange.png"))
+					.getImage().getScaledInstance(imageX, imageY, Image.SCALE_DEFAULT);*/
+			buttonImages[7] = new ImageIcon(this.getClass().getClassLoader().getResource("view-html-format.png"))   //button_click-to-view-files.png
+					.getImage().getScaledInstance(180, 84, Image.SCALE_DEFAULT);
 			
 			// get OS type and assign appropriate image
-			buttonImages[7] = new ImageIcon(this.getClass().getClassLoader().getResource("bug.png")).getImage()
-					.getScaledInstance(70, 70, Image.SCALE_DEFAULT);
+			buttonImages[8] = new ImageIcon(this.getClass().getClassLoader().getResource("bug.png")).getImage()
+					.getScaledInstance(70, 70, Image.SCALE_DEFAULT);		
 			
-			buttonImages[8] = new ImageIcon(this.getClass().getClassLoader().getResource("cloud1.png"))
-					.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT);
 			
 		} catch (Exception e) {
 			log.error("General Exception at ImagesManager.buttonImages(). " + e);
@@ -97,10 +99,10 @@ public class ImagesManager {
 		jlabelImages[4] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("animated-bin-and-trash-can-image.gif")) // spinner.gif good also // good also  delete-file.jpg
 		.getImage().getScaledInstance(imageDimension / 2, imageDimension / 2, Image.SCALE_DEFAULT));
 		
-		jlabelImages[5] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("graph.jpg")) // spinner.gif good also
+		jlabelImages[5] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("graph.jpg"))
 				.getImage().getScaledInstance(imageDimension / 2, imageDimension / 2, Image.SCALE_DEFAULT));
 		
-		jlabelImages[6] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("ringing_bells.gif")) // spinner.gif good also
+		jlabelImages[6] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("ringing_bells.gif")) 
 				.getImage().getScaledInstance(imageDimension / 2, imageDimension / 2, Image.SCALE_DEFAULT));
 
 		return jlabelImages;

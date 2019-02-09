@@ -385,7 +385,7 @@ public class bugReporterView extends JFrame {
 			rowData[5] = companyNameIDs[--companyIndex];	
 			rowData[6] = ((Bug) tableList.get(i)).getScreenshot().equals("No") ? resizedJTableImages[0] : resizedJTableImages[1];
 			rowData[7] = ((Bug) tableList.get(i)).getDocument().equals("No") ? resizedJTableImages[0] : resizedJTableImages[1];	
-			
+			//System.out.println("file name is " + ((Bug)tableList.get(i)).getScreenshot() + ", other is " + ((Bug)tableList.get(i)).getDocument());
 			((DefaultTableModel) table.getModel()).addRow(rowData);	
 		}	
 	}

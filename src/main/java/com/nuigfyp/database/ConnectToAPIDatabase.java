@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 
@@ -64,8 +65,8 @@ public class ConnectToAPIDatabase {
 	//private String un = "bugfiles", pw = "Cusask!";	    
 	
 	// AMAZON AWS => War file running on Elastic BeanStalk 
-	private static final String API_URL = "http://bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com/" + "bugs/";
-	//private static final String API_URL = "http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/"; // this works for DELETE_BUG_URL, GET_SPECIFIC_BUG_URL and UPDATE_BUG_URL
+	//private static final String API_URL = "http://bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com/" + "bugs/";
+	private static final String API_URL = "http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/"; // this works for DELETE_BUG_URL, GET_SPECIFIC_BUG_URL and UPDATE_BUG_URL
 		
 	private static final String[] COMPANY = new String[] { "SAP", "NUIG", "Ericsson", "Medtronic", "HP" };
 	private static final String USER_AGENT = "Mozilla/5.0";			
@@ -116,17 +117,23 @@ public class ConnectToAPIDatabase {
 	
 	public String deleteEntry(String id) throws SQLException {
 
+		// Add header info to URLConnection
+		// https://stackoverflow.com/questions/12732422/adding-header-for-httpurlconnection
+		
 		int bugId = Integer.parseInt(id);
 		base64 = new Base64Coding();
 		String encodedBugId = base64.encode(id);
 		String Delete_API_URL = DELETE_BUG_URL + "deletebug/" + encodedBugId; 
 		System.out.println("Bug id is: " + id + ". Encoded it is: " + encodedBugId + ". Sending to " + Delete_API_URL);
-		
+		String userCredentials = "username:password";
+		String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
+
 		try {
 
 			URL url = new URL(Delete_API_URL);
 			URLConnection urlCon = url.openConnection();
 			HttpURLConnection http = (HttpURLConnection) urlCon;
+			http.setRequestProperty ("Authorization", basicAuth);
 			http.setRequestMethod("DELETE"); 
 			http.setDoOutput(true);
 			http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -223,6 +230,7 @@ public class ConnectToAPIDatabase {
 		try {
 
 			URL url = new URL(POST_BUG_URL);
+			// HttpURLConnection to be used for POST requests
 			URLConnection urlCon = url.openConnection();
 			HttpURLConnection http = (HttpURLConnection) urlCon;
 			http.setRequestMethod("POST"); 
@@ -394,11 +402,14 @@ public class ConnectToAPIDatabase {
 		
 		ArrayList<Bug> buglist = new ArrayList<Bug>();
 		JSONArray jsonArray = null;
-				
+		String userCredentials = "UserNName:PPassword";
+		String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));		
+		System.out.println("getAllBugs: Authorising " + basicAuth);
 		try {
 			
 			URL url = new URL(GET_ALL_BUGS_URL);
 			URLConnection request = url.openConnection();
+			request.setRequestProperty("Authorization", basicAuth);
 			request.connect();
 			JsonParser jp = new JsonParser(); 
 			JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); // Convert the input stream to a json element

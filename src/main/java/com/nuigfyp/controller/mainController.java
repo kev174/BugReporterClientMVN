@@ -2,6 +2,10 @@ package com.nuigfyp.controller;
 
 import java.awt.event.*;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import javax.swing.*;
@@ -24,10 +28,6 @@ import com.nuigfyp.services.UpdateDBManager;
 import com.nuigfyp.services.ViewInHTMLManager;
 import com.nuigfyp.view.AnalyticsViewer;
 import com.nuigfyp.view.bugReporterView;
-
-import net.sourceforge.tess4j.ITesseract;
-import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.TesseractException;
 
 
 public class mainController {
@@ -65,6 +65,17 @@ public class mainController {
 		mainController.theView.addEmptyFields(new clearFields());
 		mainController.theView.addJTableListener(new MouseListenerClass(theView)); // calls bug reporter MouseListenerclass.java
 
+		/*// Time difference in hours: REMOVE ME
+		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String aDate = "2019-01-06 06:40";
+		LocalDateTime toDateTime = LocalDateTime.parse(aDate, formatter);
+		LocalDateTime fromDateTime = LocalDateTime.of(2019, 1, 4, 7, 45);	
+		LocalDateTime tempDateTime = LocalDateTime.from(fromDateTime);
+		String temp = toDateTime.format(formatter);
+		long hours = tempDateTime.until( toDateTime, ChronoUnit.HOURS);
+		System.out.println("hours is: " + hours + ", " + temp);*/
+		
 		setup();
 		loadCheckBoxImages();	
 	}
@@ -74,7 +85,7 @@ public class mainController {
 		public void actionPerformed(ActionEvent e) {
 
 			AnalyticsViewer analyticsViewer = new AnalyticsViewer();
-			analyticsViewer.viewAnalytics();
+			analyticsViewer.viewAnalytics(theView.getBugFromTable());
 
 		}
 	}
@@ -335,7 +346,7 @@ public class mainController {
 							"Do you wish to extract the text from this screenshot?", "Extract text from image.",
 							JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[6]);
 					if (reply == 0) {
-						// Works now due to modifying description varchar(2048) in the Database
+						// Works now due to modifying description Varchar(4096) in the Database
 						ImageToTextManager itt = new ImageToTextManager();
 						theView.descriptionArea.setText(itt.imageToTextwithAjax(theView, fileInfo[0]));
 					}
@@ -391,7 +402,7 @@ public class mainController {
 		}
 	}
 	
-	// Eclipse state this should start with uppercase
+	// Eclipse states this should start with Uppercase
 	class clearFields implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 

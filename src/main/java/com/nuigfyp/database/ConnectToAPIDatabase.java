@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 
@@ -38,6 +40,8 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,8 +83,10 @@ public class ConnectToAPIDatabase {
 	private static final String POST_BUG_URL = API_URL + "addBug";	
     private static final String BASE_URL_GETFILENAMED = API_URL + "getFileNamed/";
     private static final String FILE_UPLOAD_URL = API_URL + "upload";	
+	private static final String GET_SESSIONID = API_URL + "getSessionId/";	
 	private String nameOfFileToBeSavedToDatabase, returnConnectionString = "";
 	private static Base64Coding base64;
+	private long sessionId = new Long(0);
 
 	public String changeStatusInDB(String id) throws SQLException {
 
@@ -399,17 +405,18 @@ public class ConnectToAPIDatabase {
 	
 	
 	public ArrayList<Bug> getAllBugs() throws Exception {	
-		
+	    
 		ArrayList<Bug> buglist = new ArrayList<Bug>();
 		JSONArray jsonArray = null;
-		String userCredentials = "UserNName:PPassword";
-		String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));		
-		System.out.println("getAllBugs: Authorising " + basicAuth);
+		//String userCredentials = "UserNName:PPassword";
+		//String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));		
+		//System.out.println("getAllBugs: Authorising " + basicAuth);
+		
 		try {
 			
 			URL url = new URL(GET_ALL_BUGS_URL);
 			URLConnection request = url.openConnection();
-			request.setRequestProperty("Authorization", basicAuth);
+			//request.setRequestProperty("Authorization", basicAuth);
 			request.connect();
 			JsonParser jp = new JsonParser(); 
 			JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); // Convert the input stream to a json element
@@ -436,10 +443,70 @@ public class ConnectToAPIDatabase {
 		
 		return buglist;
 	}
+	
+	public boolean authentication(long sesId) {
+
+		String un = "user", pw = "Admin";
+		String returnedValue = "";
+		base64 = new Base64Coding();
+		//String encodedLoginInfo = base64.encode(un + ":" + pw);
+		
+		//System.out.println("user:Admin, Encoded is " + encodedLoginInfo);
+		//System.out.println("url sending " + GET_SESSIONID + "dXNlcjpBZG1pbjoxMjM0NTY3ODk=");
+
+		try {
+
+			URL url = new URL(GET_SESSIONID + "dXNlcjpBZG1pbjoxMjM0NTY3ODk=");
+			URLConnection request = url.openConnection();
+			request.connect();
+			JsonParser jp = new JsonParser();
+			JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+			returnedValue = (base64.decode(root.toString()));	
+		} catch (Exception e) {
+			log.error("General Exception at ConnectToAPIDatabase.authentication(). " + e);
+			System.out.println("ConnectToAPIDatabase.authentication Exception, " + e);
+			e.printStackTrace();
+		}
+			
+		//String pattern = "MM/dd/yyyy HH:mm:ss"; 
+		String[] data = returnedValue.split(":", 2);	
+		String sid = data[0];						// Session ID returned form the REST API.
+		sessionId = Long.parseLong(sid);
+		String expiryDate = data[1];	
+		DateTime sessionExpiryDate = new DateTime(expiryDate);
+		System.out.println("Date Returned from API is: " + sessionExpiryDate + ". SessionID retruned is " + sid);
+		
+		DateTime currentDate = DateTime.now();
+		DateTime currentTimePlusFive = currentDate.plusMinutes(5);
+		System.out.println("Current Time plus 5        " + currentTimePlusFive);
+		
+		if(sessionId == 0 || sessionExpiryDate.compareTo(currentTimePlusFive) < 1) {
+            System.out.println("currentTimePlusFive is greater than the currentTime. So Yes, This is a Valid Session ID.");
+		}
+		
+		//String formattedCurrentTime = currentDate.toString(pattern);
+		//System.out.println("Current Time Formatted is " + formattedCurrentTime);
+		
+		/*
+		 * ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+		 * executor.scheduleAtFixedRate(timeruner, 5, 5, TimeUnit.MINUTES);
+		 */
+		return true;
+	}
+	
+	
+	/*static Runnable timeruner = new Runnable() {
+		public void run() {
+			System.out.println("Session Id has now changed, due to inactive for five minutes.");
+			sessionId++;
+			id = 0;
+		}
+	};*/
+	
 
 	public void timerDelay() {
 		try {
-			TimeUnit.SECONDS.sleep(2);
+			TimeUnit.SECONDS.sleep(3);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}

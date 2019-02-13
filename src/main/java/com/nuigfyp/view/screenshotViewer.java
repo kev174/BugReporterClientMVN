@@ -43,7 +43,7 @@ public class screenshotViewer extends JFrame {
 		panel1.setBounds(9, 655, 720, 51);
 		contentPane.add(panel1);
 		
-		JLabel fileNameLbl = new JLabel(new File("").getAbsolutePath() + "\\" + fileName);
+		JLabel fileNameLbl = new JLabel(new File("").getAbsolutePath() + "\\Downloaded_Files\\" + fileName);
 		panel1.add(fileNameLbl);
 		this.setVisible(true);
 	}

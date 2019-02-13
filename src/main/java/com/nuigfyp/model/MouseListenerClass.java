@@ -169,6 +169,7 @@ public class MouseListenerClass implements MouseListener {
 			}
 		}
 
+		theView.btnActive.setEnabled(true);
 		// Removes image labels and Change Status Button (grayed out)
 		if (theView.list.get(row).getActive() == 0) {
 			// If ticket is closed then the screenshot and pdf label gets the default image

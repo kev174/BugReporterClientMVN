@@ -90,15 +90,12 @@ public class ConnectToAPIDatabase {
 
 	public String changeStatusInDB(String id) throws SQLException {
 
-		//int bugId = Integer.parseInt(id);
 		base64 = new Base64Coding();
 		String encodedBugId = base64.encode(id);
-		String Change_Status_Bug_Url = CHANGE_STATUS_BUG_URL + "changeBugStatus/" + encodedBugId; 
-		System.out.println("Bug id is: " + id + ". Encoded it is: " + encodedBugId + ". Sending to " + Change_Status_Bug_Url);
 		
 		try {
 
-			URL url = new URL(Change_Status_Bug_Url);
+			URL url = new URL(CHANGE_STATUS_BUG_URL + "changeBugStatus/" + encodedBugId + "/" + encodedSessionId());
 			URLConnection urlCon = url.openConnection();
 			HttpURLConnection http = (HttpURLConnection) urlCon;
 			http.setRequestMethod("PUT"); 
@@ -123,23 +120,19 @@ public class ConnectToAPIDatabase {
 	
 	public String deleteEntry(String id) throws SQLException {
 
-		// Add header info to URLConnection
 		// https://stackoverflow.com/questions/12732422/adding-header-for-httpurlconnection
 		
 		int bugId = Integer.parseInt(id);
 		base64 = new Base64Coding();
 		String encodedBugId = base64.encode(id);
-		String Delete_API_URL = DELETE_BUG_URL + "deletebug/" + encodedBugId; 
+		String Delete_API_URL = DELETE_BUG_URL + "deletebug/" + encodedBugId + "/" + encodedSessionId(); 
 		System.out.println("Bug id is: " + id + ". Encoded it is: " + encodedBugId + ". Sending to " + Delete_API_URL);
-		String userCredentials = "username:password";
-		String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
 
 		try {
 
 			URL url = new URL(Delete_API_URL);
 			URLConnection urlCon = url.openConnection();
 			HttpURLConnection http = (HttpURLConnection) urlCon;
-			http.setRequestProperty ("Authorization", basicAuth);
 			http.setRequestMethod("DELETE"); 
 			http.setDoOutput(true);
 			http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -165,8 +158,8 @@ public class ConnectToAPIDatabase {
 	public String updateEntry(Bug bug, int[] filesChanged) throws SQLException { // ==== int[] filesChanged NOT Used
 
 		base64 = new Base64Coding();
-		String encodedBugId = base64.encode(Integer.toString(bug.getId()));		
-		String UPDATE_URL = UPDATE_BUG_URL + encodedBugId + "/updateBug";
+		String encodedBugId = base64.encode(Integer.toString(bug.getId()));	
+		String UPDATE_URL = UPDATE_BUG_URL + encodedBugId + "/updateBug/" + encodedSessionId();
 		String bugConvertedToJson = null;
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -219,7 +212,7 @@ public class ConnectToAPIDatabase {
 
 		String bugConvertedToJson = null;
 		ObjectMapper mapper = new ObjectMapper();
-		
+
 		try {
 			
 			bugConvertedToJson = mapper.writeValueAsString(bug);
@@ -235,7 +228,7 @@ public class ConnectToAPIDatabase {
 
 		try {
 
-			URL url = new URL(POST_BUG_URL);
+			URL url = new URL(POST_BUG_URL + "/" + encodedSessionId());
 			// HttpURLConnection to be used for POST requests
 			URLConnection urlCon = url.openConnection();
 			HttpURLConnection http = (HttpURLConnection) urlCon;
@@ -372,7 +365,7 @@ public class ConnectToAPIDatabase {
 
 	
 	@SuppressWarnings("resource")
-	public static void GETRequest(String fileName) throws Exception {	// if changing upload filename then you have to change the name here also to save as this exact name.
+	public static void GETRequest(String fileName) throws Exception {
         				
 		/*// WORKS, but i have to add the resteasy-clent and resteasy-jaxrs jars
 		ResteasyClient client = new ResteasyClientBuilder().build();
@@ -409,11 +402,9 @@ public class ConnectToAPIDatabase {
 		base64 = new Base64Coding();	
 		ArrayList<Bug> buglist = new ArrayList<Bug>();
 		JSONArray jsonArray = null;
-		String sessionIdToString = Long.toString(sessionId);	
-		String encodedSessionId = base64.encode(sessionIdToString);
 		
 		try {
-			URL url = new URL(GET_ALL_BUGS_URL + "/" + encodedSessionId);
+			URL url = new URL(GET_ALL_BUGS_URL + "/" + encodedSessionId());
 			//URL url = new URL(GET_ALL_BUGS_URL);
 			URLConnection request = url.openConnection();
 			request.connect();
@@ -445,7 +436,6 @@ public class ConnectToAPIDatabase {
 	
 	public boolean authentication(String username, String password) {
 
-		//System.out.println("Login in ConnecToAPIDAtabase is " + username + ", passsword is " + password);
 		String returnedValue = "";		
 		base64 = new Base64Coding();
 		String encodedUserInfo = base64.encode(username + ":" + password);
@@ -469,7 +459,6 @@ public class ConnectToAPIDatabase {
 		sessionId = Long.parseLong(sid);
 		String expiryDate = data[1];	
 		DateTime sessionExpiryDate = new DateTime(expiryDate);
-		//System.out.println("Date Returned from API is: " + sessionExpiryDate + ". SessionID returned is " + sessionId);
 		
 		DateTime currentDate = DateTime.now();
 		DateTime currentTimePlusFive = currentDate.plusMinutes(5);
@@ -483,19 +472,29 @@ public class ConnectToAPIDatabase {
 		// System.out.println("Current Time Formatted is " + formattedCurrentTime);
 
 		/*ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-		executor.scheduleAtFixedRate(timeruner, 5, 5, TimeUnit.SECONDS);*/
+		executor.scheduleAtFixedRate(timerunner, 5, 5, TimeUnit.SECONDS);*/
 
 		return true;
 	}
 	
 	
-	/*public static Runnable timeruner = new Runnable() {
+	/*public static Runnable timerunner = new Runnable() {
 		public void run() {
 			System.out.println("I run every 5 Seconds.");
 		}
 	};*/
 	
 
+	public String encodedSessionId() {
+		
+		base64 = new Base64Coding();	
+		String sessionIdToString = Long.toString(sessionId);	
+		String encodedSessionId = base64.encode(sessionIdToString);
+		return encodedSessionId;
+		
+	}
+	
+	
 	public void timerDelay() {
 		try {
 			TimeUnit.SECONDS.sleep(3);

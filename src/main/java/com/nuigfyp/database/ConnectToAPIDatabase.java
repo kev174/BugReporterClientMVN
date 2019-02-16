@@ -406,25 +406,16 @@ public class ConnectToAPIDatabase {
 	
 	public ArrayList<Bug> getAllBugs() throws Exception {	
 	    
-		// http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-
-		//System.out.println("Session ID to be sent to the API is " + sessionId);
-		String sessionIdToString = Long.toString(sessionId);
-		base64 = new Base64Coding();
-		String encodedSessionId = base64.encode(sessionIdToString);
-		
-		timerDelay();
+		base64 = new Base64Coding();	
 		ArrayList<Bug> buglist = new ArrayList<Bug>();
 		JSONArray jsonArray = null;
-		//String userCredentials = "UserNName:PPassword";
-		//String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));		
-		//System.out.println("getAllBugs: Authorising " + basicAuth);
+		String sessionIdToString = Long.toString(sessionId);	
+		String encodedSessionId = base64.encode(sessionIdToString);
 		
 		try {
-			
 			URL url = new URL(GET_ALL_BUGS_URL + "/" + encodedSessionId);
+			//URL url = new URL(GET_ALL_BUGS_URL);
 			URLConnection request = url.openConnection();
-			//request.setRequestProperty("Authorization", basicAuth);
 			request.connect();
 			JsonParser jp = new JsonParser(); 
 			JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); // Convert the input stream to a json element
@@ -445,7 +436,7 @@ public class ConnectToAPIDatabase {
 			
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToAPIDatabase.getAllBugs(). " + e);
-			System.out.println("ConnectToAPIDatabase.getAllBugs error, " + e);
+			System.out.println("ConnectToAPIDatabase.getAllBugs Info, " + e);
 			throw e;
 		} 
 		
@@ -468,7 +459,7 @@ public class ConnectToAPIDatabase {
 			returnedValue = (base64.decode(root.toString()));	
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToAPIDatabase.authentication(). " + e);
-			System.out.println("ConnectToAPIDatabase.authentication() Exception, " + e);
+			System.out.println("Connection failed possibly due to the User Not existing: ConnectToAPIDatabase.authentication() Exception, " + e);
 			return false;
 		}
 
@@ -485,7 +476,7 @@ public class ConnectToAPIDatabase {
 		//System.out.println("CurrentDate Time plus 5        " + currentTimePlusFive);
 		
 		if(sessionExpiryDate.compareTo(currentTimePlusFive) < 1) {
-            //System.out.println("currentTimePlusFive is greater than the currentTime. So Yes, This is a Valid Session ID.");
+            System.out.println("currentTimePlusFive is greater than the currentTime. So Yes, This is a Valid Session ID." + sessionId);
 		}
 		
 		//String formattedCurrentTime = currentDate.toString(pattern);

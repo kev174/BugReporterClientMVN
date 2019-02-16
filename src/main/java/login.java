@@ -21,7 +21,8 @@ public class login extends JFrame {
 					/*bugReporterView frame = new bugReporterView();
 					ConnectToAPIDatabase connectToAPIDatabase = new ConnectToAPIDatabase();
 					@SuppressWarnings("unused")
-					mainController theController = new mainController( frame, connectToAPIDatabase );*/
+					mainController theController = new mainController( frame, connectToAPIDatabase );
+					frame.setVisible(true);	*/
 					
 					BugReporterLogin login = new BugReporterLogin();
 					login.setVisible(true);	
@@ -31,7 +32,7 @@ public class login extends JFrame {
 					boolean valid = connectToAPIDatabase.authentication("un", "pw");*/
 					// If the above is true, then launch the following	
 					
-					//frame.setVisible(true);			
+							
 					
 				} catch (Exception e) {
 					e.printStackTrace();

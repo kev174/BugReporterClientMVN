@@ -76,7 +76,7 @@ public class mainController {
 		long hours = tempDateTime.until( toDateTime, ChronoUnit.HOURS);
 		System.out.println("hours is: " + hours + ", " + temp);*/
 		
-		//connectToAPIDatabase.authentication(username, password);
+		//connectToAPIDatabase.authentication("user", "password");
 		
 		setup();
 		loadCheckBoxImages();	

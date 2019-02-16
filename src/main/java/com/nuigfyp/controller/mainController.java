@@ -76,7 +76,7 @@ public class mainController {
 		long hours = tempDateTime.until( toDateTime, ChronoUnit.HOURS);
 		System.out.println("hours is: " + hours + ", " + temp);*/
 		
-		connectToAPIDatabase.authentication(new Long(12345));
+		//connectToAPIDatabase.authentication(username, password);
 		
 		setup();
 		loadCheckBoxImages();	
@@ -344,14 +344,14 @@ public class mainController {
 						return;
 					}
 					
-					/*int reply = JOptionPane.showConfirmDialog(null,
+					int reply = JOptionPane.showConfirmDialog(null,
 							"Do you wish to extract the text from this screenshot?", "Extract text from image.",
 							JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[6]);
 					if (reply == 0) {
 						// Works now due to modifying description Varchar(4096) in the Database
 						ImageToTextManager itt = new ImageToTextManager();
 						theView.descriptionArea.setText(itt.imageToTextwithAjax(theView, fileInfo[0]));
-					}*/
+					}
 							
 					filesChanged[0] = 1;
 					// fileInfo[0] format is "'C:\\Users\\kevin\\Desktop\\file_delete.png'.
@@ -433,6 +433,7 @@ public class mainController {
 		System.out.println("CheckIfFileExists() - Does NOT Exist: " + fileDirectory);
 		return false;
 	}
+	
 	
 	public void timerDelay() {
 		try {

@@ -1,59 +1,30 @@
-2019-02-09 15:05:29 ERROR ScreenshotManager:97 - General Exception at ScreenshotManager.viewScreenshotWithAjax(). java.lang.NullPointerException
-2019-02-09 15:06:34 ERROR ScreenshotManager:97 - General Exception at ScreenshotManager.viewScreenshotWithAjax(). java.lang.NullPointerException
-2019-02-09 15:08:52 ERROR ScreenshotManager:97 - General Exception at ScreenshotManager.viewScreenshotWithAjax(). java.lang.NullPointerException
-2019-02-09 15:10:27 ERROR ScreenshotManager:97 - General Exception at ScreenshotManager.viewScreenshotWithAjax(). java.lang.NullPointerException
-2019-02-09 15:21:04 ERROR ScreenshotManager:97 - General Exception at ScreenshotManager.viewScreenshotWithAjax(). java.lang.NullPointerException
-2019-02-09 15:21:53 ERROR ScreenshotManager:97 - General Exception at ScreenshotManager.viewScreenshotWithAjax(). java.lang.NullPointerException
-2019-02-09 15:23:04 ERROR ScreenshotManager:97 - General Exception at ScreenshotManager.viewScreenshotWithAjax(). java.lang.NullPointerException
-2019-02-09 15:24:34 ERROR ScreenshotManager:97 - General Exception at ScreenshotManager.viewScreenshotWithAjax(). java.lang.NullPointerException
-2019-02-09 15:25:20 ERROR ScreenshotManager:97 - General Exception at ScreenshotManager.viewScreenshotWithAjax(). java.lang.NullPointerException
-2019-02-09 15:26:02 ERROR ScreenshotManager:97 - General Exception at ScreenshotManager.viewScreenshotWithAjax(). java.lang.NullPointerException
-2019-02-09 15:27:33 ERROR ScreenshotManager:97 - General Exception at ScreenshotManager.viewScreenshotWithAjax(). java.lang.NullPointerException
-2019-02-09 16:47:37 ERROR ConnectToAPIDatabase:432 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.ConnectException: Connection refused: connect
-2019-02-09 16:47:37 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.ConnectException: Connection refused: connect
-2019-02-09 17:30:58 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.ConnectException: Connection refused: connect
-2019-02-09 17:30:58 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.ConnectException: Connection refused: connect
-2019-02-10 08:49:19 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 08:49:19 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 08:50:12 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 08:50:12 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 08:50:20 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 08:50:20 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 08:51:29 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 08:51:29 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 08:53:02 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 08:53:02 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 08:53:50 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 08:53:50 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 09:05:51 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 09:05:51 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 09:06:46 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 09:06:46 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 09:11:09 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 09:11:09 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
-2019-02-10 12:34:03 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.ConnectException: Connection refused: connect
-2019-02-10 12:34:03 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.ConnectException: Connection refused: connect
-2019-02-12 08:25:44 ERROR ConnectToAPIDatabase:488 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.FileNotFoundException: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getSessionId/
-2019-02-12 08:27:13 ERROR ConnectToAPIDatabase:488 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.NullPointerException
-2019-02-12 10:14:32 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.UnknownHostException: bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com
-2019-02-12 10:14:32 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.UnknownHostException: bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com
-2019-02-12 10:15:26 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.ConnectException: Connection refused: connect
-2019-02-12 10:15:26 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.ConnectException: Connection refused: connect
-2019-02-12 10:16:02 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.ConnectException: Connection refused: connect
-2019-02-12 10:16:02 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.ConnectException: Connection refused: connect
-2019-02-12 10:16:36 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.ConnectException: Connection refused: connect
-2019-02-12 10:16:36 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.ConnectException: Connection refused: connect
-2019-02-12 10:25:15 ERROR ConnectToAPIDatabase:438 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.UnknownHostException: bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com
-2019-02-12 10:25:15 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.UnknownHostException: bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com
-2019-02-12 12:57:27 ERROR ConnectToAPIDatabase:495 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.NullPointerException
-2019-02-12 12:58:45 ERROR ConnectToAPIDatabase:495 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.ClassCastException: sun.net.www.protocol.http.HttpURLConnection$HttpInputStream cannot be cast to java.lang.String
-2019-02-12 12:59:03 ERROR ConnectToAPIDatabase:495 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.ClassCastException: sun.net.www.protocol.http.HttpURLConnection$HttpInputStream cannot be cast to java.lang.String
-2019-02-12 12:59:25 ERROR ConnectToAPIDatabase:495 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.NullPointerException
-2019-02-12 12:59:58 ERROR ConnectToAPIDatabase:496 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.ClassCastException: sun.net.www.protocol.http.HttpURLConnection$HttpInputStream cannot be cast to java.lang.String
-2019-02-12 13:00:19 ERROR ConnectToAPIDatabase:496 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.ClassCastException: sun.net.www.protocol.http.HttpURLConnection$HttpInputStream cannot be cast to java.lang.String
-2019-02-12 13:01:00 ERROR ConnectToAPIDatabase:498 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.ClassCastException: sun.net.www.protocol.http.HttpURLConnection$HttpInputStream cannot be cast to java.lang.String
-2019-02-12 13:01:23 ERROR ConnectToAPIDatabase:498 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.ClassCastException: sun.net.www.protocol.http.HttpURLConnection$HttpInputStream cannot be cast to java.lang.String
-2019-02-12 13:02:30 ERROR ConnectToAPIDatabase:498 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.ClassCastException: sun.net.www.protocol.http.HttpURLConnection$HttpInputStream cannot be cast to java.lang.String
-2019-02-12 13:03:46 ERROR ConnectToAPIDatabase:497 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.NullPointerException
-2019-02-12 13:10:40 ERROR ConnectToAPIDatabase:500 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.NullPointerException
-2019-02-12 13:11:59 ERROR ConnectToAPIDatabase:502 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.lang.NullPointerException
+2019-02-15 08:07:14 ERROR ConnectToAPIDatabase:443 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.ConnectException: Connection refused: connect
+2019-02-15 08:07:14 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.ConnectException: Connection refused: connect
+2019-02-15 09:48:38 ERROR ConnectToAPIDatabase:443 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.ConnectException: Connection refused: connect
+2019-02-15 09:48:38 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.ConnectException: Connection refused: connect
+2019-02-15 09:58:01 ERROR ConnectToAPIDatabase:443 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.ConnectException: Connection refused: connect
+2019-02-15 09:58:01 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.ConnectException: Connection refused: connect
+2019-02-15 15:14:22 ERROR ConnectToAPIDatabase:443 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.ConnectException: Connection refused: connect
+2019-02-15 15:14:22 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.ConnectException: Connection refused: connect
+2019-02-15 15:15:35 ERROR ConnectToAPIDatabase:443 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/0
+2019-02-15 15:15:35 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/0
+2019-02-15 15:21:39 ERROR ConnectToAPIDatabase:443 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/237316742
+2019-02-15 15:21:39 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/237316742
+2019-02-15 15:26:59 ERROR ConnectToAPIDatabase:465 - General Exception at ConnectToAPIDatabase.authentication(). java.net.ConnectException: Connection refused: connect
+2019-02-15 15:28:29 ERROR ConnectToAPIDatabase:443 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/584900365
+2019-02-15 15:28:29 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/584900365
+2019-02-16 04:57:30 ERROR ConnectToAPIDatabase:465 - General Exception at ConnectToAPIDatabase.authentication(). java.io.FileNotFoundException: http://bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com/bugs/getSessionId/dXNlcjpwYXNzd29yZDoxMjM0NTY3ODk=
+2019-02-16 04:58:51 ERROR ConnectToAPIDatabase:465 - General Exception at ConnectToAPIDatabase.authentication(). java.net.ConnectException: Connection refused: connect
+2019-02-16 05:00:11 ERROR ConnectToAPIDatabase:443 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.net.ConnectException: Connection refused: connect
+2019-02-16 05:00:11 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.net.ConnectException: Connection refused: connect
+2019-02-16 05:04:41 ERROR ConnectToAPIDatabase:443 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.FileNotFoundException: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/0
+2019-02-16 05:04:41 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.FileNotFoundException: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/0
+2019-02-16 05:06:53 ERROR ConnectToAPIDatabase:443 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/251397722
+2019-02-16 05:06:53 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/251397722
+2019-02-16 07:43:41 ERROR ConnectToAPIDatabase:443 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.FileNotFoundException: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/0
+2019-02-16 07:43:41 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.FileNotFoundException: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/0
+2019-02-16 08:22:24 ERROR ConnectToAPIDatabase:467 - General Exception at ConnectToAPIDatabase.authentication(). java.io.IOException: Server returned HTTP response code: 400 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getSessionId/dXNlcnJyOnBhc3N3b3Jk
+2019-02-16 08:23:40 ERROR ConnectToAPIDatabase:467 - General Exception at ConnectToAPIDatabase.authentication(). java.io.IOException: Server returned HTTP response code: 400 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getSessionId/dXNlcnJyOnBhc3N3b3Jk
+2019-02-16 08:29:13 ERROR ConnectToAPIDatabase:467 - General Exception at ConnectToAPIDatabase.authentication(). java.io.IOException: Server returned HTTP response code: 400 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getSessionId/dXNlcnJyOnBhc3N3b3Jk
+2019-02-16 08:43:47 ERROR ConnectToAPIDatabase:447 - General Exception at ConnectToAPIDatabase.getAllBugs(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/NDMwMTI5Mzc5
+2019-02-16 08:43:47 ERROR ConnectToDBManager:51 - Exception at ConnectToDBManager.connectToDBwithAjax(). java.io.IOException: Server returned HTTP response code: 500 for URL: http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll/NDMwMTI5Mzc5

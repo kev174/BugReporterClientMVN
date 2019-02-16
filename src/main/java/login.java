@@ -3,6 +3,7 @@ import javax.swing.*;
 
 import com.nuigfyp.controller.mainController;
 import com.nuigfyp.database.ConnectToAPIDatabase;
+import com.nuigfyp.view.BugReporterLogin;
 //import com.nuigfyp.model.bugModel;
 import com.nuigfyp.view.bugReporterView;
 
@@ -16,17 +17,21 @@ public class login extends JFrame {
 			public void run() {
 				
 				try {
-					bugReporterView frame = new bugReporterView();
-					//bugModel theModel = new bugModel(); // POSSIBLY REMOVE AS METHOD BELOW TAKING OVER
+																	
+					/*bugReporterView frame = new bugReporterView();
 					ConnectToAPIDatabase connectToAPIDatabase = new ConnectToAPIDatabase();
 					@SuppressWarnings("unused")
-					mainController theController = new mainController( frame, connectToAPIDatabase );
+					mainController theController = new mainController( frame, connectToAPIDatabase );*/
 					
-					//loginView frame = new loginView();
-					//loginModel theModel = new loginModel();
-					//loginController theController = new loginController( frame, theModel );
+					BugReporterLogin login = new BugReporterLogin();
+					login.setVisible(true);	
 					
-					frame.setVisible(true);
+					
+					/*Long sid = new Long(1234567879);
+					boolean valid = connectToAPIDatabase.authentication("un", "pw");*/
+					// If the above is true, then launch the following	
+					
+					//frame.setVisible(true);			
 					
 				} catch (Exception e) {
 					e.printStackTrace();

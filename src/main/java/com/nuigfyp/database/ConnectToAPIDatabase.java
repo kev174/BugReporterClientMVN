@@ -86,7 +86,7 @@ public class ConnectToAPIDatabase {
 	private static final String GET_SESSIONID = API_URL + "getSessionId/";	
 	private String nameOfFileToBeSavedToDatabase, returnConnectionString = "";
 	private static Base64Coding base64;
-	private long sessionId = new Long(0);
+	private static long sessionId;
 
 	public String changeStatusInDB(String id) throws SQLException {
 
@@ -406,6 +406,14 @@ public class ConnectToAPIDatabase {
 	
 	public ArrayList<Bug> getAllBugs() throws Exception {	
 	    
+		// http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/getAll
+
+		//System.out.println("Session ID to be sent to the API is " + sessionId);
+		String sessionIdToString = Long.toString(sessionId);
+		base64 = new Base64Coding();
+		String encodedSessionId = base64.encode(sessionIdToString);
+		
+		timerDelay();
 		ArrayList<Bug> buglist = new ArrayList<Bug>();
 		JSONArray jsonArray = null;
 		//String userCredentials = "UserNName:PPassword";
@@ -414,7 +422,7 @@ public class ConnectToAPIDatabase {
 		
 		try {
 			
-			URL url = new URL(GET_ALL_BUGS_URL);
+			URL url = new URL(GET_ALL_BUGS_URL + "/" + encodedSessionId);
 			URLConnection request = url.openConnection();
 			//request.setRequestProperty("Authorization", basicAuth);
 			request.connect();
@@ -444,19 +452,15 @@ public class ConnectToAPIDatabase {
 		return buglist;
 	}
 	
-	public boolean authentication(long sesId) {
+	public boolean authentication(String username, String password) {
 
-		String un = "user", pw = "Admin";
-		String returnedValue = "";
+		//System.out.println("Login in ConnecToAPIDAtabase is " + username + ", passsword is " + password);
+		String returnedValue = "";		
 		base64 = new Base64Coding();
-		//String encodedLoginInfo = base64.encode(un + ":" + pw);
-		
-		//System.out.println("user:Admin, Encoded is " + encodedLoginInfo);
-		//System.out.println("url sending " + GET_SESSIONID + "dXNlcjpBZG1pbjoxMjM0NTY3ODk=");
+		String encodedUserInfo = base64.encode(username + ":" + password);
 
 		try {
-
-			URL url = new URL(GET_SESSIONID + "dXNlcjpBZG1pbjoxMjM0NTY3ODk=");
+			URL url = new URL(GET_SESSIONID + encodedUserInfo);
 			URLConnection request = url.openConnection();
 			request.connect();
 			JsonParser jp = new JsonParser();
@@ -464,42 +468,39 @@ public class ConnectToAPIDatabase {
 			returnedValue = (base64.decode(root.toString()));	
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToAPIDatabase.authentication(). " + e);
-			System.out.println("ConnectToAPIDatabase.authentication Exception, " + e);
-			e.printStackTrace();
+			System.out.println("ConnectToAPIDatabase.authentication() Exception, " + e);
+			return false;
 		}
-			
-		//String pattern = "MM/dd/yyyy HH:mm:ss"; 
+
+
 		String[] data = returnedValue.split(":", 2);	
 		String sid = data[0];						// Session ID returned form the REST API.
 		sessionId = Long.parseLong(sid);
 		String expiryDate = data[1];	
 		DateTime sessionExpiryDate = new DateTime(expiryDate);
-		System.out.println("Date Returned from API is: " + sessionExpiryDate + ". SessionID retruned is " + sid);
+		//System.out.println("Date Returned from API is: " + sessionExpiryDate + ". SessionID returned is " + sessionId);
 		
 		DateTime currentDate = DateTime.now();
 		DateTime currentTimePlusFive = currentDate.plusMinutes(5);
-		System.out.println("Current Time plus 5        " + currentTimePlusFive);
+		//System.out.println("CurrentDate Time plus 5        " + currentTimePlusFive);
 		
-		if(sessionId == 0 || sessionExpiryDate.compareTo(currentTimePlusFive) < 1) {
-            System.out.println("currentTimePlusFive is greater than the currentTime. So Yes, This is a Valid Session ID.");
+		if(sessionExpiryDate.compareTo(currentTimePlusFive) < 1) {
+            //System.out.println("currentTimePlusFive is greater than the currentTime. So Yes, This is a Valid Session ID.");
 		}
 		
 		//String formattedCurrentTime = currentDate.toString(pattern);
-		//System.out.println("Current Time Formatted is " + formattedCurrentTime);
-		
-		/*
-		 * ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-		 * executor.scheduleAtFixedRate(timeruner, 5, 5, TimeUnit.MINUTES);
-		 */
+		// System.out.println("Current Time Formatted is " + formattedCurrentTime);
+
+		/*ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+		executor.scheduleAtFixedRate(timeruner, 5, 5, TimeUnit.SECONDS);*/
+
 		return true;
 	}
 	
 	
-	/*static Runnable timeruner = new Runnable() {
+	/*public static Runnable timeruner = new Runnable() {
 		public void run() {
-			System.out.println("Session Id has now changed, due to inactive for five minutes.");
-			sessionId++;
-			id = 0;
+			System.out.println("I run every 5 Seconds.");
 		}
 	};*/
 	

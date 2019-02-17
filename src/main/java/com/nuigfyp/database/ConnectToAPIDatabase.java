@@ -462,7 +462,6 @@ public class ConnectToAPIDatabase {
 		
 		DateTime currentDate = DateTime.now();
 		DateTime currentTimePlusFive = currentDate.plusMinutes(5);
-		//System.out.println("CurrentDate Time plus 5        " + currentTimePlusFive);
 		
 		if(sessionExpiryDate.compareTo(currentTimePlusFive) < 1) {
             System.out.println("currentTimePlusFive is greater than the currentTime. So Yes, This is a Valid Session ID." + sessionId);

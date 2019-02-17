@@ -50,11 +50,11 @@ public class bugReporterView extends JFrame {
 	//secondDBPanel secondPanel = new secondDBPanel();
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public bugReporterView() {
+	public bugReporterView(String user) {
 		
 		imagesSetup();	
 		setIconImage(buttonImages[8]);
-		setTitle("Connect To Bug API Updating GUI - MAVEN");
+		setTitle("Connect To Bug API Updating GUI - MAVEN: User: " + user);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 840, 595);	// setBounds(100, 100, 819, 584); increased by 21px
 		contentPane = new JPanel();
@@ -385,7 +385,7 @@ public class bugReporterView extends JFrame {
 			rowData[5] = companyNameIDs[--companyIndex];	
 			rowData[6] = ((Bug) tableList.get(i)).getScreenshot().equals("No") ? resizedJTableImages[0] : resizedJTableImages[1];
 			rowData[7] = ((Bug) tableList.get(i)).getDocument().equals("No") ? resizedJTableImages[0] : resizedJTableImages[1];	
-			//System.out.println("file name is " + ((Bug)tableList.get(i)).getScreenshot() + ", other is " + ((Bug)tableList.get(i)).getDocument());
+			//System.out.println("Screenshot name is " + ((Bug)tableList.get(i)).getScreenshot() + ", other is " + ((Bug)tableList.get(i)).getDocument());
 			((DefaultTableModel) table.getModel()).addRow(rowData);	
 		}	
 	}

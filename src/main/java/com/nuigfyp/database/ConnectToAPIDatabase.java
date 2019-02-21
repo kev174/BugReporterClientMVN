@@ -87,35 +87,39 @@ public class ConnectToAPIDatabase {
 	private String nameOfFileToBeSavedToDatabase, returnConnectionString = "";
 	private static Base64Coding base64;
 	private static long sessionId;
+	private static DateTime expiryDateTime;
+	private static String username = "", password = "";
 
 	public String changeStatusInDB(String id) throws SQLException {
 
 		base64 = new Base64Coding();
 		String encodedBugId = base64.encode(id);
 		
-		try {
+		if (checkExpiryDate()) {
+			try {
 
-			URL url = new URL(CHANGE_STATUS_BUG_URL + "changeBugStatus/" + encodedBugId + "/" + encodedSessionId());
-			URLConnection urlCon = url.openConnection();
-			HttpURLConnection http = (HttpURLConnection) urlCon;
-			http.setRequestMethod("PUT"); 
-			http.setDoOutput(true);
-			http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			http.connect();
-			int responseCode = http.getResponseCode();
-			
-			if (responseCode == HttpURLConnection.HTTP_OK) {
-				returnConnectionString = "[" + responseCode + "]" + ": Success Changing Status with Bug ID " + id;
-			} else {
-				returnConnectionString = "[" + responseCode + "]" + ": Failed to Changing Status with Bug ID " + id;
-			}
+				URL url = new URL(CHANGE_STATUS_BUG_URL + "changeBugStatus/" + encodedBugId + "/" + encodedSessionId());
+				URLConnection urlCon = url.openConnection();
+				HttpURLConnection http = (HttpURLConnection) urlCon;
+				http.setRequestMethod("PUT");
+				http.setDoOutput(true);
+				http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+				http.connect();
+				int responseCode = http.getResponseCode();
 
-		} catch (Exception e) {
-			log.error("General Exception at ConnectToAPIDatabase.changeStatusInDB(). " + e);
-			returnConnectionString = "Failed to update Bug with ID " + id;
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+					returnConnectionString = "[" + responseCode + "]" + ": Success Changing Status with Bug ID " + id;
+				} else {
+					returnConnectionString = "[" + responseCode + "]" + ": Failed to Changing Status with Bug ID " + id;
+				}
+
+			} catch (Exception e) {
+				log.error("General Exception at ConnectToAPIDatabase.changeStatusInDB(). " + e);
+				returnConnectionString = "Failed to update Bug with ID " + id;
+			} 
 		}
-		return returnConnectionString; 
 		
+		return returnConnectionString; 	
 	}
 	
 	public String deleteEntry(String id) throws SQLException {
@@ -128,28 +132,30 @@ public class ConnectToAPIDatabase {
 		String Delete_API_URL = DELETE_BUG_URL + "deletebug/" + encodedBugId + "/" + encodedSessionId(); 
 		System.out.println("Bug id is: " + id + ". Encoded it is: " + encodedBugId + ". Sending to " + Delete_API_URL);
 
-		try {
+		if (checkExpiryDate()) {
+			try {
 
-			URL url = new URL(Delete_API_URL);
-			URLConnection urlCon = url.openConnection();
-			HttpURLConnection http = (HttpURLConnection) urlCon;
-			http.setRequestMethod("DELETE"); 
-			http.setDoOutput(true);
-			http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			http.connect();
-			int responseCode = http.getResponseCode();
-			
-			if (responseCode == HttpURLConnection.HTTP_OK) {
-				returnConnectionString = "[" + responseCode + "]" + ": Success Deleting Bug ID Number " + bugId;
-			} else {
-				returnConnectionString = "[" + responseCode + "]" + ": Failed to Delete Bug ID Number " + bugId + ". Please try again.";
-			}
+				URL url = new URL(Delete_API_URL);
+				URLConnection urlCon = url.openConnection();
+				HttpURLConnection http = (HttpURLConnection) urlCon;
+				http.setRequestMethod("DELETE");
+				http.setDoOutput(true);
+				http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+				http.connect();
+				int responseCode = http.getResponseCode();
 
-		} catch (Exception e) {
-			log.error("General Exception at ConnectToAPIDatabase.deleteEntry(). " + e);
-			returnConnectionString = "Failed to delete Bug with ID " + id;
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+					returnConnectionString = "[" + responseCode + "]" + ": Success Deleting Bug ID Number " + bugId;
+				} else {
+					returnConnectionString = "[" + responseCode + "]" + ": Failed to Delete Bug ID Number " + bugId
+							+ ". Please try again.";
+				}
+
+			} catch (Exception e) {
+				log.error("General Exception at ConnectToAPIDatabase.deleteEntry(). " + e);
+				returnConnectionString = "Failed to delete Bug with ID " + id;
+			} 
 		}
-
 		return returnConnectionString; 
 	}
 	
@@ -175,35 +181,36 @@ public class ConnectToAPIDatabase {
 		byte[] JsonConvertedToByteArray = bugConvertedToJson.getBytes(StandardCharsets.UTF_8);
 		int length = JsonConvertedToByteArray.length;
 
-		try {
+		if (checkExpiryDate()) {
+			try {
 
-			URL url = new URL(UPDATE_URL);
-			URLConnection urlCon = url.openConnection();
-			HttpURLConnection http = (HttpURLConnection) urlCon;
-			http.setRequestMethod("PUT"); // POST is another valid option
-			http.setDoOutput(true);
-			http.setFixedLengthStreamingMode(length);
-			http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			http.connect();
-			
-			// transfers the byte-array (Bug json object) over http
-			try (OutputStream os = http.getOutputStream()) {
-				os.write(JsonConvertedToByteArray);
-			}
-	
-			int responseCode = http.getResponseCode();
-			
-			if (responseCode == HttpURLConnection.HTTP_OK) {
-				returnConnectionString = ("[" + responseCode + "]" + ": Updated the database successfully.");
-			} else {
-				returnConnectionString = ("[" + responseCode + "]" + ": Updated to the database failed.");
-			}
+				URL url = new URL(UPDATE_URL);
+				URLConnection urlCon = url.openConnection();
+				HttpURLConnection http = (HttpURLConnection) urlCon;
+				http.setRequestMethod("PUT"); // POST is another valid option
+				http.setDoOutput(true);
+				http.setFixedLengthStreamingMode(length);
+				http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+				http.connect();
 
-		} catch (Exception e) {
-			log.error("General Exception at ConnectToAPIDatabase.updateEntry(). " + e);
-			returnConnectionString = "Failed to update Bug with id " + bug.getId();
+				// transfers the byte-array (Bug json object) over http
+				try (OutputStream os = http.getOutputStream()) {
+					os.write(JsonConvertedToByteArray);
+				}
+
+				int responseCode = http.getResponseCode();
+
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+					returnConnectionString = ("[" + responseCode + "]" + ": Updated the database successfully.");
+				} else {
+					returnConnectionString = ("[" + responseCode + "]" + ": Updated to the database failed.");
+				}
+
+			} catch (Exception e) {
+				log.error("General Exception at ConnectToAPIDatabase.updateEntry(). " + e);
+				returnConnectionString = "Failed to update Bug with id " + bug.getId();
+			} 
 		}
-		
 		return returnConnectionString; 
 	}
 
@@ -226,35 +233,36 @@ public class ConnectToAPIDatabase {
 		byte[] JsonConvertedToByteArray = bugConvertedToJson.getBytes(StandardCharsets.UTF_8);
 		int length = JsonConvertedToByteArray.length;
 
-		try {
+		if (checkExpiryDate()) {
+			try {
 
-			URL url = new URL(POST_BUG_URL + "/" + encodedSessionId());
-			// HttpURLConnection to be used for POST requests
-			URLConnection urlCon = url.openConnection();
-			HttpURLConnection http = (HttpURLConnection) urlCon;
-			http.setRequestMethod("POST"); 
-			http.setDoOutput(true);
-			http.setFixedLengthStreamingMode(length);
-			http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			http.connect();
+				URL url = new URL(POST_BUG_URL + "/" + encodedSessionId());
+				// HttpURLConnection to be used for POST requests
+				URLConnection urlCon = url.openConnection();
+				HttpURLConnection http = (HttpURLConnection) urlCon;
+				http.setRequestMethod("POST");
+				http.setDoOutput(true);
+				http.setFixedLengthStreamingMode(length);
+				http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+				http.connect();
 
-			try (OutputStream os = http.getOutputStream()) {
-				os.write(JsonConvertedToByteArray);
-			}
+				try (OutputStream os = http.getOutputStream()) {
+					os.write(JsonConvertedToByteArray);
+				}
 
-			int responseCode = http.getResponseCode();
-			
-			if (responseCode == HttpURLConnection.HTTP_OK) {
-				returnConnectionString = ("[" + responseCode + "]" + "Success: Adding new entry to database.");
-			} else {
-				returnConnectionString = ("[" + responseCode + "]" + "Failure: Adding new entry to database.");
-			}
+				int responseCode = http.getResponseCode();
 
-		} catch (Exception e) {
-			log.error("General Exception at ConnectToAPIDatabase.addEntry(). " + e);
-			returnConnectionString = ("Failure: Adding entry to database.");
-		} 
-		
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+					returnConnectionString = ("[" + responseCode + "]" + "Success: Adding new entry to database.");
+				} else {
+					returnConnectionString = ("[" + responseCode + "]" + "Failure: Adding new entry to database.");
+				}
+
+			} catch (Exception e) {
+				log.error("General Exception at ConnectToAPIDatabase.addEntry(). " + e);
+				returnConnectionString = ("Failure: Adding entry to database.");
+			} 
+		}
 		return returnConnectionString;
 	}
 	
@@ -328,38 +336,39 @@ public class ConnectToAPIDatabase {
 			
 		Bug aBug = new Bug();
 		
-		try {
-			
-			URL obj = new URL(SpecificBugURL);
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-			con.setRequestMethod("GET");
-			con.setRequestProperty("User-Agent", USER_AGENT);
-			int responseCode = con.getResponseCode();
-						
-			if (responseCode == HttpURLConnection.HTTP_OK) { 
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				String inputLine;
-				StringBuffer response = new StringBuffer();
+		if (checkExpiryDate()) {
+			try {
 
-				while ((inputLine = in.readLine()) != null) {
-					response.append(inputLine);
+				URL obj = new URL(SpecificBugURL);
+				HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+				con.setRequestMethod("GET");
+				con.setRequestProperty("User-Agent", USER_AGENT);
+				int responseCode = con.getResponseCode();
+
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+					BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+					String inputLine;
+					StringBuffer response = new StringBuffer();
+
+					while ((inputLine = in.readLine()) != null) {
+						response.append(inputLine);
+					}
+					in.close();
+
+					JsonParser jp = new JsonParser();
+					JsonElement root = jp.parse(response.toString());
+					JsonObject rootobj = root.getAsJsonObject(); // May be an array, may be an object.	
+					Gson gson = new GsonBuilder().setLenient().create();
+					aBug = gson.fromJson(rootobj, Bug.class);
+
+				} else {
+					System.out.println("GET request Failed!!!");
 				}
-				in.close();
-				
-				JsonParser jp = new JsonParser();
-				JsonElement root = jp.parse(response.toString()); 
-				JsonObject rootobj = root.getAsJsonObject(); // May be an array, may be an object.	
-				Gson gson = new GsonBuilder().setLenient().create();
-				aBug = gson.fromJson(rootobj, Bug.class);
-								
-			} else {
-				System.out.println("GET request Failed!!!");
-			}
-		} catch (Exception e) {
-			log.error("General Exception at ConnectToAPIDatabase.GETSpecificBugObject(). " + e);
-			e.printStackTrace();
-		} 
-		
+			} catch (Exception e) {
+				log.error("General Exception at ConnectToAPIDatabase.GETSpecificBugObject(). " + e);
+				e.printStackTrace();
+			} 
+		}
 		return aBug;
 	}
 
@@ -403,39 +412,46 @@ public class ConnectToAPIDatabase {
 		ArrayList<Bug> buglist = new ArrayList<Bug>();
 		JSONArray jsonArray = null;
 		
-		try {
-			URL url = new URL(GET_ALL_BUGS_URL + "/" + encodedSessionId());
-			//URL url = new URL(GET_ALL_BUGS_URL);
-			URLConnection request = url.openConnection();
-			request.connect();
-			JsonParser jp = new JsonParser(); 
-			JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); // Convert the input stream to a json element
-	
+		if (checkExpiryDate()) {
 			try {
-				jsonArray = new JSONArray(root.toString());
-			} catch (JSONException e) {
-				System.out.println("error in JSONArray.");
-				e.printStackTrace();
-			}
-			
-			for(int n = 0; n < jsonArray.length(); n++) {
-			    JSONObject object = jsonArray.getJSONObject(n);			    
-				Gson gson = new GsonBuilder().setLenient().create();
-				Bug aBug = gson.fromJson(object.toString(), Bug.class);
-				buglist.add(aBug);
-			}
-			
-		} catch (Exception e) {
-			log.error("General Exception at ConnectToAPIDatabase.getAllBugs(). " + e);
-			System.out.println("ConnectToAPIDatabase.getAllBugs Info, " + e);
-			throw e;
-		} 
+				URL url = new URL(GET_ALL_BUGS_URL + "/" + encodedSessionId());
+				//URL url = new URL(GET_ALL_BUGS_URL);
+				URLConnection request = url.openConnection();
+				request.connect();
+				JsonParser jp = new JsonParser();
+				JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); // Convert the input stream to a json element
+
+				try {
+					jsonArray = new JSONArray(root.toString());
+				} catch (JSONException e) {
+					System.out.println("error in JSONArray.");
+					e.printStackTrace();
+				}
+
+				for (int n = 0; n < jsonArray.length(); n++) {
+					JSONObject object = jsonArray.getJSONObject(n);
+					Gson gson = new GsonBuilder().setLenient().create();
+					Bug aBug = gson.fromJson(object.toString(), Bug.class);
+					buglist.add(aBug);
+				}
+
+			} catch (Exception e) {
+				log.error("General Exception at ConnectToAPIDatabase.getAllBugs(). " + e);
+				System.out.println("ConnectToAPIDatabase.getAllBugs Info, " + e);
+				throw e;
+			} 
+		} /*else {
+			System.out.println("Need to get a new Session ID. Username " + username + ", Password " + password);
+		}*/
 		
 		return buglist;
 	}
 	
 	public boolean authentication(String username, String password) {
 
+		this.username = username;
+		this.password = password;
+		
 		String returnedValue = "";		
 		base64 = new Base64Coding();
 		String encodedUserInfo = base64.encode(username + ":" + password);
@@ -453,47 +469,54 @@ public class ConnectToAPIDatabase {
 			return false;
 		}
 
-
 		String[] data = returnedValue.split(":", 2);	
 		String sid = data[0];						// Session ID returned form the REST API.
 		sessionId = Long.parseLong(sid);
 		String expiryDate = data[1];	
-		DateTime sessionExpiryDate = new DateTime(expiryDate);
+		//DateTime sessionExpiryDate = new DateTime(expiryDate);	
 		
-		DateTime currentDate = DateTime.now();
-		DateTime currentTimePlusFive = currentDate.plusMinutes(5);
-		
-		if(sessionExpiryDate.compareTo(currentTimePlusFive) < 1) {
-            System.out.println("currentTimePlusFive is greater than the currentTime. So Yes, This is a Valid Session ID." + sessionId);
-		}
-		
+		// ************ Testing Purposes it will expire after 5 mins so get all should fail
+		expiryDateTime = new DateTime(expiryDate).minusMinutes(4);
+		//checkExpiryDate();
+				
 		//String formattedCurrentTime = currentDate.toString(pattern);
 		// System.out.println("Current Time Formatted is " + formattedCurrentTime);
-
-		/*ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-		executor.scheduleAtFixedRate(timerunner, 5, 5, TimeUnit.SECONDS);*/
 
 		return true;
 	}
 	
-	
-	/*public static Runnable timerunner = new Runnable() {
-		public void run() {
-			System.out.println("I run every 5 Seconds.");
-		}
-	};*/
-	
+	// I CHANGED METHOD sessionExpiryDate as it is not been used. Could change back if anomalies
+	public boolean checkExpiryDate() { 
+
+		DateTime currentDate = DateTime.now();
+
+		System.out.println("CLIENT: Current DateTime Is: " + currentDate + ", Session Expiry DateTime Is: " + expiryDateTime);
+		
+		if (expiryDateTime.compareTo(currentDate) < 1) {
+			System.out.println("CLIENT: The CurrentDate is GREATER than the Expiry Date, So i need a new SessionId: Check Date here => " + expiryDateTime);
+			
+			authentication(username, password);
+			
+			return true;
+		} else if (currentDate.compareTo(expiryDateTime) < 1) {
+			System.out.println("CLIENT: OK : CurrentDate is LESS than SessionExpiryDate...");		
+			return true;
+		} /*else {
+			System.out.println("CLIENT: DateTimes are the SAME.");
+		}*/
+		
+		return false;
+	}
 
 	public String encodedSessionId() {
-		
-		base64 = new Base64Coding();	
-		String sessionIdToString = Long.toString(sessionId);	
+
+		base64 = new Base64Coding();
+		String sessionIdToString = Long.toString(sessionId);
 		String encodedSessionId = base64.encode(sessionIdToString);
 		return encodedSessionId;
-		
+
 	}
-	
-	
+
 	public void timerDelay() {
 		try {
 			TimeUnit.SECONDS.sleep(3);

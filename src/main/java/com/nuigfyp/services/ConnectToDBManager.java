@@ -49,7 +49,7 @@ public class ConnectToDBManager {
 
 				} catch (Exception e) {
 					log.error("Exception at ConnectToDBManager.connectToDBwithAjax(). " + e);
-					System.out.println("Possibly session Expired. " + e);
+					System.out.println("ConnectToDBManager(). Possibly session Expired. " + e);
 					//e.printStackTrace();
 					theView.setStatus("Cannot connect to the Database.");
 				} 

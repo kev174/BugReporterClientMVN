@@ -54,7 +54,7 @@ public class bugReporterView extends JFrame {
 		
 		imagesSetup();	
 		setIconImage(buttonImages[8]);
-		setTitle("Connect To Bug API Updating GUI - MAVEN: User: " + user);
+		setTitle("Bug Reporter:- User: " + user);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 840, 595);	// setBounds(100, 100, 819, 584); increased by 21px
 		contentPane = new JPanel();
@@ -169,13 +169,13 @@ public class bugReporterView extends JFrame {
 		//btnClearTable.setMnemonic(KeyEvent.VK_C);      // add Mnemonic to clear the table
 		dataEntryPanel.add(btnClearTable);
 				
-		chkUploadDocument = new JCheckBox("Upload Document");		
+		chkUploadDocument = new JCheckBox("Add/Remove Document");		
 		chkUploadDocument.setBounds(460, 122, 170, 23);
 		chkUploadDocument.setBorderPainted(isEnabled());
 		chkUploadDocument.setToolTipText("Uncheck box and click Update to remove the file.");
 		dataEntryPanel.add(chkUploadDocument);
 		
-		chkUploadScreenshot = new JCheckBox("Upload Screenshot");
+		chkUploadScreenshot = new JCheckBox("Add/Remove Screenshot");
 		chkUploadScreenshot.setBounds(280 , 122, 170, 23 );
 		chkUploadScreenshot.setBorderPainted(isEnabled());
 		chkUploadScreenshot.setToolTipText("Uncheck box and click Update to remove the file.");

@@ -64,19 +64,6 @@ public class mainController {
 		mainController.theView.viewInHTMLFormat(new viewInHTML());
 		mainController.theView.addEmptyFields(new clearFields());
 		mainController.theView.addJTableListener(new MouseListenerClass(theView)); // calls bug reporter MouseListenerclass.java
-
-		/*// Time difference in hours: REMOVE ME
-		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		String aDate = "2019-01-06 06:40";
-		LocalDateTime toDateTime = LocalDateTime.parse(aDate, formatter);
-		LocalDateTime fromDateTime = LocalDateTime.of(2019, 1, 4, 7, 45);	
-		LocalDateTime tempDateTime = LocalDateTime.from(fromDateTime);
-		String temp = toDateTime.format(formatter);
-		long hours = tempDateTime.until( toDateTime, ChronoUnit.HOURS);
-		System.out.println("hours is: " + hours + ", " + temp);*/
-		
-		//connectToAPIDatabase.authentication("user", "password");
 		
 		setup();
 		loadCheckBoxImages();	
@@ -100,7 +87,6 @@ public class mainController {
 			if (bugFromTableId >= 0) {
 				ArrayList<Bug> bugFromTable = theView.getBugFromTable();
 				ScreenshotManager screenshotManager = new ScreenshotManager();
-				//theView.setStatus("going to bring down the Screenhot file for Bug Id " + bugFromTableId);
 				screenshotManager.viewScreenshotWithAjax(theView, bugFromTableId, bugFromTable);
 			}
 		}
@@ -158,7 +144,9 @@ public class mainController {
 			}
 
 			int reply = JOptionPane.showConfirmDialog(null, "Change Status of this ticket?", "Set Status Of Ticket.",
-					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[4]);
+					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			/*int reply = JOptionPane.showConfirmDialog(null, "Change Status of this ticket?", "Set Status Of Ticket.",
+					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[4]); // shows animated garbage bin*/ 
 
 			String ticketStatus = theView.table.getModel().getValueAt(theView.table.getSelectedRow(), 1).toString();
 			if (reply == 0 && ticketStatus.equals("Open")) { // 0 = Yes to Update Status, and No = 1

@@ -156,6 +156,7 @@ public class ConnectToAPIDatabase {
 				returnConnectionString = "Failed to delete Bug with ID " + id;
 			} 
 		}
+		
 		return returnConnectionString; 
 	}
 	
@@ -465,7 +466,7 @@ public class ConnectToAPIDatabase {
 			returnedValue = (base64.decode(root.toString()));	
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToAPIDatabase.authentication(). " + e);
-			System.out.println("Connection failed possibly due to the User Not existing: ConnectToAPIDatabase.authentication() Exception, " + e);
+			//System.out.println("Connection failed possibly due to the User Not existing: ConnectToAPIDatabase.authentication() Exception, " + e);
 			return false;
 		}
 
@@ -493,7 +494,7 @@ public class ConnectToAPIDatabase {
 		System.out.println("CLIENT: Current DateTime Is: " + currentDate + ", Session Expiry DateTime Is: " + expiryDateTime);
 		
 		if (expiryDateTime.compareTo(currentDate) < 1) {
-			System.out.println("CLIENT: The CurrentDate is GREATER than the Expiry Date, So i need a new SessionId: Check Date here => " + expiryDateTime);
+			System.out.println("CLIENT: The CurrentDate is GREATER than the Expiry Date, So i need a NEW SessionId.");
 			
 			authentication(username, password);
 			

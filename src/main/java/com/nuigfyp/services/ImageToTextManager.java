@@ -105,8 +105,4 @@ public String imageToTextwithAjax(final bugReporterView theView, final String im
 		return loading;
 	}
 	
-	
-	public void DisplayMessageInJOptionPane(String title, String message) {
-		JOptionPane.showMessageDialog(theView, title, message, JOptionPane.INFORMATION_MESSAGE);
-	}
 }

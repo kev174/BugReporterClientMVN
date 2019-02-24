@@ -74,7 +74,7 @@ public class filesController {
 	// This Method reads a file given a full directory such as "/usr/local/share/SmtProperties/properties.txt"
 	// Might have to replace "\\" with "\". use .getAbsolutePath. Or root = "C:\\Users\\i348229\\Pictures\\";
 	// where root is a method above and returns a Windows or Linux directory.
-	public static String getdatabase_URIInfo() throws IOException {
+	/*public static String getdatabase_URIInfo() throws IOException {
 		
 		// REMEBER to close file when finished reading or writing
 		// InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream("show-all-bugs-blue.png");
@@ -120,5 +120,5 @@ public class filesController {
 
 		//System.out.println("database_URI contains " + line);
 		return line;
-	}
+	}*/
 }

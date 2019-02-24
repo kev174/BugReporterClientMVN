@@ -69,18 +69,17 @@ public class UpdateDBManager {
 					if (theView.screenshotTableEqualsYes() && (!theView.chkUploadScreenshot.isSelected())) {
 						int reply = JOptionPane.showConfirmDialog(null,
 								"This Screenshot will be removed from the database.", "Screenshot marked for Deletion.",
-								JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[6]);
+								JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[4]);
 						if (reply == JOptionPane.YES_OPTION) {
 							bug.setScreenshot("No");
 						}
 					}
 					
 					if (theView.documentTableEqualsYes() && (!theView.chkUploadDocument.isSelected())) {
-						System.out.println(
-								"Document Table says 'Yes', but Document upload is Unticked. So setting setDocument() to 'No'.");
+						//System.out.println("Document Table says 'Yes', but Document upload is Unticked. So setting setDocument() to 'No'.");
 						int reply = JOptionPane.showConfirmDialog(null,
 								"This Document will be removed from the database.", "Document marked for Deletion.",
-								JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[6]);
+								JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[4]);
 						if (reply == JOptionPane.YES_OPTION) {
 							bug.setDocument("No");
 						}
@@ -94,7 +93,7 @@ public class UpdateDBManager {
 					bug.setProject(++project);
 					bug.setBugClassification(classificationIndex);
 
-					System.out.println("Update: Screenshot Changed[0] " + filesChanged[0] + ", Screenshot Changed[1] " + filesChanged[1]);
+					//System.out.println("Update: Screenshot Changed[0] " + filesChanged[0] + ", Screenshot Changed[1] " + filesChanged[1]);
 
 					if (filesChanged[0] == 1) {
 
@@ -102,7 +101,7 @@ public class UpdateDBManager {
 						// If Screenshot has changed then i have to upload this file by calling below
 						// and adding to bug.setScreenshot(...);
 						// ----------------------------------------------------------------------------------------------------------------
-						System.out.println("A Screenshot fileChanged[0] " + filesChanged[0]);
+						//System.out.println("A Screenshot fileChanged[0] " + filesChanged[0]);
 
 						String postResponse = connectToAPIDatabase.POSTRequest(screenshotPath[0], bug.getProject());
 						if (!postResponse.equals("No")) { // % POSTResponse extracts a String 'No' from Response.entity() %
@@ -125,8 +124,7 @@ public class UpdateDBManager {
 						// If Document has changed then i have to upload this file by calling below and
 						// adding to bug.setDocument(...);
 						// ------------------------------------------------------------------------------------------------------------
-						System.out.println("A Document fileChanged[1] " + filesChanged[1] + ", with directroy of "
-								+ documentPath[0]);
+						//System.out.println("A Document fileChanged[1] " + filesChanged[1] + ", with directroy of " + documentPath[0]);
 
 						String postResponse = connectToAPIDatabase.POSTRequest(documentPath[0], bug.getProject());
 						if (!postResponse.equals("No")) { // % POSTResponse extracts a String 'No' from Response.entity() %

@@ -67,7 +67,7 @@ public class ScreenshotManager  {
 					if (!scrDir.equals("No") && (!checkIfScreenshotFileExists(DOWNLOADED_FILES + "\\" + screenFile.getName()))) {
 					
 						try {
-							theView.setStatus("ScreenShotManager - 2: going to bring down the Screenhot file for Bug Id " + bugFromTableId);
+							theView.setStatus("Downloading the Screenhot file for Bug Id " + bugFromTableId);
 							ConnectToAPIDatabase.GETRequest(screenFile.getName());
 							
 						} catch (Exception e) {

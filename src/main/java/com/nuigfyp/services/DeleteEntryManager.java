@@ -44,7 +44,7 @@ public class DeleteEntryManager {
 				try {
 					
 					returnConnectionString = connectToAPIDatabase.deleteEntry(primaryKey);
-					System.out.println("retruned " + returnConnectionString);
+					//System.out.println("returned " + returnConnectionString);
 
 				} catch (ArrayIndexOutOfBoundsException | SQLException oob) {
 					DisplayMessageInJOptionPane("Select valid item from Table", "Select Valid Item.");

@@ -11,7 +11,7 @@ public class ImagesManager {
 
 	private Image[] buttonImages = new Image[9];
 	private ImageIcon[] jtableImages = new ImageIcon[2];
-	private ImageIcon[] jlabelImages = new ImageIcon[7];
+	private ImageIcon[] jlabelImages = new ImageIcon[9];
 	private final static Logger log = Logger.getLogger(ImagesManager.class);
 	private final int imageX = 166, imageY = 36;
 
@@ -37,15 +37,10 @@ public class ImagesManager {
 					.getImage().getScaledInstance(imageX, imageY, Image.SCALE_DEFAULT);
 			buttonImages[6] = new ImageIcon(this.getClass().getClassLoader().getResource("F_Change_Status.png"))
 					.getImage().getScaledInstance(imageX, imageY, Image.SCALE_DEFAULT);
-			/*buttonImages[6] = new ImageIcon(this.getClass().getClassLoader().getResource("database_orange.png"))
-					.getImage().getScaledInstance(imageX, imageY, Image.SCALE_DEFAULT);*/
-			buttonImages[7] = new ImageIcon(this.getClass().getClassLoader().getResource("view-html-format.png"))   //button_click-to-view-files.png
+			buttonImages[7] = new ImageIcon(this.getClass().getClassLoader().getResource("view-html-format.png"))   
 					.getImage().getScaledInstance(180, 84, Image.SCALE_DEFAULT);
-			
-			// get OS type and assign appropriate image
 			buttonImages[8] = new ImageIcon(this.getClass().getClassLoader().getResource("bug.png")).getImage()
-					.getScaledInstance(70, 70, Image.SCALE_DEFAULT);		
-			
+					.getScaledInstance(70, 70, Image.SCALE_DEFAULT);				
 			
 		} catch (Exception e) {
 			log.error("General Exception at ImagesManager.buttonImages(). " + e);
@@ -100,9 +95,12 @@ public class ImagesManager {
 		.getImage().getScaledInstance(imageDimension / 2, imageDimension / 2, Image.SCALE_DEFAULT));
 		
 		jlabelImages[5] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("graph.jpg"))
+				.getImage().getScaledInstance(imageDimension / 2, imageDimension / 2, Image.SCALE_DEFAULT));		
+		jlabelImages[6] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("ringing_bells.gif")) 			
 				.getImage().getScaledInstance(imageDimension / 2, imageDimension / 2, Image.SCALE_DEFAULT));
-		
-		jlabelImages[6] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("ringing_bells.gif")) 
+		jlabelImages[7] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("image_to_text.jfif")) 
+				.getImage().getScaledInstance(imageDimension / 2, imageDimension / 2, Image.SCALE_DEFAULT));
+		jlabelImages[8] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("status_change.png")) 
 				.getImage().getScaledInstance(imageDimension / 2, imageDimension / 2, Image.SCALE_DEFAULT));
 
 		return jlabelImages;

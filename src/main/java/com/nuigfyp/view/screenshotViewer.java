@@ -12,9 +12,12 @@ public class screenshotViewer extends JFrame {
 
 	private JPanel contentPane;
 	public Image resizedScreenshotImage;
+	private Image bug;
 
 	public screenshotViewer(Image image, String fileName) {				
 
+		bug = new ImageIcon(this.getClass().getClassLoader().getResource("bug.png")).getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT);	
+		setIconImage(bug);
 		setTitle("Screenshot Viewer");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(300, 0, 750, 750);

@@ -144,7 +144,7 @@ public class mainController {
 			}
 
 			int reply = JOptionPane.showConfirmDialog(null, "Change Status of this ticket?", "Set Status Of Ticket.",
-					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[8]);
 			/*int reply = JOptionPane.showConfirmDialog(null, "Change Status of this ticket?", "Set Status Of Ticket.",
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[4]); // shows animated garbage bin*/ 
 
@@ -333,8 +333,8 @@ public class mainController {
 					}
 					
 					int reply = JOptionPane.showConfirmDialog(null,
-							"Do you wish to extract the text from this screenshot?", "Extract text from image.",
-							JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[6]);
+							"Do you wish to extract the text from this screenshot?", "Extract Text from Image.",
+							JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[7]);
 					if (reply == 0) {
 						// Works now due to modifying description Varchar(4096) in the Database
 						ImageToTextManager itt = new ImageToTextManager();
@@ -343,11 +343,10 @@ public class mainController {
 							
 					filesChanged[0] = 1;
 					// fileInfo[0] format is "'C:\\Users\\kevin\\Desktop\\file_delete.png'.
-					System.out.println("Screenshot file name and dir is - fileInfo[0] " + fileInfo[0] + ", File name is " + fileInfo[1]);				
+					//System.out.println("Screenshot file name and dir is - fileInfo[0] " + fileInfo[0] + ", File name is " + fileInfo[1]);				
 					screenshotPath[0] = fileInfo[0];
 					screenshotPath[1] = fileInfo[1]; // probably not required!!!
 				} catch (NumberFormatException ex) {
-					System.out.println("getScreenshotPath: " + ex);
 		        	theView.setStatus("A valid image file needs to be seleceted.");
 					log.error("General Exception at mainController.getScreenshotPath(). " + e);
 				}
@@ -380,11 +379,10 @@ public class mainController {
 					}
 						
 					filesChanged[1] = 1;
-					System.out.println("Document - filesChanged[1] should be 1 " + filesChanged[1]);
+					//System.out.println("Document - filesChanged[1] should be 1 " + filesChanged[1]);
 					documentPath[0] = fileInfo[0]; 
 					documentPath[1] = fileInfo[1]; 
 				} catch (NumberFormatException ex) {
-					System.out.println("getDocumentPath: " + ex);
 					theView.setStatus("A valid pdf file needs to be seleceted.");
 					log.error("General Exception at mainController.getDocumentPath(). " + e);
 				}
@@ -414,11 +412,11 @@ public class mainController {
 		File f = new File(fileDirectory);
 
 		if(f.exists() && !f.isDirectory()) { 
-			System.out.println("CheckIfFileExists() - EXISTS: " + fileDirectory);
+			//System.out.println("CheckIfFileExists() - EXISTS: " + fileDirectory);
 		    return true;
 		}
 		
-		System.out.println("CheckIfFileExists() - Does NOT Exist: " + fileDirectory);
+		//System.out.println("CheckIfFileExists() - Does NOT Exist: " + fileDirectory);
 		return false;
 	}
 	

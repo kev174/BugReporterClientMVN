@@ -2,14 +2,8 @@ package com.nuigfyp.controller;
 
 import java.awt.event.*;
 import java.io.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import javax.swing.*;
-
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import com.nuigfyp.database.ConnectToAPIDatabase;
@@ -39,11 +33,11 @@ public class mainController {
 	private String[] documentPath = new String[2], screenshotPath = new String[2];
 	private int[] filesChanged = new int[]{0, 0, 0, 0};
 	public FileInputStream screenshotInputStream, documentInputStream;
-	private static String OS;
+	//private String OS;
 	private ImagesManager im = new ImagesManager();
 	private ImageIcon motionlessAjaxLoader = null;
 	private ImageIcon[] jlabelImages = new ImageIcon[5];
-	private String screenshotDBDirectory = "", documentDBDirectory = "", documentReaderCMD = "";
+	private String screenshotDBDirectory = "", documentDBDirectory = "";
 
 	
 	public mainController(bugReporterView theView, ConnectToAPIDatabase connectToAPIDatabase) {
@@ -116,14 +110,16 @@ public class mainController {
 				theView.setStatus("Select a valid row to update from the table.");
 				return;
 			}
+			
 			UpdateDBManager uem = new UpdateDBManager();
 			theView.setStatus(uem.updateEntrywithAjax(theView, filesChanged, screenshotDBDirectory, screenshotPath, documentDBDirectory, documentPath));	
-			
 			theView.clearTable();		
+			
 			try {
 				theView.setTable((connectToAPIDatabase.getAllBugs()));
 			} catch (Exception e1) {
 				e1.printStackTrace();
+				log.error("General Exception at mainController.updateDB(). " + e1);
 			}	
 			
 			filesChanged = new int[] { 0, 0, 0, 0 };
@@ -145,21 +141,19 @@ public class mainController {
 
 			int reply = JOptionPane.showConfirmDialog(null, "Change Status of this ticket?", "Set Status Of Ticket.",
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[8]);
-			/*int reply = JOptionPane.showConfirmDialog(null, "Change Status of this ticket?", "Set Status Of Ticket.",
-					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[4]); // shows animated garbage bin*/ 
 
 			String ticketStatus = theView.table.getModel().getValueAt(theView.table.getSelectedRow(), 1).toString();
-			if (reply == 0 && ticketStatus.equals("Open")) { // 0 = Yes to Update Status, and No = 1
+			if (reply == 0 && ticketStatus.equals("Open")) { 
 				ChangeStatusManager csm = new ChangeStatusManager();
 				theView.setStatus(csm.changeStatusWithAjax(theView, id));
 			}
 
-			theView.clearTable();			
+			theView.clearTable();	
+			
 			try {
 				theView.setTable((connectToAPIDatabase.getAllBugs()));
 			} catch (Exception ex) {
 				log.error("General Exception at mainController.statusChangeInDB(). " + ex);
-				ex.printStackTrace();
 			}
 			
 		}
@@ -178,7 +172,6 @@ public class mainController {
 				
 			} catch (Exception ex) {
 				log.error("General Exception at mainController.searchDB(). " + ex);
-				ex.printStackTrace();
 			}
 			
 			if(returnBugList.size() > 0) {
@@ -200,7 +193,6 @@ public class mainController {
 				theView.setTable((connectToAPIDatabase.getAllBugs()));
 			} catch (Exception ex) {
 				log.error("General Exception at mainController.addToDB(). " + ex);
-				ex.printStackTrace();
 			}	
 			
 			filesChanged = new int[] { 0, 0, 0, 0 };	
@@ -250,7 +242,7 @@ public class mainController {
 			try {
 				theView.setTable((connectToAPIDatabase.getAllBugs()));
 			} catch (Exception e1) {
-				e1.printStackTrace();
+				log.error("General Exception at mainController.deleteEntry(). " + e1);
 			}
 		}
 	}
@@ -271,11 +263,12 @@ public class mainController {
 		jlabelImages = im.loadCheckBoxImages(imageDimension);
 		motionlessAjaxLoader = new ImageIcon(jlabelImages[3].getImage());
 
-		OS = OperatingSystemEnvironment.getOperatingSystem();
-		documentReaderCMD = OperatingSystemEnvironment.pdfReaderCMD();
+		//OS = OperatingSystemEnvironment.getOperatingSystem();
+		//documentReaderCMD = OperatingSystemEnvironment.pdfReaderCMD();
 		
 		String downloadedFilesStoredInThisDirectory = System.getProperty("user.dir") + "\\Downloaded_Files";
 		File directory = new File(downloadedFilesStoredInThisDirectory);
+		
 	    if (!directory.exists()){
 	        directory.mkdir();
 	    }   
@@ -341,9 +334,7 @@ public class mainController {
 						theView.descriptionArea.setText(itt.imageToTextwithAjax(theView, fileInfo[0]));
 					}
 							
-					filesChanged[0] = 1;
-					// fileInfo[0] format is "'C:\\Users\\kevin\\Desktop\\file_delete.png'.
-					//System.out.println("Screenshot file name and dir is - fileInfo[0] " + fileInfo[0] + ", File name is " + fileInfo[1]);				
+					filesChanged[0] = 1;				
 					screenshotPath[0] = fileInfo[0];
 					screenshotPath[1] = fileInfo[1]; // probably not required!!!
 				} catch (NumberFormatException ex) {
@@ -379,7 +370,6 @@ public class mainController {
 					}
 						
 					filesChanged[1] = 1;
-					//System.out.println("Document - filesChanged[1] should be 1 " + filesChanged[1]);
 					documentPath[0] = fileInfo[0]; 
 					documentPath[1] = fileInfo[1]; 
 				} catch (NumberFormatException ex) {
@@ -390,8 +380,7 @@ public class mainController {
 		}
 	}
 	
-	// Eclipse states this should start with Uppercase
-	class clearFields implements ActionListener {
+	public class clearFields implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
 			try {
@@ -412,20 +401,18 @@ public class mainController {
 		File f = new File(fileDirectory);
 
 		if(f.exists() && !f.isDirectory()) { 
-			//System.out.println("CheckIfFileExists() - EXISTS: " + fileDirectory);
 		    return true;
 		}
 		
-		//System.out.println("CheckIfFileExists() - Does NOT Exist: " + fileDirectory);
 		return false;
 	}
 	
 	
-	public void timerDelay() {
+	/*public void timerDelay() {
 		try {
 			TimeUnit.SECONDS.sleep(2);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-	}
+	}*/
 }

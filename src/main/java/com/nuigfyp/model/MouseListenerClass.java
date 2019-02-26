@@ -45,7 +45,7 @@ public class MouseListenerClass implements MouseListener {
 
 		bugListFromJTable = theView.getBugFromTable();
 		int row = theView.table.getSelectedRow();
-		Bug bug = new Bug(); // reduce to one line of code
+		Bug bug = new Bug();
 		bug = bugListFromJTable.get(row);
 
 		theView.recorderField.setText(bug.getReporterName());
@@ -62,10 +62,8 @@ public class MouseListenerClass implements MouseListener {
 		String screenshotFileName = screenFile.getName();
 
 		// Screenshot: displaying the Screenshot on the JButton
-
 		if (((Bug) theView.list.get(row)).getScreenshot().equals("No")) {
-			System.out.println("Screenshot set in <Array Bug> is No, so image should not be in focus. "
-					+ ((Bug) theView.list.get(row)).getScreenshot());
+			// System.out.println("Screenshot set in <Array Bug> is No, so image should not be in focus. " + ((Bug) theView.list.get(row)).getScreenshot());
 			theView.btnScreenshot.setIcon(new ImageIcon(jlabelImages[0].getImage()));
 			theView.btnScreenshot.setEnabled(false);
 			theView.chkUploadScreenshot.setSelected(false);
@@ -107,7 +105,9 @@ public class MouseListenerClass implements MouseListener {
 				theView.btnScreenshot.setEnabled(true);
 
 			} else {
-				theView.btnScreenshot.setIcon(new ImageIcon(jlabelImages[0].getImage()));
+				//theView.btnScreenshot.setIcon(new ImageIcon(jlabelImages[0].getImage()));
+				theView.btnScreenshot.setText("Click to Download File.");
+				System.out.println("file deos not exist download it");
 			}
 		}
 
@@ -139,20 +139,21 @@ public class MouseListenerClass implements MouseListener {
 					System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
 					document = PDDocument.load(file);
 					PDFRenderer renderer = new PDFRenderer(document);
-					image = renderer.renderImage(0); // page number 0
+					image = renderer.renderImage(0); // PDF page number 0
 
 				} catch (Exception ex) {
 					if (ex instanceof FileNotFoundException || ex instanceof IOException) {
 						theView.btnPDF.setIcon(new ImageIcon(jlabelImages[1].getImage()));
 						log.error("FileNotFoundException, IOException at MouseListenerClass.mouseClicked(). " + ex);
 					}
+					
 					theView.btnPDF.setIcon(new ImageIcon(jlabelImages[1].getImage()));
+					
 				} finally {
 					try {
 						document.close();
 					} catch (IOException ioe) {
 						log.error("General Exception at MouseListenerClass.mouseClicked(). " + ioe);
-						ioe.printStackTrace();
 					}
 				}
 
@@ -170,20 +171,14 @@ public class MouseListenerClass implements MouseListener {
 		}
 
 		theView.btnActive.setEnabled(true);
-		// Removes image labels and Change Status Button (grayed out)
+
 		if (theView.list.get(row).getActive() == 0) {
 			// If ticket is closed then the screenshot and pdf label gets the default image
-			/*theView.btnScreenshot.setIcon(new ImageIcon(jlabelImages[0].getImage()));
-			theView.btnPDF.setIcon(new ImageIcon(jlabelImages[1].getImage()));*/
 			theView.btnActive.setEnabled(false);
 			theView.btnScreenshot.setEnabled(false);
 			theView.btnPDF.setEnabled(false);
 		}
-		/*if (theView.list.get(row).getActive() == 1) {
-			theView.btnActive.setEnabled(true);
-			theView.btnScreenshot.setEnabled(true);
-			theView.btnPDF.setEnabled(true);
-		}*/
+
 	}
 
 	@Override

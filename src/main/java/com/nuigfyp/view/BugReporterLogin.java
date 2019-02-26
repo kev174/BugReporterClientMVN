@@ -31,20 +31,20 @@ public class BugReporterLogin extends JFrame {
 	private JTextField txtUser;
 	private JTextField txtPassword;
 	private JLabel consoleLabel;
-	private Image bug;	
+	private Image bug;
 	private final static Logger log = Logger.getLogger(AddEntryManager.class);
 	private ImageIcon ajaxLoader = null, motionlessAjaxLoader = null;
 	private ConnectToAPIDatabase connectToAPIDatabase;
 	private JLabel bugLabel;
-	
 
 	/**
 	 * Create the frame.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BugReporterLogin() {
-		
-		bug = new ImageIcon(this.getClass().getClassLoader().getResource("bug.png")).getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT);	
+
+		bug = new ImageIcon(this.getClass().getClassLoader().getResource("bug.png")).getImage().getScaledInstance(120,
+				120, Image.SCALE_DEFAULT);
 		setIconImage(bug);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 382, 295);
@@ -55,10 +55,10 @@ public class BugReporterLogin extends JFrame {
 		setTitle("Bug Reporter Login");
 
 		bugLabel = new JLabel("");
-		bugLabel.setIcon(new ImageIcon(bug));		
+		bugLabel.setIcon(new ImageIcon(bug));
 		bugLabel.setBounds(229, 11, 137, 180);
 		contentPane.add(bugLabel);
-		
+
 		consoleLabel = new JLabel("Select User");
 		consoleLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		consoleLabel.setBounds(32, 21, 158, 29);
@@ -69,23 +69,19 @@ public class BugReporterLogin extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Kevin", "Desmond" }));
 		comboBox.setBounds(32, 62, 158, 23);
 		contentPane.add(comboBox);
-		
+
 		JButton btnNewButton = new JButton("Submit");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				consoleLabel.setText("Checking Database.");
-				//consoleLabel.repaint();
-				//consoleLabel.setVisible(true);
 
 				String username = txtUser.getText();
 				String password = txtPassword.getText();
 				String user = String.valueOf(comboBox.getSelectedItem());
-				
-				
-				//launchMainGUI(username, password, user);
+
+				// launchMainGUI(username, password, user);
 				validLoginUser(username, password, user);
-					
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -117,30 +113,27 @@ public class BugReporterLogin extends JFrame {
 		txtPassword.setColumns(10);
 	}
 
-	
-	public void launchMainGUI(String username, String password, String user) {
-		
-		bugReporterView frame = new bugReporterView(user);
-		ConnectToAPIDatabase connectToAPIDatabase = new ConnectToAPIDatabase(); 
-		
-		boolean validLogin = connectToAPIDatabase.authentication(username, password);
-		
-		if(validLogin) {
-			new mainController( frame, connectToAPIDatabase);
-			frame.setVisible(true);
-			
-			this.setVisible(false);
-			
-		} else {
-			consoleLabel.setText("Incorrect Login.");
-		}
-	}
+	/*
+	 * public void launchMainGUI(String username, String password, String user) {
+	 * 
+	 * bugReporterView frame = new bugReporterView(user); ConnectToAPIDatabase
+	 * connectToAPIDatabase = new ConnectToAPIDatabase();
+	 * 
+	 * boolean validLogin = connectToAPIDatabase.authentication(username, password);
+	 * 
+	 * if(validLogin) { new mainController( frame, connectToAPIDatabase);
+	 * frame.setVisible(true);
+	 * 
+	 * this.setVisible(false);
+	 * 
+	 * } else { consoleLabel.setText("Incorrect Login."); } }
+	 */
 
-	
 	public void validLoginUser(final String username, final String password, final String user) {
 
-		int imageDimension = 110; 
-		ajaxLoader = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("rotating.gif")).getImage().getScaledInstance(imageDimension, imageDimension, Image.SCALE_DEFAULT));
+		int imageDimension = 110;
+		ajaxLoader = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("rotating.gif"))
+				.getImage().getScaledInstance(imageDimension, imageDimension, Image.SCALE_DEFAULT));
 		final JDialog loading = loadingModel();
 		connectToAPIDatabase = new ConnectToAPIDatabase();
 
@@ -151,13 +144,13 @@ public class BugReporterLogin extends JFrame {
 				bugLabel.setIcon(ajaxLoader);
 				bugReporterView frame = new bugReporterView(user);
 				boolean validLogin = connectToAPIDatabase.authentication(username, password);
-				
-				if(validLogin) {
-					
+
+				if (validLogin) {
+
 					new mainController(frame, connectToAPIDatabase);
-					frame.setVisible(true);				
+					frame.setVisible(true);
 					setVisible(false);
-					
+
 				} else {
 					consoleLabel.setText("Incorrect Login.");
 					setIconImage(bug);
@@ -180,7 +173,6 @@ public class BugReporterLogin extends JFrame {
 			worker.get();
 		} catch (Exception e) {
 			log.error("General Exception at bugReporterLogin.validLoginUser(). " + e);
-			//e.printStackTrace();
 		}
 
 	}

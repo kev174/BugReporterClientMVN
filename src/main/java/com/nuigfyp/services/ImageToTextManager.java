@@ -5,15 +5,10 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
-
 import org.apache.log4j.Logger;
-
-import com.nuigfyp.database.ConnectToAPIDatabase;
 import com.nuigfyp.view.bugReporterView;
-
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
@@ -23,22 +18,17 @@ public class ImageToTextManager {
 	private final static Logger log = Logger.getLogger(AddEntryManager.class);
 	private ImageIcon ajaxLoader = null, motionlessAjaxLoader = null;
 	private ImageIcon[] jlabelImages = new ImageIcon[5];
-	private static bugReporterView theView;
 	private ImagesManager imagesManager = new ImagesManager();
-	@SuppressWarnings("unused")
-	private ConnectToAPIDatabase connectToAPIDatabase;
 	private String imgText = "";
 	
 	
 public String imageToTextwithAjax(final bugReporterView theView, final String imageLocation) {
 		
-		// === this is going to be the dimension of the two pdf, screenshot JButtons
 		int imageDimension = theView.btnScreenshot.getHeight(); // 157
 		jlabelImages = imagesManager.loadCheckBoxImages(imageDimension);
 		ajaxLoader = new ImageIcon(jlabelImages[2].getImage());
 		motionlessAjaxLoader = new ImageIcon(jlabelImages[3].getImage());
 		final JDialog loading = loadingModel();
-		connectToAPIDatabase = new ConnectToAPIDatabase();				
 		
 		SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
 
@@ -50,11 +40,12 @@ public String imageToTextwithAjax(final bugReporterView theView, final String im
 				ITesseract instance = new Tesseract();
 
 				try {
-					imgText = instance.doOCR(new File(imageLocation));	
+					
+					imgText = instance.doOCR(new File(imageLocation));						
 					return imgText;
-				} catch (TesseractException e) {
-					e.getMessage();
-					return "Error while reading image";
+					
+				} catch (TesseractException e) {					
+					return "Error while reading image" + e.getMessage();
 				}
 			}
 
@@ -71,7 +62,7 @@ public String imageToTextwithAjax(final bugReporterView theView, final String im
 		try {
 			worker.get();
 		} catch (Exception e) {
-			log.error("General Exception at DeleteEntryManager.deleteEntrywithAjax(). " + e);
+			log.error("General Exception at imageToTextwithAjax.imageToTextwithAjax(). " + e);
 			e.printStackTrace();
 		}
 		

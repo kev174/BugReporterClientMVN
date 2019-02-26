@@ -5,7 +5,8 @@ public class OperatingSystemEnvironment {
 
 	public static String getOperatingSystem() {
 
-		String localOS = System.getProperty("os.name").toLowerCase();		
+		String localOS = System.getProperty("os.name").toLowerCase();	
+		
 		if (localOS.indexOf("win") >= 0) {
 			return "Windows";
 		} else if (localOS.indexOf("lin") >= 0) {
@@ -17,7 +18,8 @@ public class OperatingSystemEnvironment {
 	
 	public static String pdfReaderCMD() {
 
-		String localOS = System.getProperty("os.name").toLowerCase();		
+		String localOS = System.getProperty("os.name").toLowerCase();	
+		
 		if (localOS.indexOf("win") >= 0) {
 			return ("rundll32 url.dll, FileProtocolHandler ");
 		} else if (localOS.indexOf("lin") >= 0) {

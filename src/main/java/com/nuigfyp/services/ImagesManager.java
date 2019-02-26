@@ -15,7 +15,7 @@ public class ImagesManager {
 	private final static Logger log = Logger.getLogger(ImagesManager.class);
 	private final int imageX = 166, imageY = 36;
 
-	// www.iconfinder.com     http://buttonoptimizer.com/(can add Image to it
+	// www.iconfinder.com: http://buttonoptimizer.com/(can add Image to it
 	// https://www.flaticon.com/free-icons/database	
 	// https://www.w3schools.com/colors/colors_names.asp
 	

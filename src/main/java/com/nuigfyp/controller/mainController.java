@@ -33,7 +33,6 @@ public class mainController {
 	private String[] documentPath = new String[2], screenshotPath = new String[2];
 	private int[] filesChanged = new int[]{0, 0, 0, 0};
 	public FileInputStream screenshotInputStream, documentInputStream;
-	//private String OS;
 	private ImagesManager im = new ImagesManager();
 	private ImageIcon motionlessAjaxLoader = null;
 	private ImageIcon[] jlabelImages = new ImageIcon[5];
@@ -44,8 +43,8 @@ public class mainController {
 		
 		this.connectToAPIDatabase = connectToAPIDatabase;
 		mainController.theView = theView;
-		mainController.theView.viewAnalytics(new viewAnalytics());   // Analytics. 
-		mainController.theView.viewScreenshot(new viewScreenshot()); // === Call method within this class to the ScreenshotManager
+		mainController.theView.viewAnalytics(new viewAnalytics());   
+		mainController.theView.viewScreenshot(new viewScreenshot()); 
 		mainController.theView.viewPdf(new viewPDF());
 		mainController.theView.addConnectToDB(new connectToDB());
 		mainController.theView.addEntryToDB(new addToDB());
@@ -57,10 +56,11 @@ public class mainController {
 		mainController.theView.uploadDocument(new getDocumentPath());
 		mainController.theView.viewInHTMLFormat(new viewInHTML());
 		mainController.theView.addEmptyFields(new clearFields());
-		mainController.theView.addJTableListener(new MouseListenerClass(theView)); // calls bug reporter MouseListenerclass.java
+		mainController.theView.addJTableListener(new MouseListenerClass(theView)); 
 		
 		setup();
 		loadCheckBoxImages();	
+		
 	}
 	
 	
@@ -118,7 +118,6 @@ public class mainController {
 			try {
 				theView.setTable((connectToAPIDatabase.getAllBugs()));
 			} catch (Exception e1) {
-				e1.printStackTrace();
 				log.error("General Exception at mainController.updateDB(). " + e1);
 			}	
 			
@@ -129,7 +128,6 @@ public class mainController {
 	class statusChangeInDB implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
-			// this try/catch ensures a valid id is selected from the table
 			int id = 0;
 			
 			try {
@@ -239,6 +237,7 @@ public class mainController {
 			}
 									
 			theView.clearTable();
+			
 			try {
 				theView.setTable((connectToAPIDatabase.getAllBugs()));
 			} catch (Exception e1) {
@@ -306,7 +305,6 @@ public class mainController {
 			if (screenshotIsSelected) {
 				try {
 					
-					// ******** PASS THEVIEW so the file chooser can set the text to the Description ********
 					fileInfo = filesController.selectBufferedImage(theView);
 					
 					if (fileInfo[0] == null) {
@@ -329,14 +327,14 @@ public class mainController {
 							"Do you wish to extract the text from this screenshot?", "Extract Text from Image.",
 							JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, jlabelImages[7]);
 					if (reply == 0) {
-						// Works now due to modifying description Varchar(4096) in the Database
+						theView.setStatus("Extracting Text from Image.");
 						ImageToTextManager itt = new ImageToTextManager();
 						theView.descriptionArea.setText(itt.imageToTextwithAjax(theView, fileInfo[0]));
 					}
 							
 					filesChanged[0] = 1;				
 					screenshotPath[0] = fileInfo[0];
-					screenshotPath[1] = fileInfo[1]; // probably not required!!!
+					screenshotPath[1] = fileInfo[1]; 
 				} catch (NumberFormatException ex) {
 		        	theView.setStatus("A valid image file needs to be seleceted.");
 					log.error("General Exception at mainController.getScreenshotPath(). " + e);
@@ -407,12 +405,4 @@ public class mainController {
 		return false;
 	}
 	
-	
-	/*public void timerDelay() {
-		try {
-			TimeUnit.SECONDS.sleep(2);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
-	}*/
 }

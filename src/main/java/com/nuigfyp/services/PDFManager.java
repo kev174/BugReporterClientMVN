@@ -29,7 +29,6 @@ public class PDFManager {
 	
 	public void viewPDFwithAjax(final bugReporterView theView, final int bugFromTableId, final ArrayList<Bug> bugArraylistFromTable) {
 
-		// === this is going to be the dimension of the two pdf, screenshot JButtons
 		int imageDimension = theView.btnScreenshot.getHeight(); // 157
 		jlabelImages = imagesManager.loadCheckBoxImages(imageDimension);
 		ajaxLoader = new ImageIcon(jlabelImages[2].getImage());
@@ -63,9 +62,7 @@ public class PDFManager {
 						try {
 							ConnectToAPIDatabase.GETRequest(documentFile.getName());
 						} catch (Exception e) {
-							// theView.setStatus("Cannot Download Document File.");
 							log.error("General Exception at PDFManager.viewPDFwithAjax(). " + e);
-							// return null;
 						}
 					}
 
@@ -79,13 +76,11 @@ public class PDFManager {
 						DisplayMessageInJOptionPane(
 								"PDFManager.viewPDFwithAjax(): You can only view files on Windows and Linux Operating Systems.",
 								"Not a valid Operating System.");
-						//return null;
 					}
 
 					try {
 						Runtime.getRuntime().exec(openPDFCmd);
 					} catch (IOException e) {
-						e.printStackTrace();
 					}
 
 				} catch (Exception ex) {
@@ -93,7 +88,6 @@ public class PDFManager {
 							"PDFManager.viewPDFwithAjax(): You have not selected an appropiate ID from the Table." + ex,
 							"Please highlight a Valid Item.");
 					log.error("General Exception at PDFManager.viewPDFwithAjax(). " + ex);
-					System.out.println(ex);
 				}
 
 				return null;
@@ -113,7 +107,6 @@ public class PDFManager {
 			worker.get();
 		} catch (Exception e) {
 			log.error("General Exception at PDFManager.viewPDFwithAjax(). " + e);
-			e.printStackTrace();
 		}
 	}
 	
@@ -142,61 +135,10 @@ public class PDFManager {
 		File f = new File(pdfDirectory);
 
 		if (f.exists() && !f.isDirectory()) {
-			System.out.println("CheckIfFileExists() - EXISTS: " + pdfDirectory);
 			return true;
 		}
 
-		System.out.println("CheckIfFileExists() - Does NOT Exist: " + pdfDirectory);
 		return false;
 	}
-	
-	
-	/*public void PDFSetup(int bugFromTableId, ArrayList<Bug> bugArraylistFromTable) {
-
-		String OS = OperatingSystemEnvironment.getOperatingSystem();
-		String documentReaderCMD = OperatingSystemEnvironment.pdfReaderCMD();
-
-		Bug searchedBug = new Bug();
-
-		for (Bug bug : bugArraylistFromTable) {
-			if (bug.getId() == bugFromTableId) {
-				searchedBug = bug;
-				break;
-			}
-		}
-
-		String pdfDir = searchedBug.getDocument();
-		File documentFile = new File(pdfDir);
-
-		if (!pdfDir.equals("No") && (!checkIfPDFFileExists(DOWNLOADED_FILES + "\\" + documentFile.getName()))) {
-
-			try {
-				ConnectToAPIDatabase.GETRequest(documentFile.getName());
-			} catch (Exception e) {
-				// theView.setStatus("Cannot Download Document File.");
-				log.error("General Exception at mainController.viewFiles(). " + e);
-				// return null;
-			}
-		}
-
-		String openPDFCmd = "";
-
-		if (OS.equals("Windows")) {
-			openPDFCmd = (documentReaderCMD + DOWNLOADED_FILES_DIRECTORY + "\\" + documentFile.getName());
-		} else if (OS.equals("Linux")) {
-			openPDFCmd = (documentReaderCMD + DOWNLOADED_FILES_DIRECTORY + "/" + documentFile.getName());
-		} else {
-			DisplayMessageInJOptionPane(
-					"mainController.ViewFiles(): You can only view files on Windows and Linux Operating Systems.",
-					"Not a valid Operating System.");
-			//return null;
-		}
-
-		try {
-			Runtime.getRuntime().exec(openPDFCmd);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}*/
 
 }

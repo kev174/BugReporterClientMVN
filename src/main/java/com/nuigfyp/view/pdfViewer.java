@@ -13,7 +13,6 @@ public class pdfViewer extends JFrame {
 		JFrame applicationFrame = new JFrame();
 		applicationFrame.setTitle("Display PDF.");
 		applicationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//applicationFrame.setLocationRelativeTo(null);		
 		SwingController controller = new SwingController();
 		SwingViewBuilder factory = new SwingViewBuilder(controller);
 		JPanel viewerComponentPanel = factory.buildViewerPanel();

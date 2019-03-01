@@ -23,9 +23,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 
@@ -123,14 +120,11 @@ public class ConnectToAPIDatabase {
 	}
 	
 	public String deleteEntry(String id) throws SQLException {
-
-		// https://stackoverflow.com/questions/12732422/adding-header-for-httpurlconnection
 		
 		int bugId = Integer.parseInt(id);
 		base64 = new Base64Coding();
 		String encodedBugId = base64.encode(id);
 		String Delete_API_URL = DELETE_BUG_URL + "deletebug/" + encodedBugId + "/" + encodedSessionId(); 
-		System.out.println("Bug id is: " + id + ". Encoded it is: " + encodedBugId + ". Sending to " + Delete_API_URL);
 
 		if (checkExpiryDate()) {
 			try {
@@ -161,7 +155,6 @@ public class ConnectToAPIDatabase {
 	}
 	
 	
-	// the returned String gets displayed on theView.setStatus();
 	public String updateEntry(Bug bug, int[] filesChanged) throws SQLException { // ==== int[] filesChanged NOT Used
 
 		base64 = new Base64Coding();
@@ -176,8 +169,6 @@ public class ConnectToAPIDatabase {
 			log.error("General Exception at ConnectToAPIDatabase.updateEntry(). " + e);
 			e.printStackTrace();
 		}
-
-		System.out.println("Sending to UR " + bugConvertedToJson);
 		
 		byte[] JsonConvertedToByteArray = bugConvertedToJson.getBytes(StandardCharsets.UTF_8);
 		int length = JsonConvertedToByteArray.length;
@@ -288,10 +279,9 @@ public class ConnectToAPIDatabase {
 			httppost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httppost);
 
-			int statusCode = response.getStatusLine().getStatusCode();
+			//int statusCode = response.getStatusLine().getStatusCode();
 			HttpEntity responseEntity = response.getEntity();
 			responseFileName = EntityUtils.toString(responseEntity, "UTF-8");
-			System.out.println("POSTRequest(): [" + statusCode + "]: 200 = Success saved to Web Server Database. File is saved to/as " + responseFileName);
 
 		} catch (Exception exc) {
 			if (exc instanceof ClientProtocolException || exc instanceof IOException)
@@ -323,7 +313,6 @@ public class ConnectToAPIDatabase {
 			Files.copy(FROM, TO, options);
 		} catch (IOException e) {
 			log.error("IO Exception at ConnectToAPIDatabase.POSTRequest(). Cannot save the " + FROM + " file to th local machine. " + e);	
-			System.out.println("ConnectToAPIDatabase.POSTRequest(). Cannot save the " + FROM + " file to th local machine. ");
 		}
 		
 		return responseFileName;
@@ -362,12 +351,10 @@ public class ConnectToAPIDatabase {
 					Gson gson = new GsonBuilder().setLenient().create();
 					aBug = gson.fromJson(rootobj, Bug.class);
 
-				} else {
-					System.out.println("GET request Failed!!!");
-				}
+				} 
+
 			} catch (Exception e) {
 				log.error("General Exception at ConnectToAPIDatabase.GETSpecificBugObject(). " + e);
-				e.printStackTrace();
 			} 
 		}
 		return aBug;
@@ -376,19 +363,7 @@ public class ConnectToAPIDatabase {
 	
 	@SuppressWarnings("resource")
 	public static void GETRequest(String fileName) throws Exception {
-        				
-		/*// WORKS, but i have to add the resteasy-clent and resteasy-jaxrs jars
-		ResteasyClient client = new ResteasyClientBuilder().build();
-		ResteasyWebTarget target = client.target(BASE_URL_GETFILENAMED + fileName);
-		Response response = target.request().get();
-		int value = response.getStatus();	
-		System.out.println("Returned Value from GETRequest() is: [" +  value + "]. 200 = success.");*/		
-		
-		//-------------------------------------------------------------------------------------
-		// Don't worry about a return code just handle the exception here i.e. pass the network
-		// error back to theView.setStatus("Failed to download the file. try again later");
-		// Error code exception = 500. The code above could be removed.
-		//-------------------------------------------------------------------------------------
+
 		FileOutputStream fos = null;
 		base64 = new Base64Coding();
 		
@@ -400,8 +375,6 @@ public class ConnectToAPIDatabase {
 
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToAPIDatabase.GETSpecificBugObject(). " + e);
-			// If the file does not exist then this exception is captured as error 500 - IOException
-			e.printStackTrace();
 			throw e;
 		}	    
 	}
@@ -425,8 +398,6 @@ public class ConnectToAPIDatabase {
 				try {
 					jsonArray = new JSONArray(root.toString());
 				} catch (JSONException e) {
-					System.out.println("error in JSONArray.");
-					e.printStackTrace();
 				}
 
 				for (int n = 0; n < jsonArray.length(); n++) {
@@ -438,12 +409,9 @@ public class ConnectToAPIDatabase {
 
 			} catch (Exception e) {
 				log.error("General Exception at ConnectToAPIDatabase.getAllBugs(). " + e);
-				System.out.println("ConnectToAPIDatabase.getAllBugs Info, " + e);
 				throw e;
 			} 
-		} /*else {
-			System.out.println("Need to get a new Session ID. Username " + username + ", Password " + password);
-		}*/
+		} 
 		
 		return buglist;
 	}
@@ -466,7 +434,6 @@ public class ConnectToAPIDatabase {
 			returnedValue = (base64.decode(root.toString()));	
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToAPIDatabase.authentication(). " + e);
-			//System.out.println("Connection failed possibly due to the User Not existing: ConnectToAPIDatabase.authentication() Exception, " + e);
 			return false;
 		}
 
@@ -474,11 +441,11 @@ public class ConnectToAPIDatabase {
 		String sid = data[0];						// Session ID returned form the REST API.
 		sessionId = Long.parseLong(sid);
 		String expiryDate = data[1];	
+		
 		//DateTime sessionExpiryDate = new DateTime(expiryDate);	
 		
 		// ************ Testing Purposes it will expire after 5 mins so get all should fail
 		expiryDateTime = new DateTime(expiryDate).minusMinutes(4);
-		//checkExpiryDate();
 				
 		//String formattedCurrentTime = currentDate.toString(pattern);
 		// System.out.println("Current Time Formatted is " + formattedCurrentTime);

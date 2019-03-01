@@ -10,8 +10,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-@SuppressWarnings("serial")	// ******* NOT USED *******
-public class progressJframes extends JFrame {
+@SuppressWarnings("serial")	
+public class progressJframes_DELETE_ME extends JFrame {
 
 	private JPanel contentPane;
 	private static JLabel lblDatabaseProgress, lblProgressImage;
@@ -25,7 +25,7 @@ public class progressJframes extends JFrame {
 			public void run() {
 				try {
 					if (active) {
-						progressJframes frame = new progressJframes();
+						progressJframes_DELETE_ME frame = new progressJframes_DELETE_ME();
 						frame.setVisible(true);
 						frameTimer();
 					}
@@ -37,7 +37,7 @@ public class progressJframes extends JFrame {
 		});
 	}
 
-	public progressJframes() {
+	public progressJframes_DELETE_ME() {
 
 		setTitle("Database Status");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

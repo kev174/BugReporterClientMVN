@@ -43,7 +43,6 @@ public class filesController {
 		String root = "/usr/local/";
 
 		if (OS.indexOf("win") >= 0) {
-			//root = "C:\\Users\\kevin\\Desktop\\AWS_Images_Files\\";
 			root = "/usr/local/";
 		} else {
 			root = "/home/pictures/";

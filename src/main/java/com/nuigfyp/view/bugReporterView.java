@@ -9,14 +9,11 @@ import javax.swing.border.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
 import com.nuigfyp.model.Bug;
 import com.nuigfyp.services.ClearTableManager;
 import com.nuigfyp.services.ImagesManager;
 
-	// https://www.w3schools.com/colors/colors_names.asp
-	// www.iconfinder.com     http://buttonoptimizer.com/  (can add Image to it
-	// https://www.flaticon.com/free-icons/database	
+
 @SuppressWarnings("serial")
 public class bugReporterView extends JFrame {
 
@@ -28,13 +25,13 @@ public class bugReporterView extends JFrame {
 	private JScrollPane jTableScrollPane, descriptionScrollPane;
 	public JTable table;
 	private Color lightBlue = new Color(153,230,255), creamColor = new Color(242, 230, 217), 
-			whiteColor = Color.white, greenColor = new Color(204, 229, 128); // lighter blue 153,230,255
+			whiteColor = Color.white, greenColor = new Color(204, 229, 128); 
 	private DefaultTableModel model;
 	public ImageIcon resizedCheckImageIcon, resizedRedXImageIcon;
 	private ImageIcon[] resizedJTableImages = new ImageIcon[2];
 	private Image[] buttonImages = new Image[8];
 	private String[] companyNameIDs = { "(1) SAP", "(2) NUIG", "(3) Ericsson", "(4) Medtronic", "(5) HP" };
-	public JButton btnScreenshot, btnPDF, btnAnalytics; // Changed from private to public for JLabel to JButton
+	public JButton btnScreenshot, btnPDF, btnAnalytics; 
 	
 	private JButton btnUpdateDB, btnDeleteEntry, btnAddToDB, btnClearTable, btnConnDB, btnSearch, btnShowHTMLFormat, btnEmptyFields;
 	public JButton btnActive;
@@ -47,8 +44,8 @@ public class bugReporterView extends JFrame {
 	public boolean screenshotTableEqualsYes = false;
 	public boolean documentTableEqualsYes = false;
 	private final int buttonWidth = 168, buttonHeight = 38;
-	//secondDBPanel secondPanel = new secondDBPanel();
 
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public bugReporterView(String user) {
 		
@@ -56,16 +53,16 @@ public class bugReporterView extends JFrame {
 		setIconImage(buttonImages[8]);
 		setTitle("Bug Reporter:- User: " + user);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 840, 595);	// setBounds(100, 100, 819, 584); increased by 21px
+		setBounds(100, 100, 840, 595);	
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		contentPane.setBackground(whiteColor); // main background color (new Color(255, 218, 185)); light Pink
+		contentPane.setBackground(whiteColor); 
 		raisedBorder = BorderFactory.createRaisedBevelBorder();
 
-		dataEntryPanel = new JPanel();				// Top Panel
-		dataEntryPanel.setBounds(6, 5, 813, 153); 	// increased x by 20
+		dataEntryPanel = new JPanel();				
+		dataEntryPanel.setBounds(6, 5, 813, 153); 	
 		dataEntryPanel.setBorder(raisedBorder);
 		dataEntryPanel.setBackground(lightBlue); 
 		dataEntryPanel.setLayout(null);
@@ -81,7 +78,7 @@ public class bugReporterView extends JFrame {
 
 		lblClassification = new JLabel("Classification Error");
 		lblClassification.setBounds(15, 64, 117, 20);
-		dataEntryPanel.add(lblClassification);		// lblClassification
+		dataEntryPanel.add(lblClassification);		
 		
 		lblSeverityNum = new JLabel("Severity");
 		lblSeverityNum.setBounds(15, 93, 117, 20);
@@ -137,36 +134,22 @@ public class bugReporterView extends JFrame {
 		searchField.setBounds(550, 7, 81, 20);
 		dataEntryPanel.add(searchField);
 
-		//btnSearch = new JButton(new ImageIcon(buttonImages[1]));
 		btnSearch = new JButton(new ImageIcon(buttonImages[1]));
 		btnSearch.setBounds(640, 5, buttonWidth, 50);
 		btnSearch.setBackground(lightBlue);
 		btnSearch.setBorder(null);
-		//btnSearch.setIcon(new ImageIcon(buttonImages[1]));
-		//btnSearch.setHorizontalAlignment(SwingConstants.LEFT);
-		//btnSearch.setContentAreaFilled(false);
 		dataEntryPanel.add(btnSearch);
 		
-		//btnConnDB = new JButton(new ImageIcon(buttonImages[0]));
 		btnConnDB = new JButton(new ImageIcon(buttonImages[0]));
 		btnConnDB.setBounds(640, 56, buttonWidth, 44);
-		/*btnConnDB.setIcon(new ImageIcon(buttonImages[0]));
-		btnConnDB.setHorizontalAlignment(SwingConstants.LEFT);*/
 		btnConnDB.setBackground(lightBlue);
 		btnConnDB.setBorder(null);
-		//btnConnDB.setMargin(new Insets(0, 0, 0, 0)); // works without this
-		//btnConnDB.setContentAreaFilled(false);
 		dataEntryPanel.add(btnConnDB);				
 
 		btnClearTable = new JButton(new ImageIcon(buttonImages[2]));
 		btnClearTable.setBounds(640, 104, buttonWidth, 42);
 		btnClearTable.setBackground(lightBlue);
 		btnClearTable.setBorder(null);
-		//btnClearTable.setIcon(new ImageIcon(buttonImages[2]));
-		//btnClearTable.setHorizontalAlignment(SwingConstants.LEFT);
-		//btnClearTable.setBorder(null);
-		//btnClearTable.setContentAreaFilled(false);
-		//btnClearTable.setMnemonic(KeyEvent.VK_C);      // add Mnemonic to clear the table
 		dataEntryPanel.add(btnClearTable);
 				
 		chkUploadDocument = new JCheckBox("Add/Remove Document");		
@@ -183,10 +166,9 @@ public class bugReporterView extends JFrame {
 		
 		contentPane.add(dataEntryPanel);
 
-		tableJPanel = new JPanel();							// Middle panel (JTable Only)
-		tableJPanel.setBackground(lightBlue);               // sets JTable to blueColor
+		tableJPanel = new JPanel();							
+		tableJPanel.setBackground(lightBlue);               
 		tableJPanel.setBorder(raisedBorder);
-		//tableJPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		tableJPanel.setBounds(6, 164, 630, 194); 
 		contentPane.add(tableJPanel);
 
@@ -202,7 +184,7 @@ public class bugReporterView extends JFrame {
 				.addContainerGap()));
 		
 		model = new DefaultTableModel();		
-		table = new JTable(model) { // allows to add images, without code just path to images
+		table = new JTable(model) { 
 			
 			// If a Row is closed, then the row will have a Light gray Color
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
@@ -221,13 +203,12 @@ public class bugReporterView extends JFrame {
 				return component;
 			};
 			
-			// Displays javax.swing... instead of the screenshot and document check and x image
 			public Class getColumnClass(int column) {
 				return getValueAt(0, column).getClass();
 			} 
 			
 			// cells are not editable
-			public boolean isCellEditable(int row, int column) { // return column == 2;
+			public boolean isCellEditable(int row, int column) {
 				return false;
 			};
 		};
@@ -239,17 +220,6 @@ public class bugReporterView extends JFrame {
 		tableJPanel.setLayout(glTableJPanel);
 		
 		table.setRowHeight(20);
-		/*table.getColumnModel().getColumn(0).setPreferredWidth(45);
-		table.getColumnModel().getColumn(4).setPreferredWidth(45);
-		table.getColumnModel().getColumn(5).setPreferredWidth(50);
-		table.getColumnModel().getColumn(6).setPreferredWidth(60);
-		table.getColumnModel().getColumn(7).setPreferredWidth(60);*/
-		
-		// Colors Row to Yellow 
-		// Possibly use table.setDefaultRenderer(Object.class, new CustomTableCellRenderer());
-		//table.setDefaultRenderer(Object.class, new CustomTableCellRenderer());
-		
-		// Aligns Integers to left of cells
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
 		leftRenderer.setHorizontalAlignment(JLabel.LEFT);
 		table.setDefaultRenderer(Integer.class, leftRenderer);
@@ -258,22 +228,15 @@ public class bugReporterView extends JFrame {
 		dbPanel = new JPanel();
 		dbPanel.setLayout(null);
 		dbPanel.setBorder(new TitledBorder(null, "Database Options", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		dbPanel.setBounds(642, 163, 177, 195);  	// Middle Panel (database options)
-		// dbPanel.setBorder(raisedBorder);			// Database Options disappear when this is active
-		dbPanel.setBackground(lightBlue);   		// sets Database JButtons to this color 
+		dbPanel.setBounds(642, 163, 177, 195);  	
+		dbPanel.setBackground(lightBlue);   		 
 		
-		//btnAddToDB = new JButton(new ImageIcon(buttonImages[3]));
 		btnAddToDB = new JButton(new ImageIcon(buttonImages[3]));
 		btnAddToDB.setBounds(4, 20, buttonWidth, buttonHeight);
 		btnAddToDB.setBackground(lightBlue);
 		btnAddToDB.setBorder(null);
-		//btnAddToDB.setIcon(new ImageIcon(buttonImages[3]));
-		//btnAddToDB.setHorizontalAlignment(SwingConstants.LEFT);
-		//btnAddToDB.setBorder(null);
-		//btnAddToDB.setContentAreaFilled(false);
 		dbPanel.add(btnAddToDB);
 
-		//btnUpdateDB = new JButton(new ImageIcon(buttonImages[4]));
 		btnUpdateDB = new JButton(new ImageIcon(buttonImages[4]));
 		btnUpdateDB.setBounds(4, 65, buttonWidth, buttonHeight);
 		btnUpdateDB.setBackground(lightBlue);
@@ -291,33 +254,26 @@ public class bugReporterView extends JFrame {
 		btnActive.setBounds(4, 154, buttonWidth, buttonHeight);
 		btnActive.setBackground(lightBlue);
 		btnActive.setBorder(null);
-		//btnActive.setIcon(new ImageIcon(buttonImages[6]));
-		//btnActive.setHorizontalAlignment(SwingConstants.LEFT);
 		dbPanel.add(btnActive);
-							
 
-		// toggle between these if you want the JPanel to be displayed from
-		// the code in this class or from a separate class with extends JPanel.
-		// NOTE that action events are not recorded when importing the jpanalDBEvents()
 		contentPane.add(dbPanel);
 		//contentPane.add(secondPanel);	
 		
 		lblStatus = new JLabel("Status: ");
 		lblStatus.setBounds(10, 106, 460, 62);
-		//lblStatus.setForeground(blueColor); // setForeground changes the Text. background is outline of JLabel
-		lblStatus.setFont(new Font("Ariel", Font.BOLD, 16)); // set to 16
+		lblStatus.setFont(new Font("Ariel", Font.BOLD, 16));
 		lblStatus.setBorder(raisedBorder);
 	
 		dataViewPanel = new JPanel();
 		dataViewPanel.setLayout(null); 
 		dataViewPanel.setBounds(6, 363, 814, 178);   
 		dataViewPanel.setBorder(raisedBorder);	
-		dataViewPanel.setBackground(creamColor); // Bottom Panel. lblDatabase takes this color also
+		dataViewPanel.setBackground(creamColor); 
 		dataViewPanel.add(lblStatus);	
 		contentPane.add(dataViewPanel);
 		
 		btnScreenshot = new JButton();
-		btnScreenshot.setEnabled(false); // This has to be set to true in order for the action listener to work
+		btnScreenshot.setEnabled(false); 
 		btnScreenshot.setBorder(raisedBorder);
 		btnScreenshot.setBounds(477, 11, 157, 157);
 		dataViewPanel.add(btnScreenshot);
@@ -335,21 +291,19 @@ public class bugReporterView extends JFrame {
 		dataViewPanel.add(btnEmptyFields);
 		
 		btnAnalytics = new JButton();
-		btnAnalytics.setEnabled(true); // Displays Analytics 
+		btnAnalytics.setEnabled(true); 
 		btnAnalytics.setBorder(raisedBorder);
 		btnAnalytics.setBounds(292, 11, 85, 85);
 		dataViewPanel.add(btnAnalytics);
 		
-		// Database Ajax Loader JLabel
 		lblDatabase = new JLabel();
 		lblDatabase.setEnabled(false); 
 		lblDatabase.setBorder(raisedBorder);
 		lblDatabase.setBounds(385, 11, 85, 85);
-		lblDatabase.setForeground(Color.PINK); // takes the color of the background from line 223 above
+		lblDatabase.setForeground(Color.PINK);
 		dataViewPanel.add(lblDatabase);
 
 		btnShowHTMLFormat = new JButton(new ImageIcon(buttonImages[7])); 
-		//btnShowDocs.setFont(new Font("Serif", Font.BOLD, 22));
 		btnShowHTMLFormat.setBounds(10, 11, 184, 85);
 		btnShowHTMLFormat.setBorder(null);
 		btnShowHTMLFormat.setContentAreaFilled(false);
@@ -385,7 +339,6 @@ public class bugReporterView extends JFrame {
 			rowData[5] = companyNameIDs[--companyIndex];	
 			rowData[6] = ((Bug) tableList.get(i)).getScreenshot().equals("No") ? resizedJTableImages[0] : resizedJTableImages[1];
 			rowData[7] = ((Bug) tableList.get(i)).getDocument().equals("No") ? resizedJTableImages[0] : resizedJTableImages[1];	
-			//System.out.println("Screenshot name is " + ((Bug)tableList.get(i)).getScreenshot() + ", other is " + ((Bug)tableList.get(i)).getDocument());
 			((DefaultTableModel) table.getModel()).addRow(rowData);	
 		}	
 	}
@@ -407,7 +360,7 @@ public class bugReporterView extends JFrame {
 		return ++severity;
 	}
 	
-	public ArrayList<Bug> getBugFromTable() {	// remove int bugIndex
+	public ArrayList<Bug> getBugFromTable() {	
 		return list;
 	}
 
@@ -417,7 +370,6 @@ public class bugReporterView extends JFrame {
 
 	public void clearTable() {
 		
-		// Possibly move this to the mainController with an action listener
 		DefaultTableModel dm = (DefaultTableModel) table.getModel();
 		while (dm.getRowCount() > 0) {
 			dm.removeRow(0);

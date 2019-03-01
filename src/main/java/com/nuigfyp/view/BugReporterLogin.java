@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,9 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
-
 import org.apache.log4j.Logger;
-
 import com.nuigfyp.controller.mainController;
 import com.nuigfyp.database.ConnectToAPIDatabase;
 import com.nuigfyp.services.AddEntryManager;
@@ -80,7 +77,6 @@ public class BugReporterLogin extends JFrame {
 				String password = txtPassword.getText();
 				String user = String.valueOf(comboBox.getSelectedItem());
 
-				// launchMainGUI(username, password, user);
 				validLoginUser(username, password, user);
 			}
 		});
@@ -113,22 +109,7 @@ public class BugReporterLogin extends JFrame {
 		txtPassword.setColumns(10);
 	}
 
-	/*
-	 * public void launchMainGUI(String username, String password, String user) {
-	 * 
-	 * bugReporterView frame = new bugReporterView(user); ConnectToAPIDatabase
-	 * connectToAPIDatabase = new ConnectToAPIDatabase();
-	 * 
-	 * boolean validLogin = connectToAPIDatabase.authentication(username, password);
-	 * 
-	 * if(validLogin) { new mainController( frame, connectToAPIDatabase);
-	 * frame.setVisible(true);
-	 * 
-	 * this.setVisible(false);
-	 * 
-	 * } else { consoleLabel.setText("Incorrect Login."); } }
-	 */
-
+	
 	public void validLoginUser(final String username, final String password, final String user) {
 
 		int imageDimension = 110;

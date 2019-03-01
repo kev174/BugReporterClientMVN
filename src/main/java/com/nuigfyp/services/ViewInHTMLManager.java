@@ -27,7 +27,6 @@ public class ViewInHTMLManager {
 	
 	public void dispalyInHTML(final bugReporterView theView, final ArrayList<Bug> bugList, final int id) {
 		
-		// === this is going to be the dimension of the two pdf, screenshot JButtons
 		int imageDimension = theView.btnScreenshot.getHeight(); // 157
 		jlabelImages = imagesManager.loadCheckBoxImages(imageDimension);
 		ajaxLoader = new ImageIcon(jlabelImages[2].getImage());
@@ -55,10 +54,7 @@ public class ViewInHTMLManager {
 					String pdfDir = searchedBug.getDocument();
 					File screenFile = new File(scrDir);
 					File documentFile = new File(pdfDir);
-					
-					// ====== Change DOWNLOADED_FILES for Linux
-					System.out.println("Screenfile downloaded dir is: " + DOWNLOADED_FILES + "\\" + screenFile.getName());
-					
+										
 					if (!scrDir.equals("No") && (!checkIfFileExists(DOWNLOADED_FILES + "\\" + screenFile.getName()))) {
 
 						try {
@@ -88,7 +84,6 @@ public class ViewInHTMLManager {
 							"ViewInHTMLManager.dispalyInHTML(): You have not selected an appropiate ID from the Table." + ex,
 							"Please highlight a Valid Item.");
 					log.error("General Exception at ViewInHTMLManager.dispalyInHTML(). " + ex);
-					System.out.println(ex);
 				}
 
 				return null;
@@ -108,7 +103,6 @@ public class ViewInHTMLManager {
 			worker.get();
 		} catch (Exception ex) {
 			log.error("General Exception at ViewInHTMLManager.dispalyInHTML(). " + ex);
-			ex.printStackTrace();
 		}
 	}
 		
@@ -118,11 +112,9 @@ public class ViewInHTMLManager {
 		File f = new File(fileDirectory);
 
 		if (f.exists() && !f.isDirectory()) {
-			System.out.println("CheckIfFileExists() - EXISTS: " + fileDirectory);
 			return true;
 		}
 
-		System.out.println("CheckIfFileExists() - Does NOT Exist: " + fileDirectory);
 		return false;
 	}
 

@@ -4,11 +4,11 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
-public class secondDBPanel extends JPanel {
+public class secondDBPanel_DELETE_ME extends JPanel {
 	
 	private JButton btnAddToDB, btnUpdateDB, btnDeleteEntry;
 
-	public secondDBPanel() {
+	public secondDBPanel_DELETE_ME() {
 		
 		// No need to create a JPanel panel = new JPanel(); and adding objects
 		// you add by just placing add(... to it, and no JPanel object

@@ -28,7 +28,6 @@ public class SearchDBManager {
 	
 	public ArrayList<Bug> searchDBwithAjax(final bugReporterView theView, final String filterId) {
 
-		// === this is going to be the dimension of the two pdf, screenshot JButtons
 		int imageDimension = theView.btnScreenshot.getHeight(); // 157
 		jlabelImages = imagesManager.loadCheckBoxImages(imageDimension);
 		ajaxLoader = new ImageIcon(jlabelImages[2].getImage());
@@ -82,7 +81,6 @@ public class SearchDBManager {
 			worker.get();
 		} catch (Exception e) {
 			log.error("General Exception at SearchDBManager.searchDBwithAjax(). " + e);
-			e.printStackTrace();
 		}
 		
 		return returnBugList;

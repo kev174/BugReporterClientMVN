@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
@@ -17,18 +16,14 @@ public class AddEntryManager {
 	private final static Logger log = Logger.getLogger(AddEntryManager.class);
 	private ImageIcon ajaxLoader = null, motionlessAjaxLoader = null;
 	private ImageIcon[] jlabelImages = new ImageIcon[5];
-	private static bugReporterView theView;
+	//private static bugReporterView theView;
 	private ImagesManager imagesManager = new ImagesManager();
 	private ConnectToAPIDatabase connectToAPIDatabase;
 	public String returnConnectionString = "";
 	
 	
-	// === Possibly add theView in this constructor so as not to pass it in the method below all the time
-	// Test to ensure that every time you change theView and you create a new entry, that it is added.
-
 	public String addEntrywithAjax(final bugReporterView theView, final int[] filesChanged, final String screenshotDBDirectory, final String[] screenshotPath, final String documentDBDirectory, final String[] documentPath) {
 		
-		// === this is going to be the dimension of the two pdf, screenshot JButtons
 		int imageDimension = theView.btnScreenshot.getHeight(); // 157
 		jlabelImages = imagesManager.loadCheckBoxImages(imageDimension);
 		ajaxLoader = new ImageIcon(jlabelImages[2].getImage());
@@ -39,7 +34,7 @@ public class AddEntryManager {
 		final String reporter = theView.recorderField.getText();
 		final String tester = theView.testerField.getText();
 		final String description = theView.descriptionArea.getText();
-		final int severity = theView.getSeverityIndex(); // theView.severityField.getSelectedIndex();
+		final int severity = theView.getSeverityIndex(); 
 		int project = theView.projectField.getSelectedIndex();	
 		final int projectID = ++project;
 		int bugClassification = theView.classificationField.getSelectedIndex();
@@ -52,7 +47,6 @@ public class AddEntryManager {
 				theView.lblDatabase.setIcon(ajaxLoader);
 				theView.lblDatabase.setEnabled(true);
 				
-				// ==== INNER CLASS BELOW, SO HAVE TO USE COPY OF VARIABLES. Error make final or effectively final ====
 				String copyScreenshotDBDirectory = screenshotDBDirectory;
 				String copyDocumentDBDirectory = documentDBDirectory;
 				
@@ -69,7 +63,6 @@ public class AddEntryManager {
 							copyScreenshotDBDirectory = copyScreenshotDBDirectory.replace("\"", "");
 						} else {
 							returnConnectionString = ("AddEntryManager.addEntrywithAjax(): Screenshot image did not get saved to the Database.");
-							//theView.setStatus("AddEntryManager.addEntrywithAjax(): Screenshot image did not get saved to the Database.");
 						}
 					}
 					
@@ -77,36 +70,25 @@ public class AddEntryManager {
 						copyDocumentDBDirectory = "No";
 					}
 					if (filesChanged[1] == 1) {
-						// === if a return value of 'No', then the file never got saved to the database
 						String postResponse = connectToAPIDatabase.POSTRequest(documentPath[0], projectID);			
 						if(!postResponse.equals("No")) {   // % POSTResponse extracts a String 'No' from Response.entity() %
 							copyDocumentDBDirectory = (postResponse);
 							copyDocumentDBDirectory = copyDocumentDBDirectory.replace("\"", "");
 						} else {
 							returnConnectionString = ("AddEntryManager.addEntrywithAjax(): Document PDF did not get saved to the Database.");
-							//theView.setStatus("mainController.addToDB(): Document PDF did not get saved to the Database.");
 						}
-						
-						/*documentDBDirectory = connectToAPIDatabase.POSTRequest(documentPath[0], projectID);
-						documentDBDirectory = documentDBDirectory.replace("\"", "");*/
 					}
 
-					// === try creating a Bug object in the Controller and assign the two copy variables by the bugs accessor methods ===
-					//Bug bug = new Bug(Integer.parseInt("0"), reporter, tester, description, severity, projectID, copyScreenshotDBDirectory, copyDocumentDBDirectory);
 					Bug bug = new Bug(Integer.parseInt("0"), reporter, tester, description, severity, projectID, copyScreenshotDBDirectory, copyDocumentDBDirectory, "", "", 0, classificationIndex);
 					
 					returnConnectionString = (connectToAPIDatabase.addEntry(bug, filesChanged));
 
 				} catch (Exception ex) {
-					System.out.println("NOTE: If null in two files in DB, then this shows. AddEntryManager.addEntrywithAjax(): I could remove this Exception as i caught it. " + ex);
 					theView.setStatus("Failed to create a new entry. Please try again later.");
 					log.error("General Exception at AddEntryManager.addEntrywithAjax(). " + ex);
 					returnConnectionString = ("Failed to create a new entry. Please try again later.");
-					//return null;
 				}
 				
-				// <html>Status: " + message + "<BR>Operating System."
-				// theView.setStatus(reporter + ", your new entry was added to the Database <BR>Successfully.");
 				return returnConnectionString;
 			}
 
@@ -124,7 +106,6 @@ public class AddEntryManager {
 			worker.get();
 		} catch (Exception e) {
 			log.error("General Exception at AddEntryManager.addEntrywithAjax(). " + e);
-			e.printStackTrace();
 		}
 		
 		return returnConnectionString;
@@ -145,7 +126,7 @@ public class AddEntryManager {
 	}
 	
 	
-	public void DisplayMessageInJOptionPane(String title, String message) {
+	/*public void DisplayMessageInJOptionPane(String title, String message) {
 		JOptionPane.showMessageDialog(theView, title, message, JOptionPane.INFORMATION_MESSAGE);
-	}
+	}*/
 }

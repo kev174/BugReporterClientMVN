@@ -63,7 +63,6 @@ public String imageToTextwithAjax(final bugReporterView theView, final String im
 			worker.get();
 		} catch (Exception e) {
 			log.error("General Exception at imageToTextwithAjax.imageToTextwithAjax(). " + e);
-			e.printStackTrace();
 		}
 		
 		return imgText;
@@ -78,8 +77,7 @@ public String imageToTextwithAjax(final bugReporterView theView, final String im
 			String imgText = instance.doOCR(new File(imageLocation));
 			return imgText;
 		} catch (TesseractException e) {
-			e.getMessage();
-			return "Error while reading image";
+			return "Error while reading image: " + e.getMessage();
 		}
 	}
 	

@@ -44,12 +44,12 @@ public class ImagesManager {
 			
 		} catch (Exception e) {
 			log.error("General Exception at ImagesManager.buttonImages(). " + e);
-			e.printStackTrace();
 		}
 
 		return buttonImages;
 	}
 
+	
 	public ImageIcon[] jtableImages() {
 
 		try {
@@ -61,12 +61,12 @@ public class ImagesManager {
 			
 		} catch (Exception e) {
 			log.error("General Exception at ImagesManager.jtableImages(). " + e);
-			e.printStackTrace();
 		}
 
 		return jtableImages;
 	}
 
+	
 	public ImageIcon[] loadCheckBoxImages(int imageDimension) {
 
 		double scallingFactor = 0.60;
@@ -75,7 +75,7 @@ public class ImagesManager {
 				.getImage().getScaledInstance(imageDimension, imageDimension, Image.SCALE_DEFAULT));
 		jlabelImages[1] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("PDF_Image.jpg"))
 				.getImage().getScaledInstance(imageDimension, imageDimension, Image.SCALE_DEFAULT));
-		jlabelImages[2] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("rotating.gif")) // spinner.gif good also
+		jlabelImages[2] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("rotating.gif")) 
 				.getImage().getScaledInstance(imageDimension / 2, imageDimension / 2, Image.SCALE_DEFAULT));
 
 		try {
@@ -91,7 +91,7 @@ public class ImagesManager {
 			e.printStackTrace();
 		}
 		
-		jlabelImages[4] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("animated-bin-and-trash-can-image.gif")) // spinner.gif good also // good also  delete-file.jpg
+		jlabelImages[4] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("animated-bin-and-trash-can-image.gif")) 
 		.getImage().getScaledInstance(imageDimension / 2, imageDimension / 2, Image.SCALE_DEFAULT));
 		
 		jlabelImages[5] = new ImageIcon(new ImageIcon(this.getClass().getClassLoader().getResource("graph.jpg"))

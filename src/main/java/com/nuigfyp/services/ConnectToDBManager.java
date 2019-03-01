@@ -28,7 +28,6 @@ public class ConnectToDBManager {
 	
 	public ArrayList<Bug> ConnectToDBwithAjax(final bugReporterView theView) {
 		
-		// === this is going to be the dimension of the two pdf, screenshot JButtons
 		int imageDimension = theView.btnScreenshot.getHeight(); // 157
 		jlabelImages = imagesManager.loadCheckBoxImages(imageDimension);
 		ajaxLoader = new ImageIcon(jlabelImages[2].getImage());
@@ -49,8 +48,6 @@ public class ConnectToDBManager {
 
 				} catch (Exception e) {
 					log.error("Exception at ConnectToDBManager.connectToDBwithAjax(). " + e);
-					System.out.println("ConnectToDBManager(). Possibly session Expired. " + e);
-					//e.printStackTrace();
 					theView.setStatus("Cannot connect to the Database.");
 				} 
 				
@@ -71,7 +68,6 @@ public class ConnectToDBManager {
 			worker.get();
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToDBManager.connectToDBwithAjax(). " + e);
-			e.printStackTrace();
 		}
 		
 		return returnBugs;
@@ -90,10 +86,5 @@ public class ConnectToDBManager {
 	    
 		return loading;
 	}
-	
-	
-	public void DisplayMessageInJOptionPane(String title, String message) {
-		JOptionPane.showMessageDialog(theView, title, message, JOptionPane.INFORMATION_MESSAGE);
-	}
-	
+
 }

@@ -3,7 +3,6 @@ package com.nuigfyp.view;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
-
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -50,4 +49,5 @@ public class screenshotViewer extends JFrame {
 		panel1.add(fileNameLbl);
 		this.setVisible(true);
 	}
+	
 }

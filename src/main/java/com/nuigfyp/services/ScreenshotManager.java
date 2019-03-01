@@ -34,7 +34,6 @@ public class ScreenshotManager  {
 	
 	public void viewScreenshotWithAjax(final bugReporterView theView, final int bugFromTableId, final ArrayList<Bug> bugFromTable) {
 
-		// === this is going to be the dimension of the two pdf, screenshot JButtons
 		int imageDimension = theView.btnScreenshot.getHeight(); // 157
 		jlabelImages = imagesManager.loadCheckBoxImages(imageDimension);
 		ajaxLoader = new ImageIcon(jlabelImages[2].getImage());
@@ -61,7 +60,6 @@ public class ScreenshotManager  {
 					String scrDir = searchedBug.getScreenshot();
 					File screenFile = new File(scrDir);
 
-					// ====== Change DOWNLOADED_FILES for Linux
 					System.out.println("Screenfile downloaded dir is: " + DOWNLOADED_FILES + "\\" + screenFile.getName());
 
 					if (!scrDir.equals("No") && (!checkIfScreenshotFileExists(DOWNLOADED_FILES + "\\" + screenFile.getName()))) {
@@ -95,7 +93,6 @@ public class ScreenshotManager  {
 							"ScreenshotManager.viewScreenshotWithAjax(): You have not selected an appropiate ID from the Table." + ex,
 							"Please highlight a Valid Item.");
 					log.error("General Exception at ScreenshotManager.viewScreenshotWithAjax(). " + ex);
-					System.out.println(ex);
 				}
 
 				return null;
@@ -115,7 +112,6 @@ public class ScreenshotManager  {
 			worker.get();
 		} catch (Exception e) {
 			log.error("General Exception at ScreenshotManager.viewScreenshotWithAjax(). " + e);
-			e.printStackTrace();
 		}
 	}
 
@@ -144,11 +140,9 @@ public class ScreenshotManager  {
 		File f = new File(screenshotFileDirectory);
 
 		if (f.exists() && !f.isDirectory()) {
-			//theView.setStatus("ScreenSHotManager: The file exists. " + screenshotFileDirectory);
 			return true;
 		}
 
-		//theView.setStatus("ScreenSHotManager: The file does NOT exist. " + screenshotFileDirectory);
 		return false;
 	}
 }

@@ -6,8 +6,6 @@ import com.nuigfyp.model.Bug;
 
 public class ShowGeneratedHTML {
 
-	// ------------- HAVE TO PASS aRRAY OF IMAGES HERE AS IMAGE FILES WOULD HAVE TO
-	// SITE NEXT TO SOURCE JAR FILE.
 	private static final String[] COMPANY = new String[] { "sapicon.jpg", "nuig.jpg", "sonyericsson.jpg",
 			"medtronic.png", "hp.png" };
 	private File f;

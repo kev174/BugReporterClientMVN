@@ -3,36 +3,22 @@ package com.nuigfyp.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot3D;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
-
 import com.nuigfyp.model.Bug;
 
-// **********************************************************************
-// Go to JFreeChart class and paste code in to see in Windows Builder Pro
-// **********************************************************************
 
 public class AnalyticsViewer extends JFrame {
 
@@ -46,7 +32,7 @@ public class AnalyticsViewer extends JFrame {
 		setIconImage(bug);
 		setTitle("Analytics Viewer");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 367, 360);							// setBounds(100, 100, 544, 527);
+		setBounds(100, 100, 367, 360);							
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(175, 238, 238));
 		setContentPane(contentPane);
@@ -73,10 +59,7 @@ public class AnalyticsViewer extends JFrame {
 
 	private JFreeChart createChart(PieDataset dataset, String title) {
 
-		JFreeChart chart = ChartFactory.createPieChart3D(title, // chart title
-				dataset, // data
-				true, 	 // include legend
-				true, false);
+		JFreeChart chart = ChartFactory.createPieChart3D(title, dataset, true, true, false);
 		PiePlot3D plot = (PiePlot3D) chart.getPlot();
 		plot.setStartAngle(290);
 		plot.setDirection(Rotation.CLOCKWISE);

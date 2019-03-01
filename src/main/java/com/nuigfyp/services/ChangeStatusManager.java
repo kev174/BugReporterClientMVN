@@ -7,16 +7,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
-
 import org.apache.log4j.Logger;
-
 import com.nuigfyp.database.ConnectToAPIDatabase;
 import com.nuigfyp.view.bugReporterView;
 
 public class ChangeStatusManager {
 	
 	private final static Logger log = Logger.getLogger(UpdateDBManager.class);
-	//private final static String DOWNLOADED_FILES_DIRECTORY = System.getProperty("user.dir") + "/Downloaded_Files";
 	private ImageIcon ajaxLoader = null, motionlessAjaxLoader = null;
 	private ImageIcon[] jlabelImages = new ImageIcon[5];
 	private static bugReporterView theView;
@@ -69,7 +66,6 @@ public class ChangeStatusManager {
 			worker.get();
 		} catch (Exception ex) {
 			log.error("General Exception at UpdateDBManagr.updateEntrywithAjax():. " + ex);
-			ex.printStackTrace();
 		}
 		
 		return returnConnectionString;

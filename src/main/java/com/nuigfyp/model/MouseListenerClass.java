@@ -10,18 +10,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
 import com.nuigfyp.services.ImagesManager;
 import com.nuigfyp.view.bugReporterView;
-
 import org.apache.log4j.Logger;
-
-//The working code uses the pdfbox-app-2.0.11.jar(8mb) file. Remove the pdf-renderer.jar as not used
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+
 
 public class MouseListenerClass implements MouseListener {
 
@@ -34,7 +30,7 @@ public class MouseListenerClass implements MouseListener {
 	private bugReporterView theView;
 	private ArrayList<Bug> bugListFromJTable;
 
-	// Constructor
+
 	public MouseListenerClass(bugReporterView theView) {
 		this.theView = theView;
 		setup();
@@ -63,7 +59,6 @@ public class MouseListenerClass implements MouseListener {
 
 		// Screenshot: displaying the Screenshot on the JButton
 		if (((Bug) theView.list.get(row)).getScreenshot().equals("No")) {
-			// System.out.println("Screenshot set in <Array Bug> is No, so image should not be in focus. " + ((Bug) theView.list.get(row)).getScreenshot());
 			theView.btnScreenshot.setIcon(new ImageIcon(jlabelImages[0].getImage()));
 			theView.btnScreenshot.setEnabled(false);
 			theView.chkUploadScreenshot.setSelected(false);
@@ -73,12 +68,6 @@ public class MouseListenerClass implements MouseListener {
 			theView.chkUploadScreenshot.setSelected(true);
 			theView.screenshotTableEqualsYes = true;
 
-			System.out.println("the Screenshot file named " + screenshotFileName + ", Exist? "
-					+ checkIfFileExists(DOWNLOADED_FILES + "\\" + screenshotFileName));
-
-			// CALL METHOD TO DISPLAY THE IMAGE STORED LOCALLY ON THE LOCALMACHINE
-			// Reason for two different Downloaded constants: 1st: Requires one forward
-			// slash. 2nd: two back slashes
 			if (checkIfFileExists(DOWNLOADED_FILES + "\\" + screenshotFileName)) {
 
 				File file = new File(DOWNLOADED_FILES_DIRECTORY + "\\" + screenshotFileName);
@@ -105,7 +94,7 @@ public class MouseListenerClass implements MouseListener {
 				theView.btnScreenshot.setEnabled(true);
 
 			} else {
-				//theView.btnScreenshot.setIcon(new ImageIcon(jlabelImages[0].getImage()));
+				theView.btnScreenshot.setIcon(new ImageIcon(jlabelImages[0].getImage()));
 				theView.btnScreenshot.setText("Click to Download File.");
 				System.out.println("file deos not exist download it");
 			}
@@ -124,9 +113,6 @@ public class MouseListenerClass implements MouseListener {
 			theView.btnPDF.setEnabled(true);
 			theView.chkUploadDocument.setSelected(true);
 			theView.documentTableEqualsYes = true;
-
-			System.out.println("the PDF file named " + pdfFileName + ", Exist? "
-					+ checkIfFileExists(DOWNLOADED_FILES + "\\" + pdfFile.getName()));
 
 			if (checkIfFileExists(DOWNLOADED_FILES + "\\" + pdfFileName)) {
 
@@ -173,7 +159,6 @@ public class MouseListenerClass implements MouseListener {
 		theView.btnActive.setEnabled(true);
 
 		if (theView.list.get(row).getActive() == 0) {
-			// If ticket is closed then the screenshot and pdf label gets the default image
 			theView.btnActive.setEnabled(false);
 			theView.btnScreenshot.setEnabled(false);
 			theView.btnPDF.setEnabled(false);

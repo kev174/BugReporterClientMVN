@@ -25,7 +25,6 @@ public class DeleteEntryManager {
 	
 	public String deleteEntrywithAjax(final bugReporterView theView, final String primaryKey) {
 		
-		// === this is going to be the dimension of the two pdf, screenshot JButtons
 		int imageDimension = theView.btnScreenshot.getHeight(); // 157
 		jlabelImages = imagesManager.loadCheckBoxImages(imageDimension);
 		ajaxLoader = new ImageIcon(jlabelImages[2].getImage());
@@ -40,11 +39,9 @@ public class DeleteEntryManager {
 				theView.lblDatabase.setIcon(ajaxLoader);
 				theView.lblDatabase.setEnabled(true);
 				
-				// ==== INNER CLASS BELOW, SO HAVE TO USE COPY OF VARIABLES. Error make final or effectively final ====										
 				try {
 					
 					returnConnectionString = connectToAPIDatabase.deleteEntry(primaryKey);
-					//System.out.println("returned " + returnConnectionString);
 
 				} catch (ArrayIndexOutOfBoundsException | SQLException oob) {
 					DisplayMessageInJOptionPane("Select valid item from Table", "Select Valid Item.");
@@ -52,7 +49,6 @@ public class DeleteEntryManager {
 					returnConnectionString = ("Failed to delete item id: " + primaryKey + " from the database.");
 				} catch (Exception e) {
 					returnConnectionString = ("Cannot connect to the Database.");
-					e.printStackTrace();
 				}
 				
 				return null;
@@ -72,7 +68,6 @@ public class DeleteEntryManager {
 			worker.get();
 		} catch (Exception e) {
 			log.error("General Exception at DeleteEntryManager.deleteEntrywithAjax(). " + e);
-			e.printStackTrace();
 		}
 		
 		return returnConnectionString;

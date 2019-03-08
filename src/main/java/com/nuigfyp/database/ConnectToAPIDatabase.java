@@ -85,7 +85,7 @@ public class ConnectToAPIDatabase {
 	private static Base64Coding base64;
 	private static long sessionId;
 	private static DateTime expiryDateTime;
-	private static String username = "", password = "";
+	private static String username = "", password = "", user = "";
 
 	public String changeStatusInDB(String id) throws SQLException {
 
@@ -416,14 +416,16 @@ public class ConnectToAPIDatabase {
 		return buglist;
 	}
 	
-	public boolean authentication(String username, String password) {
+	@SuppressWarnings("static-access")
+	public boolean authentication(String username, String password, String user) {
 
 		this.username = username;
 		this.password = password;
+		this.user = user;
 		
 		String returnedValue = "";		
 		base64 = new Base64Coding();
-		String encodedUserInfo = base64.encode(username + ":" + password);
+		String encodedUserInfo = base64.encode(username + ":" + password + ":" + user);
 
 		try {
 			URL url = new URL(GET_SESSIONID + encodedUserInfo);
@@ -463,15 +465,13 @@ public class ConnectToAPIDatabase {
 		if (expiryDateTime.compareTo(currentDate) < 1) {
 			System.out.println("CLIENT: The CurrentDate is GREATER than the Expiry Date, So i need a NEW SessionId.");
 			
-			authentication(username, password);
-			
+			authentication(username, password, user);
+			System.out.println("NEW SessionId returned is: " + sessionId);
 			return true;
 		} else if (currentDate.compareTo(expiryDateTime) < 1) {
-			System.out.println("CLIENT: OK : CurrentDate is LESS than SessionExpiryDate...");		
+			System.out.println("CLIENT: OK: " + sessionId + ", CurrentDate is LESS than SessionExpiryDate...");		
 			return true;
-		} /*else {
-			System.out.println("CLIENT: DateTimes are the SAME.");
-		}*/
+		} 
 		
 		return false;
 	}

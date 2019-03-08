@@ -124,7 +124,7 @@ public class BugReporterLogin extends JFrame {
 
 				bugLabel.setIcon(ajaxLoader);
 				bugReporterView frame = new bugReporterView(user);
-				boolean validLogin = connectToAPIDatabase.authentication(username, password);
+				boolean validLogin = connectToAPIDatabase.authentication(username, password, user);
 
 				if (validLogin) {
 

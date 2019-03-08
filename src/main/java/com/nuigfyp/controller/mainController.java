@@ -330,6 +330,7 @@ public class mainController {
 						theView.setStatus("Extracting Text from Image.");
 						ImageToTextManager itt = new ImageToTextManager();
 						theView.descriptionArea.setText(itt.imageToTextwithAjax(theView, fileInfo[0]));
+						theView.setStatus("Finished Extracting Text from Image.");
 					}
 							
 					filesChanged[0] = 1;				

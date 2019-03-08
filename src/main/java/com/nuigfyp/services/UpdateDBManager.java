@@ -90,7 +90,7 @@ public class UpdateDBManager {
 					if (filesChanged[0] == 1) {
 
 						String postResponse = connectToAPIDatabase.POSTRequest(screenshotPath[0], bug.getProject());
-						if (!postResponse.equals("No")) { // % POSTResponse extracts a String 'No' from Response.entity() %
+						if (!postResponse.equals("No")) { 
 							copyScreenshotDBDirectory = (postResponse);
 							copyScreenshotDBDirectory = copyScreenshotDBDirectory.replace("\"", "");
 							bug.setScreenshot(copyScreenshotDBDirectory);
@@ -102,7 +102,7 @@ public class UpdateDBManager {
 					if (filesChanged[1] == 1) {
 
 						String postResponse = connectToAPIDatabase.POSTRequest(documentPath[0], bug.getProject());
-						if (!postResponse.equals("No")) { // % POSTResponse extracts a String 'No' from Response.entity() %
+						if (!postResponse.equals("No")) { 
 							copyDocumentDBDirectory = (postResponse);
 							copyDocumentDBDirectory = copyDocumentDBDirectory.replace("\"", "");
 							bug.setDocument(copyDocumentDBDirectory);

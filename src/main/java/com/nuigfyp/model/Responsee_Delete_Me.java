@@ -3,7 +3,7 @@ package com.nuigfyp.model;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Responsee {
+public class Responsee_Delete_Me {
 
 	private boolean status;
 	private String message;

@@ -96,7 +96,6 @@ public class MouseListenerClass implements MouseListener {
 			} else {
 				theView.btnScreenshot.setIcon(new ImageIcon(jlabelImages[0].getImage()));
 				theView.btnScreenshot.setText("Click to Download File.");
-				System.out.println("file deos not exist download it");
 			}
 		}
 

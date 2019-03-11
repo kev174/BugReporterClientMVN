@@ -60,7 +60,7 @@ public class ScreenshotManager  {
 					String scrDir = searchedBug.getScreenshot();
 					File screenFile = new File(scrDir);
 
-					System.out.println("Screenfile downloaded dir is: " + DOWNLOADED_FILES + "\\" + screenFile.getName());
+					//System.out.println("Screenfile downloaded dir is: " + DOWNLOADED_FILES + "\\" + screenFile.getName());
 
 					if (!scrDir.equals("No") && (!checkIfScreenshotFileExists(DOWNLOADED_FILES + "\\" + screenFile.getName()))) {
 					

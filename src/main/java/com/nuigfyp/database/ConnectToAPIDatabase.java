@@ -459,17 +459,15 @@ public class ConnectToAPIDatabase {
 	public boolean checkExpiryDate() { 
 
 		DateTime currentDate = DateTime.now();
-
-		System.out.println("CLIENT: Current DateTime Is: " + currentDate + ", Session Expiry DateTime Is: " + expiryDateTime);
+		//System.out.println("CLIENT: Current DateTime Is: " + currentDate + ", Session Expiry DateTime Is: " + expiryDateTime);
 		
 		if (expiryDateTime.compareTo(currentDate) < 1) {
-			System.out.println("CLIENT: The CurrentDate is GREATER than the Expiry Date, So i need a NEW SessionId.");
-			
+			//System.out.println("CLIENT: The CurrentDate is GREATER than the Expiry Date, So i need a NEW SessionId.");		
 			authentication(username, password, user);
-			System.out.println("NEW SessionId returned is: " + sessionId);
+			//System.out.println("NEW SessionId returned is: " + sessionId);
 			return true;
 		} else if (currentDate.compareTo(expiryDateTime) < 1) {
-			System.out.println("CLIENT: OK: " + sessionId + ", CurrentDate is LESS than SessionExpiryDate...");		
+			//System.out.println("CLIENT: OK: " + sessionId + ", CurrentDate is LESS than SessionExpiryDate...");		
 			return true;
 		} 
 		

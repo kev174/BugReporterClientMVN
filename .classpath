@@ -14,7 +14,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="src" path="resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
@@ -29,6 +29,6 @@
 	<classpathentry kind="lib" path="lib/java-json.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-swt-1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Development/Eclipse/Oxygen_WorkSpace/BugReporterClientMVN/lib/icepdf-core-4.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/icepdf-core-4.3.3.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

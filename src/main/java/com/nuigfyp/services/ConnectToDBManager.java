@@ -1,13 +1,10 @@
 package com.nuigfyp.services;
 
 import java.awt.BorderLayout;
-import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
@@ -20,7 +17,7 @@ public class ConnectToDBManager {
 	private final static Logger log = Logger.getLogger(ConnectToDBManager.class);
 	private ImageIcon ajaxLoader = null, motionlessAjaxLoader = null;
 	private ImageIcon[] jlabelImages = new ImageIcon[5];
-	private static bugReporterView theView;
+	//private static bugReporterView theView;
 	private ImagesManager imagesManager = new ImagesManager();
 	private ConnectToAPIDatabase connectToAPIDatabase;
 	private static ArrayList<Bug> returnBugs = new ArrayList<Bug>();

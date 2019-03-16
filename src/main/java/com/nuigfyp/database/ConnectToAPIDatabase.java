@@ -38,7 +38,6 @@ import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,7 +49,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nuigfyp.model.Base64Coding;
 import com.nuigfyp.model.Bug;
-import com.nuigfyp.view.bugReporterView;
+//import com.nuigfyp.view.bugReporterView;
 
 
 public class ConnectToAPIDatabase {
@@ -361,7 +360,6 @@ public class ConnectToAPIDatabase {
 	}
 
 	
-	@SuppressWarnings("resource")
 	public static void GETRequest(String fileName) throws Exception {
 
 		FileOutputStream fos = null;
@@ -376,7 +374,8 @@ public class ConnectToAPIDatabase {
 		} catch (Exception e) {
 			log.error("General Exception at ConnectToAPIDatabase.GETSpecificBugObject(). " + e);
 			throw e;
-		}	    
+		}	
+		fos.close();
 	}
 	
 	

@@ -13,6 +13,7 @@ import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
 import com.nuigfyp.database.ConnectToAPIDatabase;
 import com.nuigfyp.model.Bug;
+import com.nuigfyp.model.MouseListenerClass;
 import com.nuigfyp.model.OperatingSystemEnvironment;
 import com.nuigfyp.view.bugReporterView;
 
@@ -43,6 +44,7 @@ public class PDFManager {
 
 				try {
 
+					String openPDFCmd = "";
 					String OS = OperatingSystemEnvironment.getOperatingSystem();
 					String documentReaderCMD = OperatingSystemEnvironment.pdfReaderCMD();				
 					Bug searchedBug = new Bug();
@@ -66,8 +68,8 @@ public class PDFManager {
 						}
 					}
 
-					String openPDFCmd = "";
-
+					new MouseListenerClass(theView).mouseClicked(null);				
+			
 					if (OS.equals("Windows")) {
 						openPDFCmd = (documentReaderCMD + DOWNLOADED_FILES_DIRECTORY + "\\" + documentFile.getName());
 					} else if (OS.equals("Linux")) {

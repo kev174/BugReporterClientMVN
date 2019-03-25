@@ -1,11 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
-
-import com.nuigfyp.controller.mainController;
-import com.nuigfyp.database.ConnectToAPIDatabase;
 import com.nuigfyp.view.BugReporterLogin;
-//import com.nuigfyp.model.bugModel;
-import com.nuigfyp.view.bugReporterView;
 
 @SuppressWarnings("serial")
 public class login extends JFrame {

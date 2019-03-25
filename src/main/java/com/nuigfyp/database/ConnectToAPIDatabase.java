@@ -55,22 +55,12 @@ import com.nuigfyp.model.Bug;
 public class ConnectToAPIDatabase {
 
 	private final static Logger log = Logger.getLogger(ConnectToAPIDatabase.class);
-	//private String bugDatabaseName = "bug_reporter", filesDatabaseName = "bug_files"; // Both used on both DB
-	// NUIG
-	//private String databaseLink = "jdbc:mysql://mysql1.it.nuigalway.ie:3306/mydb2976?autoReconnect=true&useSSL=false";
-	//private String un = "mydb2976ck", pw = "fa4nel";  
-	
-	// GEAR.HOST
-	//private String databaseLink = "jdbc:mysql://den1.mysql1.gear.host:3306/bugfiles?autoReconnect=true&useSSL=false";
-	//private String un = "bugfiles", pw = "Cusask!";	    
-	
-	// AMAZON AWS => War file running on Elastic BeanStalk 
-	//private static final String API_URL = "http://bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com/" + "bugs/";
-	private static final String API_URL = "http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/"; // this works for DELETE_BUG_URL, GET_SPECIFIC_BUG_URL and UPDATE_BUG_URL
+	private static final String API_URL = "http://bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com/" + "bugs/";
+	//private static final String API_URL = "http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/"; 
 		
 	private static final String[] COMPANY = new String[] { "SAP", "NUIG", "Ericsson", "Medtronic", "HP" };
 	private static final String USER_AGENT = "Mozilla/5.0";			
-	private static final String DOWNLOADED_FILES_DIRECTORY = System.getProperty("user.dir") + "/Downloaded_Files"; // two back slashes also works here
+	private static final String DOWNLOADED_FILES_DIRECTORY = System.getProperty("user.dir") + "/Downloaded_Files"; 
 	private static final String DELETE_BUG_URL = API_URL; 
 	private static final String CHANGE_STATUS_BUG_URL = API_URL; 
 	private static final String UPDATE_BUG_URL = API_URL; 

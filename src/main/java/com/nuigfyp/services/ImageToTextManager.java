@@ -41,7 +41,8 @@ public String imageToTextwithAjax(final bugReporterView theView, final String im
 
 				try {
 					
-					imgText = instance.doOCR(new File(imageLocation));						
+					imgText = instance.doOCR(new File(imageLocation));	
+					instance.setLanguage("eng");
 					return imgText;
 					
 				} catch (TesseractException e) {					
@@ -68,18 +69,6 @@ public String imageToTextwithAjax(final bugReporterView theView, final String im
 		return imgText;
 	}
 	
-
-	public String getImgText(final bugReporterView theView, String imageLocation) {
-
-		ITesseract instance = new Tesseract();
-
-		try {
-			String imgText = instance.doOCR(new File(imageLocation));
-			return imgText;
-		} catch (TesseractException e) {
-			return "Error while reading image: " + e.getMessage();
-		}
-	}
 	
 	private JDialog loadingModel() {	
 		JDialog loading = new JDialog(); 

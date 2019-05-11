@@ -123,13 +123,13 @@ public class BugReporterLogin extends JFrame {
 			protected String doInBackground() throws InterruptedException {
 
 				bugLabel.setIcon(ajaxLoader);
-				bugReporterView frame = new bugReporterView(user);
+				bugReporterView bugReporterView = new bugReporterView(user);
 				boolean validLogin = connectToAPIDatabase.authentication(username, password, user);
 
 				if (validLogin) {
 
-					new mainController(frame, connectToAPIDatabase);
-					frame.setVisible(true);
+					new mainController(bugReporterView);
+					bugReporterView.setVisible(true);
 					setVisible(false);
 
 				} else {

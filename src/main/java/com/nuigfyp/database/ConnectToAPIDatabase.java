@@ -25,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
+import javax.ws.rs.core.Response;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -49,14 +50,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nuigfyp.model.Base64Coding;
 import com.nuigfyp.model.Bug;
-//import com.nuigfyp.view.bugReporterView;
 
 
 public class ConnectToAPIDatabase {
 
 	private final static Logger log = Logger.getLogger(ConnectToAPIDatabase.class);
-	private static final String API_URL = "http://bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com/" + "bugs/";
-	//private static final String API_URL = "http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/"; 
+	//private static final String API_URL = "http://bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com/" + "bugs/";
+	private static final String API_URL = "http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/"; 
 		
 	private static final String[] COMPANY = new String[] { "SAP", "NUIG", "Ericsson", "Medtronic", "HP" };
 	private static final String USER_AGENT = "Mozilla/5.0";			
@@ -119,8 +119,7 @@ public class ConnectToAPIDatabase {
 			try {
 
 				URL url = new URL(Delete_API_URL);
-				URLConnection urlCon = url.openConnection();
-				HttpURLConnection http = (HttpURLConnection) urlCon;
+				HttpURLConnection http = (HttpURLConnection)url.openConnection();
 				http.setRequestMethod("DELETE");
 				http.setDoOutput(true);
 				http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -166,8 +165,7 @@ public class ConnectToAPIDatabase {
 			try {
 
 				URL url = new URL(UPDATE_URL);
-				URLConnection urlCon = url.openConnection();
-				HttpURLConnection http = (HttpURLConnection) urlCon;
+				HttpURLConnection http = (HttpURLConnection) url.openConnection();
 				http.setRequestMethod("PUT"); // POST is another valid option
 				http.setDoOutput(true);
 				http.setFixedLengthStreamingMode(length);
@@ -218,9 +216,7 @@ public class ConnectToAPIDatabase {
 			try {
 
 				URL url = new URL(POST_BUG_URL + "/" + encodedSessionId());
-				// HttpURLConnection to be used for POST requests
-				URLConnection urlCon = url.openConnection();
-				HttpURLConnection http = (HttpURLConnection) urlCon;
+				HttpURLConnection http = (HttpURLConnection) url.openConnection();
 				http.setRequestMethod("POST");
 				http.setDoOutput(true);
 				http.setFixedLengthStreamingMode(length);
@@ -251,7 +247,6 @@ public class ConnectToAPIDatabase {
 		   
 		FileInputStream fis = null;
 		String responseFileName;
-		base64 = new Base64Coding();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh-mm-ss");  
 		nameOfFileToBeSavedToDatabase = "";
 		nameOfFileToBeSavedToDatabase = fileDirectory;
@@ -268,7 +263,7 @@ public class ConnectToAPIDatabase {
 			httppost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httppost);
 
-			//int statusCode = response.getStatusLine().getStatusCode();
+			int statusCode = response.getStatusLine().getStatusCode();
 			HttpEntity responseEntity = response.getEntity();
 			responseFileName = EntityUtils.toString(responseEntity, "UTF-8");
 
@@ -303,6 +298,7 @@ public class ConnectToAPIDatabase {
 		} catch (IOException e) {
 			log.error("IO Exception at ConnectToAPIDatabase.POSTRequest(). Cannot save the " + FROM + " file to th local machine. " + e);	
 		}
+		System.out.println("File added to db as " + responseFileName);
 		
 		return responseFileName;
 	}
@@ -311,10 +307,9 @@ public class ConnectToAPIDatabase {
 	public Bug GETSpecificBugObject(String primaryKey) {
 		
 		base64 = new Base64Coding();
+		Bug aBug = new Bug();
 		String SpecificBugURL = GET_SPECIFIC_BUG_URL + base64.encode(primaryKey) + "/" + "getSpecificBug";
 			
-		Bug aBug = new Bug();
-		
 		if (checkExpiryDate()) {
 			try {
 
@@ -336,7 +331,7 @@ public class ConnectToAPIDatabase {
 
 					JsonParser jp = new JsonParser();
 					JsonElement root = jp.parse(response.toString());
-					JsonObject rootobj = root.getAsJsonObject(); // May be an array, may be an object.	
+					JsonObject rootobj = root.getAsJsonObject(); // Gets a Single BUG Object.	
 					Gson gson = new GsonBuilder().setLenient().create();
 					aBug = gson.fromJson(rootobj, Bug.class);
 
@@ -371,23 +366,22 @@ public class ConnectToAPIDatabase {
 	
 	public ArrayList<Bug> getAllBugs() throws Exception {	
 	    
-		base64 = new Base64Coding();	
+		//base64 = new Base64Coding();	
 		ArrayList<Bug> buglist = new ArrayList<Bug>();
 		JSONArray jsonArray = null;
 		
 		if (checkExpiryDate()) {
 			try {
 				URL url = new URL(GET_ALL_BUGS_URL + "/" + encodedSessionId());
-				//URL url = new URL(GET_ALL_BUGS_URL);
-				URLConnection request = url.openConnection();
+				HttpURLConnection request = (HttpURLConnection) url.openConnection();
 				request.connect();
+
 				JsonParser jp = new JsonParser();
-				JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); // Convert the input stream to a json element
+				JsonElement root = jp.parse(new InputStreamReader((InputStream)request.getContent())); // Convert the input stream to a json element
 
 				try {
 					jsonArray = new JSONArray(root.toString());
-				} catch (JSONException e) {
-				}
+				} catch (JSONException e) { }
 
 				for (int n = 0; n < jsonArray.length(); n++) {
 					JSONObject object = jsonArray.getJSONObject(n);

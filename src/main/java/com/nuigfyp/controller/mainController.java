@@ -28,20 +28,20 @@ public class mainController {
 
 	private final static Logger log = Logger.getLogger(mainController.class);
 	private static bugReporterView theView;
-	private ConnectToAPIDatabase connectToAPIDatabase;
+	private ConnectToAPIDatabase connectToAPIDatabase = new ConnectToAPIDatabase();;
 	private String[] fileInfo = new String[] { null, null };
 	private String[] documentPath = new String[2], screenshotPath = new String[2];
 	private int[] filesChanged = new int[]{0, 0, 0, 0};
-	public FileInputStream screenshotInputStream, documentInputStream;
+	//public FileInputStream screenshotInputStream, documentInputStream;
 	private ImagesManager im = new ImagesManager();
 	private ImageIcon motionlessAjaxLoader = null;
 	private ImageIcon[] jlabelImages = new ImageIcon[5];
 	private String screenshotDBDirectory = "", documentDBDirectory = "";
 
 	
-	public mainController(bugReporterView theView, ConnectToAPIDatabase connectToAPIDatabase) {
+	public mainController(bugReporterView theView) {
 		
-		this.connectToAPIDatabase = connectToAPIDatabase;
+		//this.connectToAPIDatabase = connectToAPIDatabase;
 		mainController.theView = theView;
 		mainController.theView.viewAnalytics(new viewAnalytics());   
 		mainController.theView.viewScreenshot(new viewScreenshot()); 

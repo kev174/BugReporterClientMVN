@@ -25,7 +25,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
-import javax.ws.rs.core.Response;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -52,11 +51,11 @@ import com.nuigfyp.model.Base64Coding;
 import com.nuigfyp.model.Bug;
 
 
-public class ConnectToAPIDatabase {
+public class ConnectToAPIDatabase implements JUnitTestingInterface {
 
 	private final static Logger log = Logger.getLogger(ConnectToAPIDatabase.class);
-	//private static final String API_URL = "http://bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com/" + "bugs/";
-	private static final String API_URL = "http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/"; 
+	private static final String API_URL = "http://bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com/" + "bugs/";
+	//private static final String API_URL = "http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/"; 
 		
 	private static final String[] COMPANY = new String[] { "SAP", "NUIG", "Ericsson", "Medtronic", "HP" };
 	private static final String USER_AGENT = "Mozilla/5.0";			
@@ -363,12 +362,45 @@ public class ConnectToAPIDatabase {
 		fos.close();
 	}
 	
+	@Override
+	public String returnString() {
+		
+		return "kevin";
+		
+	}
 	
 	public ArrayList<Bug> getAllBugs() throws Exception {	
 	    
-		//base64 = new Base64Coding();	
 		ArrayList<Bug> buglist = new ArrayList<Bug>();
 		JSONArray jsonArray = null;
+
+		// ============================================
+		// Comment this out in order for the WS to work 
+		// ============================================
+		try {
+			URL url = new URL("http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/testAPI");
+			HttpURLConnection request = (HttpURLConnection) url.openConnection();
+			request.connect();
+
+			JsonParser jp = new JsonParser();
+
+			// Convert the Response InputStream to a json element
+			JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+
+			System.out.println(
+					"Response Code is: " + request.getResponseCode() + ", Returned from TestAPI: " + root.toString());
+
+		} catch (Exception e) {
+			log.error("General Exception at ConnectToAPIDatabase.getAllBugs(). " + e);
+			throw e;
+		}
+		
+		// Displays: "Response Code is: 200, Returned from TestAPI: "Test API on server is OK.""
+		
+		
+		
+		
+		
 		
 		if (checkExpiryDate()) {
 			try {

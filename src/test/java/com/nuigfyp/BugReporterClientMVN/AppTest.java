@@ -1,20 +1,23 @@
 package com.nuigfyp.BugReporterClientMVN;
 
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import com.nuigfyp.database.ConnectToAPIDatabase;
+import com.nuigfyp.database.JUnitTestingInterface;
 
-/**
- * Unit test for simple App.
- */
+
 public class AppTest 
 {
-    /**
-     * Rigorous Test :-)
-     */
+	
+	// ConnectToAPIDatabase implements JUnitTestingInterface interface i.e. returnString(); method
+	// returnString() method returns a string "kevin".
+	JUnitTestingInterface test = new ConnectToAPIDatabase();
+	
     @Test
     public void shouldAnswerWithTrue()
     {
-        assertTrue( true );
-    }
+    	
+        assertEquals(test.returnString(), "kevin");
+        
+    } 
 }

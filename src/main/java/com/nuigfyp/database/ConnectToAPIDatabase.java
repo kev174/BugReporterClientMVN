@@ -54,8 +54,7 @@ import com.nuigfyp.model.Bug;
 public class ConnectToAPIDatabase implements JUnitTestingInterface {
 
 	private final static Logger log = Logger.getLogger(ConnectToAPIDatabase.class);
-	private static final String API_URL = "http://bugreportersunday-env.jbmbcxixcs.eu-west-1.elasticbeanstalk.com/" + "bugs/";
-	//private static final String API_URL = "http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/"; 
+	private static final String API_URL = "http://localhost:8080/Bug_Reporter_Rest_Amazon_Aws/bugs/"; 
 		
 	private static final String[] COMPANY = new String[] { "SAP", "NUIG", "Ericsson", "Medtronic", "HP" };
 	private static final String USER_AGENT = "Mozilla/5.0";			
@@ -66,8 +65,8 @@ public class ConnectToAPIDatabase implements JUnitTestingInterface {
 	private static final String GET_SPECIFIC_BUG_URL = API_URL;
 	private static final String GET_ALL_BUGS_URL = API_URL + "getAll";	
 	private static final String POST_BUG_URL = API_URL + "addBug";	
-    private static final String BASE_URL_GETFILENAMED = API_URL + "getFileNamed/";
-    private static final String FILE_UPLOAD_URL = API_URL + "upload";	
+        private static final String BASE_URL_GETFILENAMED = API_URL + "getFileNamed/";
+        private static final String FILE_UPLOAD_URL = API_URL + "upload";	
 	private static final String GET_SESSIONID = API_URL + "getSessionId/";	
 	private String nameOfFileToBeSavedToDatabase, returnConnectionString = "";
 	private static Base64Coding base64;
